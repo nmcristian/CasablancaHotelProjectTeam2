@@ -3,6 +3,7 @@ package presentation;
 import domain.Controller;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 
@@ -573,6 +574,8 @@ public class CasablancaGUI extends javax.swing.JFrame
         }));
         jSearchButton.setEnabled(false);
         setupActionComboBox(controller.getUserType());
+        jXDatePicker1.getMonthView().setLowerBound(new Date(System.currentTimeMillis()));
+        jXDatePicker2.getMonthView().setLowerBound(new Date(System.currentTimeMillis() + 86400000));
     }
 
     private void setupActionComboBox(String userType)
@@ -919,10 +922,7 @@ public class CasablancaGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jXDatePicker1ActionPerformed
         if (jXDatePicker1.getDate() != null)
         {
-            if (jXDatePicker2.getDate() == null)
-            {
-                jXDatePicker2.setDate(jXDatePicker1.getDate());
-            }
+            jXDatePicker2.getMonthView().setLowerBound(new Date(jXDatePicker1.getDate().getTime() + 86400000));
             if (jXDatePicker1.getDate() != controller.getLastSearchFrom())
             {
                 datesNotChanged = false;
