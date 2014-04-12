@@ -1,0 +1,1120 @@
+package presentation;
+
+import domain.Controller;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
+
+/**
+ *
+ * @author Cristian
+ */
+public class CasablancaGUI extends javax.swing.JFrame
+{
+
+    private Controller controller;
+    private JFrame reservationForm;
+    private boolean datesNotChanged;
+
+    public CasablancaGUI()
+    {
+        controller = Controller.getInstance();
+        initComponents();
+        initializeLoginScreen();
+        reservationForm = null;
+        datesNotChanged = false;
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents()
+    {
+
+        jLoginDetailsLayeredPane = new javax.swing.JLayeredPane();
+        jTitleLabel = new javax.swing.JLabel();
+        jConnectionLabel = new javax.swing.JLabel();
+        jUsernameLabel = new javax.swing.JLabel();
+        jPasswordLabel = new javax.swing.JLabel();
+        jConnectionField = new javax.swing.JTextField();
+        jUsernameField = new javax.swing.JTextField();
+        jPasswordField = new javax.swing.JPasswordField();
+        jRememberCheckBox = new javax.swing.JCheckBox();
+        jConnectButton = new javax.swing.JButton();
+        jLogLabel = new javax.swing.JLabel();
+        jPresentationLayeredPane = new javax.swing.JLayeredPane();
+        jLogLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jSearchButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
+        jButton2 = new javax.swing.JButton();
+        jComboBox3 = new javax.swing.JComboBox();
+        jComboBox4 = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jMenuBar = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Casablanca Hotel");
+        setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentMoved(java.awt.event.ComponentEvent evt)
+            {
+                formComponentMoved(evt);
+            }
+        });
+
+        jLoginDetailsLayeredPane.setRequestFocusEnabled(false);
+
+        jTitleLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jTitleLabel.setText("User login");
+
+        jConnectionLabel.setText("Connection:");
+
+        jUsernameLabel.setText("Username:");
+
+        jPasswordLabel.setText("Password:");
+
+        jConnectionField.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jConnectionFieldKeyPressed(evt);
+            }
+        });
+
+        jUsernameField.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jUsernameFieldKeyPressed(evt);
+            }
+        });
+
+        jPasswordField.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jPasswordFieldKeyPressed(evt);
+            }
+        });
+
+        jRememberCheckBox.setText("Remember username & password");
+
+        jConnectButton.setText("Connect");
+        jConnectButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jConnectButtonActionPerformed(evt);
+            }
+        });
+
+        jLogLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        javax.swing.GroupLayout jLoginDetailsLayeredPaneLayout = new javax.swing.GroupLayout(jLoginDetailsLayeredPane);
+        jLoginDetailsLayeredPane.setLayout(jLoginDetailsLayeredPaneLayout);
+        jLoginDetailsLayeredPaneLayout.setHorizontalGroup(
+            jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLoginDetailsLayeredPaneLayout.createSequentialGroup()
+                .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLoginDetailsLayeredPaneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jLoginDetailsLayeredPaneLayout.createSequentialGroup()
+                        .addGap(272, 272, 272)
+                        .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jLoginDetailsLayeredPaneLayout.createSequentialGroup()
+                                .addComponent(jRememberCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLoginDetailsLayeredPaneLayout.createSequentialGroup()
+                                .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPasswordLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jConnectionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                    .addComponent(jUsernameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jConnectionField, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                                    .addComponent(jPasswordField)
+                                    .addComponent(jUsernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)))
+                            .addComponent(jTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 274, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jLoginDetailsLayeredPaneLayout.setVerticalGroup(
+            jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLoginDetailsLayeredPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jConnectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jConnectionField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jUsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRememberCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jConnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                .addComponent(jLogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jLoginDetailsLayeredPane.setLayer(jTitleLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jConnectionLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jUsernameLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jPasswordLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jConnectionField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jUsernameField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jPasswordField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jRememberCheckBox, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jConnectButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLoginDetailsLayeredPane.setLayer(jLogLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Action:");
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Search criteria:");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("From:");
+
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("To:");
+
+        jSearchButton.setText("Search");
+        jSearchButton.setPreferredSize(new java.awt.Dimension(65, 25));
+        jSearchButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jSearchButtonActionPerformed(evt);
+            }
+        });
+
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+
+            }
+        ));
+        jTable1.setName(""); // NOI18N
+        jTable1.setRowHeight(20);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
+                jTable1KeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Value:");
+
+        jButton1.setText("Add to reservation");
+        jButton1.setPreferredSize(new java.awt.Dimension(65, 25));
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jXDatePicker1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jXDatePicker1ActionPerformed(evt);
+            }
+        });
+
+        jXDatePicker2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jXDatePicker2ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Edit details");
+        jButton2.setPreferredSize(new java.awt.Dimension(65, 25));
+
+        jComboBox3.setMaximumRowCount(13);
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
+        jComboBox3.setMinimumSize(new java.awt.Dimension(60, 25));
+        jComboBox3.setName(""); // NOI18N
+        jComboBox3.setPreferredSize(new java.awt.Dimension(60, 25));
+
+        jComboBox4.setMaximumRowCount(13);
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
+        jComboBox4.setMinimumSize(new java.awt.Dimension(60, 25));
+        jComboBox4.setPreferredSize(new java.awt.Dimension(60, 25));
+
+        jLabel6.setText("jLabel6");
+
+        jLabel7.setText("jLabel7");
+
+        jLabel8.setText("we'll display here all the info about the items clicked in the table");
+
+        javax.swing.GroupLayout jPresentationLayeredPaneLayout = new javax.swing.GroupLayout(jPresentationLayeredPane);
+        jPresentationLayeredPane.setLayout(jPresentationLayeredPaneLayout);
+        jPresentationLayeredPaneLayout.setHorizontalGroup(
+            jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPresentationLayeredPaneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPresentationLayeredPaneLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLogLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPresentationLayeredPaneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox1, 0, 170, Short.MAX_VALUE)
+                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                                        .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18))
+        );
+        jPresentationLayeredPaneLayout.setVerticalGroup(
+            jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPresentationLayeredPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPresentationLayeredPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(148, 148, 148)))
+                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLogLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPresentationLayeredPane.setLayer(jLogLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jComboBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jComboBox2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jTextField1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jSearchButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jXDatePicker1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jXDatePicker2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jComboBox3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jComboBox4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jMenuBar.setPreferredSize(new java.awt.Dimension(300, 20));
+
+        jMenu1.setText("Options");
+
+        jMenuItem1.setText("Log in");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Exit");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar.add(jMenu1);
+
+        jMenu2.setText("Settings");
+
+        jMenuItem3.setText("Connection");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenuBar.add(jMenu2);
+
+        setJMenuBar(jMenuBar);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLoginDetailsLayeredPane)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPresentationLayeredPane))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLoginDetailsLayeredPane)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPresentationLayeredPane))
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void initializeLoginScreen()
+    {
+        jPresentationLayeredPane.setVisible(false);
+        jLoginDetailsLayeredPane.setVisible(true);
+        jConnectionLabel.setVisible(false);
+        jConnectionField.setVisible(false);
+        jRememberCheckBox.setVisible(true);
+        jConnectButton.setText("Connect");
+        jTitleLabel.setText("User login");
+        jMenuItem1.setText("Log in");
+        jMenuItem1.setEnabled(false);
+        jMenuItem3.setEnabled(true);
+        jMenu2.setVisible(true);
+        jLogLabel.setText(null);
+        if (controller.getRememberPreferencesState())
+        {
+            jRememberCheckBox.setSelected(true);
+            jUsernameField.setText(controller.getUsername());
+            jPasswordField.setText(controller.getPassword());
+        } else
+        {
+            jRememberCheckBox.setSelected(false);
+            jUsernameField.setText(null);
+            jPasswordField.setText(null);
+        }
+    }
+
+    private void initializeConnectionSettingsScreen()
+    {
+        jPresentationLayeredPane.setVisible(false);
+        jLoginDetailsLayeredPane.setVisible(true);
+        jConnectionField.setText(null);
+        jUsernameField.setText(null);
+        jPasswordField.setText(null);
+        jConnectionLabel.setVisible(true);
+        jConnectionField.setVisible(true);
+        jRememberCheckBox.setVisible(false);
+        jConnectButton.setText("Save");
+        jTitleLabel.setText("Connection settings");
+        jMenuItem1.setText("Log in");
+        jMenuItem1.setEnabled(true);
+        jMenuItem3.setEnabled(false);
+        jLogLabel.setText(null);
+    }
+
+    private void initializePresentationScreen()
+    {
+        jLoginDetailsLayeredPane.setVisible(false);
+        jPresentationLayeredPane.setVisible(true);
+        jMenuItem1.setText("Log out");
+        jMenuItem1.setEnabled(true);
+        jMenuItem3.setEnabled(false);
+        jLogLabel2.setForeground(Color.black);
+        jLogLabel2.setText("Connected as " + controller.getUserType());
+        jTable1.setModel(new CustomTableModel(new Object[][]
+        {
+        }, new String[]
+        {
+        }));
+        jSearchButton.setEnabled(false);
+        setupActionComboBox(controller.getUserType());
+    }
+
+    private void setupActionComboBox(String userType)
+    {
+        String[] actionComboBoxItems = null;
+        switch (userType)
+        {
+            case "Receptionist":
+                actionComboBoxItems = new String[8];
+                actionComboBoxItems[0] = "Create reservation";
+                actionComboBoxItems[1] = "List rooms";
+                actionComboBoxItems[2] = "List clients";
+                actionComboBoxItems[3] = "List reservations";
+                actionComboBoxItems[4] = "List facility reservations";
+                actionComboBoxItems[5] = "List facilities";
+                actionComboBoxItems[6] = "List room types";
+                actionComboBoxItems[7] = "List employees";
+                break;
+            case "Client":
+                actionComboBoxItems = new String[2];
+                actionComboBoxItems[0] = "List facilities";
+                actionComboBoxItems[1] = "List facility reservations";
+                break;
+        }
+
+        jComboBox1.setModel(new DefaultComboBoxModel(actionComboBoxItems));
+        jComboBox1.setSelectedIndex(-1);
+    }
+
+    private void setupCriteriaComboBox(String userType, String actionType)
+    {
+        String[] criteriaComboBoxItems;
+        switch (userType)
+        {
+            case "Receptionist":
+                switch (actionType)
+                {
+                    case "List rooms":
+                        criteriaComboBoxItems = new String[3];
+                        criteriaComboBoxItems[0] = "Show all";
+                        criteriaComboBoxItems[1] = "by availability";
+                        criteriaComboBoxItems[2] = "by room number";
+                        break;
+                    case "List clients":
+                        criteriaComboBoxItems = new String[2];
+                        criteriaComboBoxItems[0] = "Show all";
+                        criteriaComboBoxItems[1] = "by client ID";
+                        break;
+                    default:
+                        criteriaComboBoxItems = new String[]
+                        {
+                        };
+                }
+                break;
+            case "Client":
+                switch (actionType)
+                {
+                    case "List facilities":
+                        criteriaComboBoxItems = new String[1];
+                        criteriaComboBoxItems[0] = "Show all";
+                        break;
+                    case "List facility reservations":
+                        criteriaComboBoxItems = new String[2];
+                        criteriaComboBoxItems[0] = "Show all";
+                        criteriaComboBoxItems[1] = "by client ID";
+                        break;
+                    default:
+                        criteriaComboBoxItems = new String[]
+                        {
+                        };
+                }
+                break;
+            default:
+                criteriaComboBoxItems = new String[]
+                {
+                };
+        }
+
+        jComboBox2.setModel(new DefaultComboBoxModel(criteriaComboBoxItems));
+    }
+
+    private void jConnectButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jConnectButtonActionPerformed
+    {//GEN-HEADEREND:event_jConnectButtonActionPerformed
+        if (jConnectButton.getText().equals("Connect"))
+        {
+            controller.setRememberPreferencesState(jRememberCheckBox.isSelected());
+            if (jRememberCheckBox.isSelected())
+            {
+                controller.setUsername(jUsernameField.getText());
+                controller.setPassword(jPasswordField.getText());
+            }
+            jLogLabel.setForeground(Color.black);
+            jLogLabel.setText("Connecting...");
+            if (controller.connect())
+            {
+                if (controller.checkUserLogin())
+                {
+                    jLogLabel.setForeground(Color.green);
+                    jLogLabel.setText("Connected!");
+                    initializePresentationScreen();
+                } else
+                {
+                    jLogLabel.setForeground(Color.red);
+                    jLogLabel.setText("Wrong username/password!");
+                }
+            } else
+            {
+                jLogLabel.setForeground(Color.red);
+                jLogLabel.setText("Database connection error!");
+            }
+        } else
+        {
+            jLogLabel.setForeground(Color.green);
+            jLogLabel.setText("Saved!");
+            controller.setDbHost(jConnectionField.getText());
+            controller.setDbUsername(jUsernameField.getText());
+            controller.setDbPassword(jPasswordField.getText());
+        }
+    }//GEN-LAST:event_jConnectButtonActionPerformed
+
+    private void jConnectionFieldKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jConnectionFieldKeyPressed
+    {//GEN-HEADEREND:event_jConnectionFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            jUsernameField.requestFocus();
+        }
+    }//GEN-LAST:event_jConnectionFieldKeyPressed
+
+    private void jPasswordFieldKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jPasswordFieldKeyPressed
+    {//GEN-HEADEREND:event_jPasswordFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            jConnectButton.doClick();
+        }
+    }//GEN-LAST:event_jPasswordFieldKeyPressed
+
+    private void jUsernameFieldKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jUsernameFieldKeyPressed
+    {//GEN-HEADEREND:event_jUsernameFieldKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            jPasswordField.requestFocus();
+        }
+    }//GEN-LAST:event_jUsernameFieldKeyPressed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem3ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem3ActionPerformed
+        initializeConnectionSettingsScreen();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
+        if (jMenuItem1.getText().equals("Log out"))
+        {
+            jLogLabel2.setForeground(Color.black);
+            jLogLabel2.setText("Disconnecting...");
+            if (controller.disconnect())
+            {
+                jLogLabel2.setForeground(Color.green);
+                jLogLabel2.setText("Disconnected!");
+                if (controller.currentReservationCreationState())
+                {
+                    controller.discardNewReservation();
+                    reservationForm.dispose();
+                }
+                initializeLoginScreen();
+            } else
+            {
+                jLogLabel2.setForeground(Color.red);
+                jLogLabel2.setText("Disconnecting error!");
+            }
+        } else
+        {
+            initializeLoginScreen();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        controller.savePreferences();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void jSearchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jSearchButtonActionPerformed
+    {//GEN-HEADEREND:event_jSearchButtonActionPerformed
+        datesNotChanged = false;
+        switch (jComboBox1.getSelectedItem().toString())
+        {
+            case "List rooms":
+            {
+                switch (jComboBox2.getSelectedItem().toString())
+                {
+                    case "Show all":
+                    {
+                        jTable1.setModel(new CustomTableModel(controller.getAllRooms(), controller.getTableColumnNames()));
+                        jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                        break;
+                    }
+                    case "by availability":
+                    {
+                        if (jXDatePicker1.getDate() == null && jXDatePicker2.getDate() == null)
+                        {
+                            jLogLabel2.setForeground(Color.red);
+                            jLogLabel2.setText("Starting and ending dates not entered!");
+                        } else if (jXDatePicker1.getDate() == null)
+                        {
+                            jLogLabel2.setForeground(Color.red);
+                            jLogLabel2.setText("Starting date not entered!");
+                        } else if (jXDatePicker2.getDate() == null)
+                        {
+                            jLogLabel2.setForeground(Color.red);
+                            jLogLabel2.setText("Ending date not entered!");
+                        } else if (jXDatePicker1.getDate().after(jXDatePicker2.getDate()))
+                        {
+                            jLogLabel2.setForeground(Color.red);
+                            jLogLabel2.setText("Ending date should be after starting date!");
+                        } else
+                        {
+                            jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(jXDatePicker1.getDate(), jXDatePicker2.getDate()), controller.getTableColumnNames()));
+                            jLogLabel2.setForeground(Color.black);
+                            jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                            datesNotChanged = true;
+                        }
+                        break;
+                    }
+                    case "by room number":
+                    {
+                        try
+                        {
+                            jTable1.setModel(new CustomTableModel(controller.getRoomByRoomNumber(Integer.parseInt(jTextField1.getText())), controller.getTableColumnNames()));
+                            jLogLabel2.setForeground(Color.black);
+                            jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                        } catch (NumberFormatException e)
+                        {
+                            jLogLabel2.setForeground(Color.red);
+                            jLogLabel2.setText("Please insert a number in the \"Room number\" field!");
+                        }
+                        break;
+                    }
+                    default:
+                    {
+                        // do nothing
+                    }
+                }
+                break;
+            }
+            case "List clients":
+            {
+                jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
+                jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                break;
+            }
+            case "List reservations":
+            {
+                jTable1.setModel(new CustomTableModel(controller.getAllReservations(), controller.getTableColumnNames()));
+                jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                break;
+            }
+            case "List facility reservations":
+            {
+                jTable1.setModel(new CustomTableModel(controller.getAllFacilityReservations(), controller.getTableColumnNames()));
+                jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                break;
+            }
+            case "List employees":
+            {
+                jTable1.setModel(new CustomTableModel(controller.getAllEmployees(), controller.getTableColumnNames()));
+                jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                break;
+            }
+            case "List facilities":
+            {
+                jTable1.setModel(new CustomTableModel(controller.getAllFacilities(), controller.getTableColumnNames()));
+                jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                break;
+            }
+            case "List room types":
+            {
+                jTable1.setModel(new CustomTableModel(controller.getAllRoomTypes(), controller.getTableColumnNames()));
+                jLogLabel2.setText("Displaying " + controller.getSearchResultCount() + " search results.");
+                break;
+            }
+            default:
+            {
+                //do nothing
+            }
+        }
+        jButton1.setEnabled(false);
+    }//GEN-LAST:event_jSearchButtonActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseClicked
+    {//GEN-HEADEREND:event_jTable1MouseClicked
+        if (controller.getSearchResultType().equals("Rooms"))
+        {
+            if (jTable1.getSelectedRow() != -1)
+            {
+                if (controller.currentReservationCreationState() && datesNotChanged)
+                {
+                    jButton1.setEnabled(true);
+                }
+            }
+        } else if (controller.getSearchResultType().equals("Clients"))
+        {
+            if (jTable1.getSelectedRow() != -1)
+            {
+                if (controller.currentReservationCreationState())
+                {
+                    jButton1.setEnabled(true);
+                }
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
+    {//GEN-HEADEREND:event_jComboBox1ActionPerformed
+        if (jComboBox1.getSelectedIndex() != -1)
+        {
+            setupCriteriaComboBox(controller.getUserType(), jComboBox1.getSelectedItem().toString());
+            jSearchButton.setEnabled(true);
+            if (jComboBox1.getSelectedItem().toString().equals("Create reservation"))
+            {
+                jSearchButton.setEnabled(false);
+                if (controller.currentReservationCreationState())
+                {
+                    reservationForm.requestFocus();
+                } else
+                {
+                    controller.createNewReservation();
+                    reservationForm = new ReservationForm();
+                    reservationForm.setLocation((int) (this.getLocation().getX() + this.getSize().getWidth() + 10), (int) (this.getLocation().getY()));
+//                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//                    System.out.println(this.getLocation().getX());
+//                    System.out.println(this.getSize().getWidth());
+                    reservationForm.setVisible(true);
+                }
+            }
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jXDatePicker1ActionPerformed
+    {//GEN-HEADEREND:event_jXDatePicker1ActionPerformed
+        if (jXDatePicker1.getDate() != null)
+        {
+            if (jXDatePicker2.getDate() == null)
+            {
+                jXDatePicker2.setDate(jXDatePicker1.getDate());
+            }
+            if (jXDatePicker1.getDate() != controller.getLastSearchFrom())
+            {
+                datesNotChanged = false;
+                jButton1.setEnabled(false);
+            }
+        }
+//        jTable1.getSelectionModel().clearSelection();
+    }//GEN-LAST:event_jXDatePicker1ActionPerformed
+
+    private void formComponentMoved(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentMoved
+    {//GEN-HEADEREND:event_formComponentMoved
+        if (controller.currentReservationCreationState())
+        {
+            reservationForm.setLocation((int) (this.getLocation().getX() + this.getSize().getWidth() + 10), (int) (this.getLocation().getY()));
+        }
+    }//GEN-LAST:event_formComponentMoved
+
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTable1KeyReleased
+    {//GEN-HEADEREND:event_jTable1KeyReleased
+//        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN)
+//        {
+//            //display correct info on the right
+//        }
+    }//GEN-LAST:event_jTable1KeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        if (jTable1.getSelectedRow() != -1)
+        {
+            switch (controller.getSearchResultType())
+            {
+                case "Rooms":
+                    int roomNumber = 0;
+                    for (int i = 0; i < jTable1.getColumnCount(); i++)
+                    {
+                        if (jTable1.getColumnName(i).equals("Room number"))
+                        {
+                            roomNumber = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
+                            break;
+                        }
+                    }
+                    controller.addRoomToReservation(roomNumber);
+                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
+                    jButton1.setEnabled(false);
+                    reservationForm.requestFocus();
+                    break;
+                case "Clients":
+                    long clientID = 0;
+                    for (int i = 0; i < jTable1.getColumnCount(); i++)
+                    {
+                        if (jTable1.getColumnName(i).equals("Client ID"))
+                        {
+                            clientID = Long.parseLong(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
+                            break;
+                        }
+                    }
+                    controller.addClientToReservation(clientID);
+                    jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
+                    jButton1.setEnabled(false);
+                    reservationForm.requestFocus();
+                    break;
+                default:
+                {
+                    //do nothing
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    protected void refreshTableInfo()
+    {
+        switch (controller.getSearchResultType())
+        {
+            case "Rooms":
+            {
+                if (controller.getLastSearchFrom() != null && controller.getLastSearchTo() != null)
+                {
+                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
+                }
+                break;
+            }
+            case "Clients":
+            {
+                jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
+                break;
+            }
+
+            default:
+            {
+                //do nothing
+            }
+        }
+    }
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
+    {//GEN-HEADEREND:event_formWindowGainedFocus
+        if (controller.getSearchResultCount() != jTable1.getRowCount())
+        {
+            refreshTableInfo();
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jXDatePicker2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jXDatePicker2ActionPerformed
+    {//GEN-HEADEREND:event_jXDatePicker2ActionPerformed
+        if (jXDatePicker2.getDate() != null)
+        {
+            if (jXDatePicker2.getDate() != controller.getLastSearchTo())
+            {
+                datesNotChanged = false;
+                jButton1.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_jXDatePicker2ActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextField1KeyReleased
+    {//GEN-HEADEREND:event_jTextField1KeyReleased
+        jTable1.setModel(new CustomTableModel(controller.dynamicSearch(jTextField1.getText()), controller.getTableColumnNames()));
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    public static void main(String args[])
+    {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
+        {
+            java.util.logging.Logger.getLogger(CasablancaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                new CasablancaGUI().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JButton jConnectButton;
+    private javax.swing.JTextField jConnectionField;
+    private javax.swing.JLabel jConnectionLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLogLabel;
+    private javax.swing.JLabel jLogLabel2;
+    private javax.swing.JLayeredPane jLoginDetailsLayeredPane;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPasswordField jPasswordField;
+    private javax.swing.JLabel jPasswordLabel;
+    private javax.swing.JLayeredPane jPresentationLayeredPane;
+    private javax.swing.JCheckBox jRememberCheckBox;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jSearchButton;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jTitleLabel;
+    private javax.swing.JTextField jUsernameField;
+    private javax.swing.JLabel jUsernameLabel;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
+    // End of variables declaration//GEN-END:variables
+}
