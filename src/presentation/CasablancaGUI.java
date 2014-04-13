@@ -273,6 +273,10 @@ public class CasablancaGUI extends javax.swing.JFrame
             {
                 jTable1MouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                jTable1MouseReleased(evt);
+            }
         });
         jTable1.addKeyListener(new java.awt.event.KeyAdapter()
         {
@@ -284,7 +288,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         jScrollPane2.setViewportView(jTable1);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Value:");
+        jLabel5.setText("Quick search:");
 
         jButton1.setText("Add to reservation");
         jButton1.setPreferredSize(new java.awt.Dimension(65, 25));
@@ -573,6 +577,8 @@ public class CasablancaGUI extends javax.swing.JFrame
         {
         }));
         jSearchButton.setEnabled(false);
+        jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
         setupActionComboBox(controller.getUserType());
         jXDatePicker1.getMonthView().setLowerBound(new Date(System.currentTimeMillis()));
         jXDatePicker2.getMonthView().setLowerBound(new Date(System.currentTimeMillis() + 86400000));
@@ -867,29 +873,12 @@ public class CasablancaGUI extends javax.swing.JFrame
             }
         }
         jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
     }//GEN-LAST:event_jSearchButtonActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseClicked
     {//GEN-HEADEREND:event_jTable1MouseClicked
-        if (controller.getSearchResultType().equals("Rooms"))
-        {
-            if (jTable1.getSelectedRow() != -1)
-            {
-                if (controller.currentReservationCreationState() && datesNotChanged)
-                {
-                    jButton1.setEnabled(true);
-                }
-            }
-        } else if (controller.getSearchResultType().equals("Clients"))
-        {
-            if (jTable1.getSelectedRow() != -1)
-            {
-                if (controller.currentReservationCreationState())
-                {
-                    jButton1.setEnabled(true);
-                }
-            }
-        }
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -1041,6 +1030,59 @@ public class CasablancaGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextField1KeyReleased
         jTable1.setModel(new CustomTableModel(controller.dynamicSearch(jTextField1.getText()), controller.getTableColumnNames()));
     }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseReleased
+    {//GEN-HEADEREND:event_jTable1MouseReleased
+        if (jTable1.getSelectedRow() != -1)
+        {
+            switch (controller.getSearchResultType())
+            {
+                case "Rooms":
+                {
+                    if (controller.getUserType().equals("Manager"))
+                    {
+                        if (controller.currentReservationCreationState() && datesNotChanged)
+                        {
+                            jButton1.setEnabled(true);
+                        }
+                        jButton2.setEnabled(true);
+                    } else
+                    {
+                        jButton2.setEnabled(false);
+                    }
+                    break;
+                }
+                case "Clients":
+                {
+                    if (controller.getUserType().equals("Manager") || controller.getUserType().equals("Receptionist"))
+                    {
+                        if (controller.currentReservationCreationState())
+                        {
+                            jButton1.setEnabled(true);
+                        }
+                        jButton2.setEnabled(true);
+                    } else
+                    {
+                        jButton2.setEnabled(false);
+                    }
+                    break;
+                }
+
+                default:
+                {
+                    jButton1.setEnabled(false);
+                    jButton2.setEnabled(false);
+                }
+            }
+            
+            //to be deleted:
+            jLogLabel2.setText(jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()).toString());
+        } else
+        {
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
 
     public static void main(String args[])
     {
