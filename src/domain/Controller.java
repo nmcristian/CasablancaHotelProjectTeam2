@@ -576,11 +576,12 @@ public class Controller
                     resultToDisplay[i][2] = room.getCapacity() + "";
                     resultToDisplay[i][3] = room.getPricePerNight() + "";
                 }
-
+                break;
             }
+            
             default:
             {
-                //do nothing
+                resultToDisplay = new Object[0][4];
             }
         }
 
