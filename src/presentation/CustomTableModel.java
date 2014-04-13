@@ -16,6 +16,7 @@ public class CustomTableModel extends AbstractTableModel
     {
         this.data = data;
         this.columnNames = columnNames;
+        
     }
 
     @Override
