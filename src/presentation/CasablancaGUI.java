@@ -269,10 +269,6 @@ public class CasablancaGUI extends javax.swing.JFrame
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter()
         {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jTable1MouseClicked(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt)
             {
                 jTable1MouseReleased(evt);
@@ -876,11 +872,6 @@ public class CasablancaGUI extends javax.swing.JFrame
         jButton2.setEnabled(false);
     }//GEN-LAST:event_jSearchButtonActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseClicked
-    {//GEN-HEADEREND:event_jTable1MouseClicked
-        
-    }//GEN-LAST:event_jTable1MouseClicked
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
     {//GEN-HEADEREND:event_jComboBox1ActionPerformed
         if (jComboBox1.getSelectedIndex() != -1)
@@ -1048,6 +1039,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                         jButton2.setEnabled(true);
                     } else
                     {
+                        jButton1.setEnabled(true);
                         jButton2.setEnabled(false);
                     }
                     break;
@@ -1063,6 +1055,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                         jButton2.setEnabled(true);
                     } else
                     {
+                        jButton1.setEnabled(false);
                         jButton2.setEnabled(false);
                     }
                     break;
