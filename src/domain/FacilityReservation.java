@@ -63,10 +63,20 @@ public class FacilityReservation
         }
         return result;
     }
+    
+    public String getClientFirstName()
+    {
+        return client.getFirstName();
+    }
+    
+    public String getClientLastName()
+    {
+        return client.getLastName();
+    }
 
     public String getClientsName()
     {
-        return client.getFirstName() + ", " + client.getLastName();
+        return client.getFirstName() + " " + client.getLastName();
     }
     
     public long getClientsID()
@@ -77,7 +87,6 @@ public class FacilityReservation
     @Override
     public String toString()
     {
-        return facility.getTitle() + ",  " + client.getFirstName() + " " + client.getLastName() + ",  " + client.getId() + ",  " 
-                + getStartingDate() + " - " + getEndingDate() + ", price: $" + getPrice();
+        return id + " "+ facility.getTitle() + " " + client.getFirstName() + " " + client.getLastName() + " " + client.getId();
     }
 }

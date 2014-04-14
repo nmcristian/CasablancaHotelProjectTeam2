@@ -115,6 +115,6 @@ public class Reservation
     @Override
     public String toString()
     {
-        return id + ", " + alreadyPaid + "/" + getTotalDue() + ", " + rooms.size() + " rooms, " + clients.size() + " guests";
+        return id + " " + getClientsIDs() + " "+getRoomsIDs() ;
     }
 }

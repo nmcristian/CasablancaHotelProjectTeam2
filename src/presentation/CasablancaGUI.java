@@ -626,10 +626,42 @@ public class CasablancaGUI extends javax.swing.JFrame
                         criteriaComboBoxItems[2] = "by room number";
                         break;
                     case "List clients":
-                        criteriaComboBoxItems = new String[2];
+                        criteriaComboBoxItems = new String[3];
                         criteriaComboBoxItems[0] = "Show all";
                         criteriaComboBoxItems[1] = "by client ID";
+                        criteriaComboBoxItems[2] = "by client name";
                         break;
+                    case "List reservations":
+                        criteriaComboBoxItems = new String[4];
+                        criteriaComboBoxItems[0] = "Show all";
+                        criteriaComboBoxItems[1] = "by client ID";
+                        criteriaComboBoxItems[2] = "by reservation ID";
+                        criteriaComboBoxItems[3] = "by room ID";
+                        break;
+                    case "List facility reservations":
+                        criteriaComboBoxItems = new String[5];
+                        criteriaComboBoxItems[0] = "Show all";
+                        criteriaComboBoxItems[1] = "by client ID";
+                        criteriaComboBoxItems[2] = "by client name";
+                        criteriaComboBoxItems[3] = "by reservation ID";
+                        criteriaComboBoxItems[4] = "by facility title";
+                        break;
+                    case "List employees":
+                        criteriaComboBoxItems = new String[4];
+                        criteriaComboBoxItems[0] = "Show all";
+                        criteriaComboBoxItems[1] = "by employee ID";
+                        criteriaComboBoxItems[2] = "by employee name";
+                        criteriaComboBoxItems[3] = "by employee position";
+                        break;
+                    case "List facilities":
+                        criteriaComboBoxItems = new String[1];
+                        criteriaComboBoxItems[0] = "Show all";
+                        break;
+                    case "List room types":
+                        criteriaComboBoxItems = new String[1];
+                        criteriaComboBoxItems[0] = "Show all";
+                        break;
+
                     default:
                         criteriaComboBoxItems = new String[]
                         {
@@ -878,7 +910,7 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseClicked
     {//GEN-HEADEREND:event_jTable1MouseClicked
-        
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -1028,7 +1060,7 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextField1KeyReleased
     {//GEN-HEADEREND:event_jTextField1KeyReleased
-        jTable1.setModel(new CustomTableModel(controller.dynamicSearch(jTextField1.getText()), controller.getTableColumnNames()));
+        jTable1.setModel(new CustomTableModel(controller.dynamicSearch(jTextField1.getText(), jComboBox2.getSelectedItem().toString()), controller.getTableColumnNames()));
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jTable1MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseReleased
@@ -1074,7 +1106,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                     jButton2.setEnabled(false);
                 }
             }
-            
+
             //to be deleted:
             jLogLabel2.setText(jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()).toString());
         } else

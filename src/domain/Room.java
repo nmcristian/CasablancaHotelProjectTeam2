@@ -100,6 +100,6 @@ public class Room
     @Override
     public String toString()
     {
-        return roomNumber + "  " + type.toLowerCase() + "  " + capacity + " " + pricePerNight;
+        return roomNumber + " " + type.toLowerCase() + " " + capacity + " " + pricePerNight;
     }
 }

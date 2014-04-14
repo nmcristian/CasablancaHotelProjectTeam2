@@ -270,10 +270,10 @@ public class Controller
     {
         searchResultList = dbFacade.getAllReservations();
         searchResultType = "Reservations";
-        Object[][] resultToDisplay = new Object[searchResultList.size()][5];
+        Object[][] resultToDisplay = new Object[searchResultList.size()][3];
         tableColumnNames = new String[]
         {
-            "ID", "Total due", "Already paid", "Clients IDs", "Rooms IDs"
+            "ID", "Clients IDs", "Rooms IDs"
         };
         int i = 0;
         Reservation reservation;
@@ -281,10 +281,8 @@ public class Controller
         {
             reservation = (Reservation) o;
             resultToDisplay[i][0] = reservation.getID() + "";
-            resultToDisplay[i][1] = reservation.getTotalDue() + "";
-            resultToDisplay[i][2] = reservation.getAlreadyPaid() + "";
-            resultToDisplay[i][3] = reservation.getClientsIDs();
-            resultToDisplay[i][4] = reservation.getRoomsIDs();
+            resultToDisplay[i][1] = reservation.getClientsIDs();
+            resultToDisplay[i][2] = reservation.getRoomsIDs();
             i++;
         }
         return resultToDisplay;
@@ -294,10 +292,10 @@ public class Controller
     {
         searchResultList = dbFacade.getAllFacilityReservations();
         searchResultType = "FacilityReservations";
-        Object[][] resultToDisplay = new Object[searchResultList.size()][7];
+        Object[][] resultToDisplay = new Object[searchResultList.size()][4];
         tableColumnNames = new String[]
         {
-            "ID", "Facility title", "Client's Name", "Client's ID", "From", "To", "Price"
+            "ID", "Facility title", "Client Name", "Client ID"
         };
         int i = 0;
         FacilityReservation facilityReservation;
@@ -308,9 +306,6 @@ public class Controller
             resultToDisplay[i][1] = facilityReservation.getFacilityTitle();
             resultToDisplay[i][2] = facilityReservation.getClientsName();
             resultToDisplay[i][3] = facilityReservation.getClientsID() + "";
-            resultToDisplay[i][4] = facilityReservation.getStartingDate();
-            resultToDisplay[i][5] = facilityReservation.getEndingDate();
-            resultToDisplay[i][6] = facilityReservation.getPrice() + "";
             i++;
         }
         return resultToDisplay;
@@ -323,7 +318,7 @@ public class Controller
         Object[][] resultToDisplay = new Object[searchResultList.size()][4];
         tableColumnNames = new String[]
         {
-            "Client ID", "First name", "Last name", "Position"
+            "Employee ID", "First name", "Last name", "Position"
         };
         int i = 0;
         Employee employee;
@@ -354,7 +349,7 @@ public class Controller
         {
             facility = (Facility) o;
             resultToDisplay[i][0] = facility.getTitle();
-            resultToDisplay[i][1] = facility.getPrice() + "";
+            resultToDisplay[i][1] = facility.getPrice();
             resultToDisplay[i][2] = facility.getDescription();
             i++;
         }
@@ -520,7 +515,6 @@ public class Controller
                 }
             }
         }
-
         searchResultType = "Rooms";
         Object[][] resultToDisplay = new Object[searchResultList.size()][4];
         tableColumnNames = new String[]
@@ -550,35 +544,440 @@ public class Controller
         return lastSearchTo;
     }
 
-    public Object[][] dynamicSearch(String substring)
+    public Object[][] dynamicSearch(String substring, String valueOfComboBox)
     {
         Object[][] resultToDisplay = null;
         ArrayList dynamicSearchResultList = new ArrayList();
-        for (Object o : searchResultList)
-        {
-            if (o.toString().contains(substring))
-            {
-                dynamicSearchResultList.add(o);
-            }
-        }
-
+        substring = substring.toLowerCase();
         switch (searchResultType)
         {
             case "Rooms":
             {
-                resultToDisplay = new Object[dynamicSearchResultList.size()][4];
-                Room room;
+                if (valueOfComboBox.equals("Show all") || valueOfComboBox.equals("by availability"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        if (o.toString().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    Room room;
+
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        room = (Room) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = room.getRoomNumber() + "";
+                        resultToDisplay[i][1] = room.getType();
+                        resultToDisplay[i][2] = room.getCapacity() + "";
+                        resultToDisplay[i][3] = room.getPricePerNight() + "";
+                    }
+                } else if (valueOfComboBox.equals("by room number"))
+                {
+                    Room room;
+                    for (Object o : searchResultList)
+                    {
+                        room = (Room) o;
+                        if (Integer.toString(room.getRoomNumber()).contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        room = (Room) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = room.getRoomNumber() + "";
+                        resultToDisplay[i][1] = room.getType();
+                        resultToDisplay[i][2] = room.getCapacity() + "";
+                        resultToDisplay[i][3] = room.getPricePerNight() + "";
+                    }
+                }
+            }
+            break;
+            case "Clients":
+            {
+                Client client;
+                if (valueOfComboBox.equals("Show all"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        if (o.toString().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        client = (Client) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = client.getId();
+                        resultToDisplay[i][1] = client.getFirstName();
+                        resultToDisplay[i][2] = client.getLastName();
+                        resultToDisplay[i][3] = client.getCountry();
+                    }
+                } else if (valueOfComboBox.equals("by client ID"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        client = (Client) o;
+                        if (Long.toString(client.getId()).contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        client = (Client) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = client.getId();
+                        resultToDisplay[i][1] = client.getFirstName();
+                        resultToDisplay[i][2] = client.getLastName();
+                        resultToDisplay[i][3] = client.getCountry();
+                    }
+                } else if (valueOfComboBox.equals("by client name"))
+                {
+                    String tempName, tempNameBackwards;
+                    for (Object o : searchResultList)
+                    {
+                        client = (Client) o;
+                        tempName = client.getFirstName().toLowerCase() + " " + client.getLastName().toLowerCase();
+                        tempNameBackwards = client.getLastName().toLowerCase() + " " + client.getFirstName().toLowerCase();
+                        if (tempName.contains(substring) || tempNameBackwards.contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        client = (Client) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = client.getId();
+                        resultToDisplay[i][1] = client.getFirstName();
+                        resultToDisplay[i][2] = client.getLastName();
+                        resultToDisplay[i][3] = client.getCountry();
+                    }
+                }
+            }
+            break;
+            case "Reservations":
+            {
+                Reservation reservation;
+                if (valueOfComboBox.equals("Show all"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        if (o.toString().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][3];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        reservation = (Reservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = reservation.getID();
+                        resultToDisplay[i][1] = reservation.getClientsIDs();
+                        resultToDisplay[i][2] = reservation.getRoomsIDs();
+                    }
+
+                } else if (valueOfComboBox.equals("by client ID"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        reservation = (Reservation) o;
+                        if (reservation.getClientsIDs().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][3];
+
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        reservation = (Reservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = reservation.getID();
+                        resultToDisplay[i][1] = reservation.getClientsIDs();
+                        resultToDisplay[i][2] = reservation.getRoomsIDs();
+                    }
+
+                } else if (valueOfComboBox.equals("by room ID"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        reservation = (Reservation) o;
+                        if (reservation.getRoomsIDs().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][3];
+
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        reservation = (Reservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = reservation.getID();
+                        resultToDisplay[i][1] = reservation.getClientsIDs();
+                        resultToDisplay[i][2] = reservation.getRoomsIDs();
+                    }
+
+                } else if (valueOfComboBox.equals("by reservation ID"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        reservation = (Reservation) o;
+                        if (Integer.toString(reservation.getID()).toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][3];
+
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        reservation = (Reservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = reservation.getID();
+                        resultToDisplay[i][1] = reservation.getClientsIDs();
+                        resultToDisplay[i][2] = reservation.getRoomsIDs();
+                    }
+                }
+            }
+            break;
+            case "FacilityReservations":
+            {
+                FacilityReservation facilityRes;
+                if (valueOfComboBox.equals("Show all"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        if (o.toString().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        facilityRes = (FacilityReservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = facilityRes.getID();
+                        resultToDisplay[i][1] = facilityRes.getFacilityTitle();
+                        resultToDisplay[i][2] = facilityRes.getClientsName();
+                        resultToDisplay[i][3] = facilityRes.getClientsID();
+                    }
+                } else if (valueOfComboBox.equals("by client ID"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        facilityRes = (FacilityReservation) o;
+                        if (Long.toString(facilityRes.getClientsID()).toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        facilityRes = (FacilityReservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = facilityRes.getID();
+                        resultToDisplay[i][1] = facilityRes.getFacilityTitle();
+                        resultToDisplay[i][2] = facilityRes.getClientsName();
+                        resultToDisplay[i][3] = facilityRes.getClientsID();
+                    }
+                } else if (valueOfComboBox.equals("by client name"))
+                {
+                    String clientName, clientNameBackwards;
+                    for (Object o : searchResultList)
+                    {
+                        facilityRes = (FacilityReservation) o;
+                        clientName = facilityRes.getClientFirstName() + " " + facilityRes.getClientLastName();
+                        clientNameBackwards = facilityRes.getClientLastName() + " " + facilityRes.getClientFirstName();
+                        if (clientName.toLowerCase().contains(substring) || clientNameBackwards.toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        facilityRes = (FacilityReservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = facilityRes.getID();
+                        resultToDisplay[i][1] = facilityRes.getFacilityTitle();
+                        resultToDisplay[i][2] = facilityRes.getClientsName();
+                        resultToDisplay[i][3] = facilityRes.getClientsID();
+                    }
+                } else if (valueOfComboBox.equals("by reservation ID"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        facilityRes = (FacilityReservation) o;
+                        if (Integer.toString(facilityRes.getID()).toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        facilityRes = (FacilityReservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = facilityRes.getID();
+                        resultToDisplay[i][1] = facilityRes.getFacilityTitle();
+                        resultToDisplay[i][2] = facilityRes.getClientsName();
+                        resultToDisplay[i][3] = facilityRes.getClientsID();
+                    }
+                } else if (valueOfComboBox.equals("by facility title"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        facilityRes = (FacilityReservation) o;
+                        if (facilityRes.getFacilityTitle().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        facilityRes = (FacilityReservation) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = facilityRes.getID();
+                        resultToDisplay[i][1] = facilityRes.getFacilityTitle();
+                        resultToDisplay[i][2] = facilityRes.getClientsName();
+                        resultToDisplay[i][3] = facilityRes.getClientsID();
+                    }
+                }
+            }
+            break;
+            case "Employees":
+            {
+                Employee employee;
+
+                if (valueOfComboBox.equals("Show all"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        if (o.toString().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        employee = (Employee) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = employee.getId();
+                        resultToDisplay[i][1] = employee.getFirstName();
+                        resultToDisplay[i][2] = employee.getLastName();
+                        resultToDisplay[i][3] = employee.getPosition();
+                    }
+                } else if (valueOfComboBox.equals("by employee ID"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        employee = (Employee) o;
+                        if (Long.toString(employee.getId()).toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        employee = (Employee) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = employee.getId();
+                        resultToDisplay[i][1] = employee.getFirstName();
+                        resultToDisplay[i][2] = employee.getLastName();
+                        resultToDisplay[i][3] = employee.getPosition();
+                    }
+                } else if (valueOfComboBox.equals("by employee name"))
+                {
+                    String employeeName, employeeNameBackwards;
+                    for (Object o : searchResultList)
+                    {
+                        employee = (Employee) o;
+                        employeeName = employee.getFirstName() + " " + employee.getLastName();
+                        employeeNameBackwards = employee.getLastName() + " " + employee.getFirstName();
+                        if (employeeName.toLowerCase().contains(substring) || employeeNameBackwards.toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        employee = (Employee) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = employee.getId();
+                        resultToDisplay[i][1] = employee.getFirstName();
+                        resultToDisplay[i][2] = employee.getLastName();
+                        resultToDisplay[i][3] = employee.getPosition();
+                    }
+                } else if (valueOfComboBox.equals("by employee position"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        employee = (Employee) o;
+                        if (employee.getPosition().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][4];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        employee = (Employee) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = employee.getId();
+                        resultToDisplay[i][1] = employee.getFirstName();
+                        resultToDisplay[i][2] = employee.getLastName();
+                        resultToDisplay[i][3] = employee.getPosition();
+                    }
+                }
+            }
+            break;
+            case "RoomTypes":
+            {
+                Room roomType;
+                if (valueOfComboBox.equals("Show all"))
+                {
+                    for (Object o : searchResultList)
+                    {
+                        if (o.toString().toLowerCase().contains(substring))
+                        {
+                            dynamicSearchResultList.add(o);
+                        }
+                    }
+                    resultToDisplay = new Object[dynamicSearchResultList.size()][3];
+                    for (int i = 0; i < dynamicSearchResultList.size(); i++)
+                    {
+                        roomType = (Room) dynamicSearchResultList.get(i);
+                        resultToDisplay[i][0] = roomType.getType();
+                        resultToDisplay[i][1] = roomType.getCapacity();
+                        resultToDisplay[i][2] = roomType.getPricePerNight();
+                    }
+                }
+            }
+            break;
+            case "Facilities":
+            {
+                Facility facilityList;
+                for (Object o : searchResultList)
+                {
+                    if (o.toString().toLowerCase().contains(substring))
+                    {
+                        dynamicSearchResultList.add(o);
+                    }
+                }
+                resultToDisplay = new Object[dynamicSearchResultList.size()][3];
                 for (int i = 0; i < dynamicSearchResultList.size(); i++)
                 {
-                    room = (Room) dynamicSearchResultList.get(i);
-                    resultToDisplay[i][0] = room.getRoomNumber() + "";
-                    resultToDisplay[i][1] = room.getType();
-                    resultToDisplay[i][2] = room.getCapacity() + "";
-                    resultToDisplay[i][3] = room.getPricePerNight() + "";
+                    facilityList = (Facility) dynamicSearchResultList.get(i);
+                    resultToDisplay[i][0] = facilityList.getTitle();
+                    resultToDisplay[i][1] = facilityList.getPrice();
+                    resultToDisplay[i][2] = facilityList.getDescription();
                 }
-                break;
             }
-            
+            break;
             default:
             {
                 resultToDisplay = new Object[0][4];

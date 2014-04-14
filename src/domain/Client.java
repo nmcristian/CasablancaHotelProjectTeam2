@@ -43,6 +43,6 @@ public class Client
     @Override
     public String toString()
     {
-        return id + ",  " + firstName + " " + lastName + ",  " + country;
+        return id + " " + firstName + " " + lastName + " " + country;
     }
 }
