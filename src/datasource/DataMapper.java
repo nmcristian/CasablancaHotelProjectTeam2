@@ -417,7 +417,19 @@ public class DataMapper
     {
         int rowsInserted = 0, totalToBeInserted = reservations.size();
         String sqlString0 = "SELECT * FROM ROOMS "
-                + "FOR UPDATE";
+                + "WHERE ";
+        
+        for (Object o : reservations)
+        {
+            Reservation reservation = (Reservation) o;
+            for (Room room : reservation.getRooms())
+            {
+                sqlString0 += "ID = " + room.getRoomNumber() + " OR ";
+            }
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        
         String sqlString1 = "INSERT INTO RESERVATIONS VALUES (?,?,?,?)";
         String sqlString2 = "INSERT INTO CLIENTS_RESERVATIONS VALUES (?, ?, ?)";
         String sqlString3 = "INSERT INTO ROOM_RESERVATIONS VALUES (?, ?, ?, ?, ?)";
@@ -426,6 +438,8 @@ public class DataMapper
         try
         {
             statement = conn.prepareStatement(sqlString0);
+            statement.executeQuery();
+
             System.out.println("write sth to continue");
             scan.next();
 
