@@ -161,4 +161,9 @@ public class DBFacade
     {
         return unitOfWork.add(reservation, connection);
     }
+    
+    public ArrayList<Integer> getUnavailableRoomsNumbers()
+    {
+        return dataMapper.getUnavailableRoomsNumbers();
+    }
 }

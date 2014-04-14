@@ -406,6 +406,10 @@ public class Controller
 
         status = dbFacade.addNewReservation(newReservation);
         status = status && dbFacade.commitBusinessProcess();
+        if (status)
+        {
+            newReservation = null;
+        }
         return status;
     }
 
@@ -985,5 +989,10 @@ public class Controller
         }
 
         return resultToDisplay;
+    }
+    https://github.com/nmcristian/CasablancaHotelProjectTeam2
+    public ArrayList<Integer> getUnavailableRoomsNumbers()
+    {
+        return dbFacade.getUnavailableRoomsNumbers();
     }
 }
