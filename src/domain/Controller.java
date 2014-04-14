@@ -587,4 +587,9 @@ public class Controller
 
         return resultToDisplay;
     }
+    
+    public ArrayList<Integer> getUnavailableRoomsNumbers()
+    {
+        return dbFacade.getUnavailableRoomsNumbers();
+    }
 }

@@ -17,6 +17,7 @@ public class DataMapper
 
     static boolean testRun = false;   // used to enable test output
     private String userType;
+    private ArrayList<Integer> unavailableRoomsNumbers;
     Scanner scan = new Scanner(System.in);
 
     public boolean checkUserLogin(String username, String password, Connection connection)
@@ -186,6 +187,44 @@ public class DataMapper
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+
+    public boolean confirmRoomAvailability(int roomNumber, Date from, Date to, Connection connection)
+    {
+        ArrayList result = new ArrayList<>();
+        PreparedStatement statement;
+        String sqlString = "SELECT R.ID, R.TYPE, RT.CAPACITY, RT.PRICE FROM ROOMS R "
+                + "JOIN ROOM_TYPES RT ON R.TYPE = RT.TYPE "
+                + "WHERE R.ID = ? AND R.ID NOT IN ( "
+                + "SELECT RR.ROOM_ID FROM ROOM_RESERVATIONS RR "
+                + "JOIN ROOMS R ON RR.ROOM_ID = R.ID "
+                + "JOIN ROOM_TYPES RT ON R.TYPE = RT.TYPE "
+                + "WHERE (STARTING_DATE < ? AND ENDING_DATE > ? "
+                + "OR STARTING_DATE >= ? AND STARTING_DATE < ?)) ";
+
+        try
+        {
+            statement = connection.prepareStatement(sqlString);
+            statement.setInt(1, roomNumber);
+            statement.setDate(2, from);
+            statement.setDate(3, from);
+            statement.setDate(4, from);
+            statement.setDate(5, to);
+            ResultSet rs = statement.executeQuery();
+            Room room;
+            while (rs.next())
+            {
+                room = new Room(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDouble(4), from, to);
+                room.calculatePricePerWholeStay();
+                result.add(room);
+            }
+            statement.close();
+        } catch (SQLException ex)
+        {
+            System.out.println("Fail in DataMapper - getRoomsByReservationID");
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result.size() == 1;
     }
 
     public ArrayList getAllClients(Connection connection)
@@ -418,7 +457,7 @@ public class DataMapper
         int rowsInserted = 0, totalToBeInserted = reservations.size();
         String sqlString0 = "SELECT * FROM ROOMS "
                 + "WHERE ";
-        
+
         for (Object o : reservations)
         {
             Reservation reservation = (Reservation) o;
@@ -429,7 +468,7 @@ public class DataMapper
         }
         sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
         sqlString0 += "FOR UPDATE";
-        
+
         String sqlString1 = "INSERT INTO RESERVATIONS VALUES (?,?,?,?)";
         String sqlString2 = "INSERT INTO CLIENTS_RESERVATIONS VALUES (?, ?, ?)";
         String sqlString3 = "INSERT INTO ROOM_RESERVATIONS VALUES (?, ?, ?, ?, ?)";
@@ -464,16 +503,25 @@ public class DataMapper
                     statement.setInt(3, 1);
                     rowsInserted += statement.executeUpdate();
                 }
-
+                
+                unavailableRoomsNumbers = new ArrayList();
                 for (Room room : reservation.getRooms())
                 {
-                    statement = conn.prepareStatement(sqlString3);
-                    statement.setInt(1, reservation.getID());
-                    statement.setInt(2, room.getRoomNumber());
-                    statement.setDate(3, new java.sql.Date(room.getStartingDate().getTime()));
-                    statement.setDate(4, new java.sql.Date(room.getEndingDate().getTime()));
-                    statement.setInt(5, 1);
-                    rowsInserted += statement.executeUpdate();
+                    if (confirmRoomAvailability(room.getRoomNumber(), new java.sql.Date(room.getStartingDate().getTime()), new java.sql.Date(room.getEndingDate().getTime()), conn))
+                    {
+                        statement = conn.prepareStatement(sqlString3);
+                        statement.setInt(1, reservation.getID());
+                        statement.setInt(2, room.getRoomNumber());
+                        statement.setDate(3, new java.sql.Date(room.getStartingDate().getTime()));
+                        statement.setDate(4, new java.sql.Date(room.getEndingDate().getTime()));
+                        statement.setInt(5, 1);
+                        rowsInserted += statement.executeUpdate();
+                    }
+                    else
+                    {
+                        // here we save globally which rooms were with problems saving
+                        unavailableRoomsNumbers.add(room.getRoomNumber());
+                    }
                 }
             }
             statement.close();
@@ -489,5 +537,10 @@ public class DataMapper
         }
 
         return (rowsInserted == totalToBeInserted);
+    }
+    
+    public ArrayList<Integer> getUnavailableRoomsNumbers()
+    {
+        return unavailableRoomsNumbers;
     }
 }

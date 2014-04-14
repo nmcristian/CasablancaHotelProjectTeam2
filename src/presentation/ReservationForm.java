@@ -249,7 +249,16 @@ public class ReservationForm extends javax.swing.JFrame
             this.dispose();
         } else
         {
-            System.out.println("There was an error saving this reservation!");
+            String errorMessage = "There was an error saving these rooms: ";
+            for (int x : controller.getUnavailableRoomsNumbers())
+            {
+                errorMessage += x + ", ";
+            }
+            errorMessage = errorMessage.substring(0, errorMessage.length() - 2);
+            errorMessage += "!";
+            
+            // This is to be set on the jLogLabel2 from the main jFrame
+            System.out.println(errorMessage);
         }
     }//GEN-LAST:event_jSaveButtonActionPerformed
 
