@@ -455,7 +455,7 @@ public class DataMapper
     public boolean insertReservations(ArrayList reservations, Connection conn)
     {
         int rowsInserted = 0, totalToBeInserted = reservations.size();
-        String sqlString0 = "SELECT * FROM ROOMS "
+        String sqlString1 = "SELECT * FROM ROOMS "
                 + "WHERE ";
 
         for (Object o : reservations)
@@ -463,20 +463,20 @@ public class DataMapper
             Reservation reservation = (Reservation) o;
             for (Room room : reservation.getRooms())
             {
-                sqlString0 += "ID = " + room.getRoomNumber() + " OR ";
+                sqlString1 += "ID = " + room.getRoomNumber() + " OR ";
             }
         }
-        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
-        sqlString0 += "FOR UPDATE";
+        sqlString1 = sqlString1.substring(0, sqlString1.length() - 3);
+        sqlString1 += "FOR UPDATE";
 
-        String sqlString1 = "INSERT INTO RESERVATIONS VALUES (?,?,?,?)";
-        String sqlString2 = "INSERT INTO CLIENTS_RESERVATIONS VALUES (?, ?, ?)";
-        String sqlString3 = "INSERT INTO ROOM_RESERVATIONS VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement statement = null;
+        String sqlString2 = "INSERT INTO RESERVATIONS VALUES (?,?,?,?)";
+        String sqlString3 = "INSERT INTO CLIENTS_RESERVATIONS VALUES (?, ?, ?)";
+        String sqlString4 = "INSERT INTO ROOM_RESERVATIONS VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement statement;
 
         try
         {
-            statement = conn.prepareStatement(sqlString0);
+            statement = conn.prepareStatement(sqlString1);
             statement.executeQuery();
 
             System.out.println("write sth to continue");
@@ -484,7 +484,7 @@ public class DataMapper
 
             for (Object o : reservations)
             {
-                statement = conn.prepareStatement(sqlString1);
+                statement = conn.prepareStatement(sqlString2);
                 Reservation reservation = (Reservation) o;
                 totalToBeInserted += reservation.getClients().size();
                 totalToBeInserted += reservation.getRooms().size();
@@ -497,7 +497,7 @@ public class DataMapper
 
                 for (Client client : reservation.getClients())
                 {
-                    statement = conn.prepareStatement(sqlString2);
+                    statement = conn.prepareStatement(sqlString3);
                     statement.setInt(1, reservation.getID());
                     statement.setLong(2, client.getId());
                     statement.setInt(3, 1);
@@ -509,7 +509,7 @@ public class DataMapper
                 {
                     if (confirmRoomAvailability(room.getRoomNumber(), new java.sql.Date(room.getStartingDate().getTime()), new java.sql.Date(room.getEndingDate().getTime()), conn))
                     {
-                        statement = conn.prepareStatement(sqlString3);
+                        statement = conn.prepareStatement(sqlString4);
                         statement.setInt(1, reservation.getID());
                         statement.setInt(2, room.getRoomNumber());
                         statement.setDate(3, new java.sql.Date(room.getStartingDate().getTime()));
