@@ -187,7 +187,7 @@ public class DataMapper
         }
         return result;
     }
-    
+
     public ArrayList getAllClients(Connection connection)
     {
         ArrayList result = new ArrayList<>();
@@ -416,6 +416,8 @@ public class DataMapper
     public boolean insertReservations(ArrayList reservations, Connection conn)
     {
         int rowsInserted = 0, totalToBeInserted = reservations.size();
+        String sqlString0 = "SELECT * FROM ROOMS "
+                + "FOR UPDATE";
         String sqlString1 = "INSERT INTO RESERVATIONS VALUES (?,?,?,?)";
         String sqlString2 = "INSERT INTO CLIENTS_RESERVATIONS VALUES (?, ?, ?)";
         String sqlString3 = "INSERT INTO ROOM_RESERVATIONS VALUES (?, ?, ?, ?, ?)";
@@ -423,6 +425,10 @@ public class DataMapper
 
         try
         {
+            statement = conn.prepareStatement(sqlString0);
+            System.out.println("write sth to continue");
+            scan.next();
+
             for (Object o : reservations)
             {
                 statement = conn.prepareStatement(sqlString1);
