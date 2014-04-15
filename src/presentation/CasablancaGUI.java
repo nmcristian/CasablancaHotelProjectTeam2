@@ -1037,21 +1037,17 @@ public class CasablancaGUI extends javax.swing.JFrame
             {
                 case "Add new client":
                 {
-                    if(jTextField101.getText()==null)
+                    if(jTextField101.getText().equals(""))
                     {
                         jLogLabel2.setForeground(Color.red);
                         jLogLabel2.setText("Enter first name!");
                     }
-                    else if(jTextField102.getText()==null)
+                    else if(jTextField102.getText().equals(""))
                     {
                         jLogLabel2.setForeground(Color.red);
                         jLogLabel2.setText("Enter last name!");
                     }
-                    else if(jTextField109.getText()==null)
-                    {
-                        jLogLabel2.setForeground(Color.red);
-                        jLogLabel2.setText("Enter password!");
-                    }
+                    
                     else
                     {
                         controller.addClient(jTextField101.getText(), jTextField102.getText(), jTextField103.getText(),
@@ -1059,6 +1055,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                                 jTextField107.getText(), jTextField108.getText(), jTextField109.getText());
                        if(controller.saveAddedClients())
                        {
+                           
                            jLogLabel2.setText("Client added!");
                        }
                        else
