@@ -40,6 +40,7 @@ public class Room
         this.pricePerNight = pricePerNight;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
+        calculatePricePerWholeStay();
     }
 
     public void setStartingDate(Date startingDate)

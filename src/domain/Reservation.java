@@ -90,11 +90,13 @@ public class Reservation
     public void addRoom(Room room)
     {
         rooms.add(room);
+        calculatePricePerWholeStay();
     }
 
     public void removeRoom(int index)
     {
         rooms.remove(index);
+        calculatePricePerWholeStay();
     }
 
     public void removeClient(int index)

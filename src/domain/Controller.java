@@ -225,6 +225,11 @@ public class Controller
         }
         return resultToDisplay;
     }
+    
+    public Room getRoomByRoomNrForEditing(int roomNumber)
+    {
+        return dbFacade.getRoomByRoomNumber(roomNumber);
+    }
 
     public Object[][] getAllClients()
     {
@@ -440,7 +445,6 @@ public class Controller
             if (currentRoom.getRoomNumber() == roomNumber)
             {
                 newReservation.addRoom(currentRoom);
-                newReservation.calculatePricePerWholeStay();
                 break;
             }
         }

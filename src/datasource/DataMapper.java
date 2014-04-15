@@ -324,12 +324,37 @@ public class DataMapper
         }
         return result;
     }
+    
+    public Reservation getReservationByID(int reservationID, Connection connection)
+    {
+        Reservation reservation = null;
+        PreparedStatement statement;
+        String sqlString = "SELECT ID, TOTAL_DUE, TOTAL_PAID FROM RESERVATIONS "
+                + "WHERE ID = ?";
+
+        try
+        {
+            statement = connection.prepareStatement(sqlString);
+            statement.setInt(1, reservationID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next())
+            {
+                reservation = new Reservation(rs.getInt(1), /*rs.getDouble(2),*/ rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection));
+            }
+            statement.close();
+        } catch (SQLException ex)
+        {
+            System.out.println("Fail in DataMapper - getAllReservations");
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return reservation;
+    }
 
     public ArrayList getAllFacilityReservations(Connection connection)
     {
         ArrayList result = new ArrayList<>();
         PreparedStatement statement;
-        String sqlString = "SELECT FR. ID, C.ID, C.FIRST_NAME, C.LAST_NAME, C.COUNTRY, F.NAME, F.PRICE, F.DESCRIPTION, FR.STARTING_TIME, FR.ENDING_TIME FROM FACILITIES_RESERVATIONS FR "
+        String sqlString = "SELECT FR.ID, C.ID, C.FIRST_NAME, C.LAST_NAME, C.COUNTRY, F.NAME, F.PRICE, F.DESCRIPTION, FR.STARTING_TIME, FR.ENDING_TIME FROM FACILITIES_RESERVATIONS FR "
                 + "JOIN CLIENTS C ON FR.CLIENT_ID = C.ID "
                 + "JOIN FACILITIES F ON FR.FACILITY_NAME = F.NAME";
 
@@ -360,6 +385,44 @@ public class DataMapper
         }
         return result;
     }
+    
+    public FacilityReservation getFacilityReservationByID(int id, Connection connection)
+    {
+        FacilityReservation fr = null;
+        PreparedStatement statement;
+        String sqlString = "SELECT FR.ID, C.ID, C.FIRST_NAME, C.LAST_NAME, C.COUNTRY, F.NAME, F.PRICE, F.DESCRIPTION, FR.STARTING_TIME, FR.ENDING_TIME FROM FACILITIES_RESERVATIONS FR "
+                + "JOIN CLIENTS C ON FR.CLIENT_ID = C.ID "
+                + "JOIN FACILITIES F ON FR.FACILITY_NAME = F.NAME "
+                + "WHERE FR.ID = ?";
+
+        try
+        {
+            statement = connection.prepareStatement(sqlString);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            Calendar d1;
+            Calendar d2;
+            Client c;
+            Facility f;
+            if (rs.next())
+            {
+                c = new Client(rs.getLong(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                f = new Facility(rs.getString(6), rs.getDouble(7), rs.getString(8));
+                d1 = Calendar.getInstance();
+                d1.setTime(rs.getDate(9));
+                d2 = Calendar.getInstance();
+                d2.setTime(rs.getDate(10));
+                fr = new FacilityReservation(rs.getInt(1), c, f, d1, d2);
+            }
+            statement.close();
+        } catch (SQLException ex)
+        {
+            System.out.println("Fail in DataMapper - getAllFacilityReservations");
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return fr;
+    }
 
     public ArrayList getAllEmployees(Connection connection)
     {
@@ -382,6 +445,31 @@ public class DataMapper
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    
+    public Employee getEmployeeByID(int employeeID, Connection connection)
+    {
+        Employee employee = null;
+        PreparedStatement statement;
+        String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, POSITION FROM EMPLOYEES "
+                + "WHERE ID = ?";
+
+        try
+        {
+            statement = connection.prepareStatement(sqlString);
+            statement.setInt(1, employeeID);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next())
+            {
+                employee = new Employee(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));
+            }
+            statement.close();
+        } catch (SQLException ex)
+        {
+            System.out.println("Fail in DataMapper - getAllEmployees");
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return employee;
     }
 
     public ArrayList getAllFacilities(Connection connection)
@@ -406,6 +494,31 @@ public class DataMapper
         }
         return result;
     }
+    
+    public Facility getFacilityByName(String facilityName, Connection connection)
+    {
+        Facility facility = null;
+        PreparedStatement statement;
+        String sqlString = "SELECT NAME, PRICE, DESCRIPTION FROM FACILITIES " 
+                + "WHERE NAME = ?";
+
+        try
+        {
+            statement = connection.prepareStatement(sqlString);
+            statement.setString(1, facilityName);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next())
+            {
+                facility = new Facility(rs.getString(1), rs.getDouble(2), rs.getString(3));
+            }
+            statement.close();
+        } catch (SQLException ex)
+        {
+            System.out.println("Fail in DataMapper - getAllFacilities");
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return facility;
+    }
 
     public ArrayList getAllRoomTypes(Connection connection)
     {
@@ -428,6 +541,31 @@ public class DataMapper
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    
+    public Room getRoomTypeByType(String type, Connection connection)
+    {
+        Room room = null;
+        PreparedStatement statement;
+        String sqlString = "SELECT TYPE, CAPACITY, PRICE FROM ROOM_TYPES "
+                + "WHERE TYPE = ?";
+
+        try
+        {
+            statement = connection.prepareStatement(sqlString);
+            statement.setString(1, type);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next())
+            {
+                room = new Room(rs.getString(1), rs.getInt(2), rs.getDouble(3));
+            }
+            statement.close();
+        } catch (SQLException ex)
+        {
+            System.out.println("Fail in DataMapper - getAllRoomTypes");
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return room;
     }
 
     // Retrieves the next unique order number from DB
@@ -479,8 +617,8 @@ public class DataMapper
             statement = conn.prepareStatement(sqlString1);
             statement.executeQuery();
 
-            System.out.println("write sth to continue");
-            scan.next();
+//            System.out.println("write sth to continue");
+//            scan.next();
 
             for (Object o : reservations)
             {

@@ -1,6 +1,7 @@
 package presentation;
 
 import domain.Controller;
+import domain.Room;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.Date;
@@ -1122,8 +1123,6 @@ public class CasablancaGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTable1MouseReleased
         if (jTable1.getSelectedRow() != -1)
         {
-            Object[][] detailsSet;
-
             switch (controller.getSearchResultType())
             {
                 case "Rooms":
@@ -1134,7 +1133,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                         if (jTable1.getColumnName(i).equals("Room number"))
                         {
                             roomNumber = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
-                            detailsSet = controller.getRoomByRoomNumber(roomNumber);
+                            Room room = controller.getRoomByRoomNrForEditing(roomNumber);
                             jButtonEdit.setEnabled(true);
 
                             jLabel101.setVisible(true);
@@ -1152,10 +1151,10 @@ public class CasablancaGUI extends javax.swing.JFrame
                             jTextField103.setVisible(true);
                             jTextField104.setVisible(true);
 
-                            jTextField101.setText(detailsSet[0][0].toString());
-                            jTextField102.setText(detailsSet[0][1].toString());
-                            jTextField103.setText(detailsSet[0][2].toString());
-                            jTextField104.setText(detailsSet[0][3].toString());
+                            jTextField101.setText(room.getRoomNumber()+"");
+                            jTextField102.setText(room.getType());
+                            jTextField103.setText(room.getCapacity()+"");
+                            jTextField104.setText(room.getPricePerNight()+"");
 
                             jLabel105.setVisible(false);
                             jLabel106.setVisible(false);

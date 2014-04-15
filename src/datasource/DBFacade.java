@@ -1,6 +1,9 @@
 package datasource;
 
 import domain.Client;
+import domain.Employee;
+import domain.Facility;
+import domain.FacilityReservation;
 import domain.Reservation;
 import domain.Room;
 import java.sql.Connection;
@@ -89,25 +92,50 @@ public class DBFacade
     {
         return dataMapper.getAllReservations(connection);
     }
+    
+    public Reservation getReservationByID(int reservationID)
+    {
+        return dataMapper.getReservationByID(reservationID, connection);
+    }
 
     public ArrayList getAllFacilityReservations()
     {
         return dataMapper.getAllFacilityReservations(connection);
+    }
+    
+    public FacilityReservation getFacilityReservationByID(int id)
+    {
+        return dataMapper.getFacilityReservationByID(id, connection);
     }
 
     public ArrayList getAllEmployees()
     {
         return dataMapper.getAllEmployees(connection);
     }
+    
+     public Employee getEmployeeByID(int employeeID)
+     {
+         return dataMapper.getEmployeeByID(employeeID, connection);
+     }
 
     public ArrayList getAllFacilities()
     {
         return dataMapper.getAllFacilities(connection);
     }
+    
+    public Facility getFacilityByName(String facilityName)
+    {
+        return dataMapper.getFacilityByName(facilityName, connection);
+    }
 
     public ArrayList getAllRoomTypes()
     {
         return dataMapper.getAllRoomTypes(connection);
+    }
+    
+    public Room getRoomTypeByType(String type)
+    {
+        return dataMapper.getRoomTypeByType(type, connection);
     }
 
     public Room getRoomByRoomNumber(int roomNumber)
