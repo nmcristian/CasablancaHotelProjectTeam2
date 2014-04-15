@@ -56,15 +56,33 @@ public class CasablancaGUI extends javax.swing.JFrame
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
         jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
-        jButton2 = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox();
         jComboBox4 = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jPanelDetails = new javax.swing.JPanel();
+        jButtonAddToReservation = new javax.swing.JButton();
+        jButtonEdit = new javax.swing.JButton();
+        jLabel101 = new javax.swing.JLabel();
+        jTextField101 = new javax.swing.JTextField();
+        jLabel102 = new javax.swing.JLabel();
+        jTextField102 = new javax.swing.JTextField();
+        jLabel103 = new javax.swing.JLabel();
+        jTextField103 = new javax.swing.JTextField();
+        jLabel104 = new javax.swing.JLabel();
+        jTextField104 = new javax.swing.JTextField();
+        jLabel105 = new javax.swing.JLabel();
+        jTextField105 = new javax.swing.JTextField();
+        jLabel106 = new javax.swing.JLabel();
+        jTextField106 = new javax.swing.JTextField();
+        jLabel107 = new javax.swing.JLabel();
+        jLabel108 = new javax.swing.JLabel();
+        jTextField107 = new javax.swing.JTextField();
+        jTextField108 = new javax.swing.JTextField();
+        jLabel109 = new javax.swing.JLabel();
+        jTextField109 = new javax.swing.JTextField();
+        jLabel110 = new javax.swing.JLabel();
+        jTextField110 = new javax.swing.JTextField();
         jMenuBar = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -286,16 +304,6 @@ public class CasablancaGUI extends javax.swing.JFrame
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Quick search:");
 
-        jButton1.setText("Add to reservation");
-        jButton1.setPreferredSize(new java.awt.Dimension(65, 25));
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jXDatePicker1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -312,9 +320,6 @@ public class CasablancaGUI extends javax.swing.JFrame
             }
         });
 
-        jButton2.setText("Edit details");
-        jButton2.setPreferredSize(new java.awt.Dimension(65, 25));
-
         jComboBox3.setMaximumRowCount(13);
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" }));
         jComboBox3.setMinimumSize(new java.awt.Dimension(60, 25));
@@ -326,11 +331,181 @@ public class CasablancaGUI extends javax.swing.JFrame
         jComboBox4.setMinimumSize(new java.awt.Dimension(60, 25));
         jComboBox4.setPreferredSize(new java.awt.Dimension(60, 25));
 
-        jLabel6.setText("jLabel6");
+        jButtonAddToReservation.setText("Add to reservation");
+        jButtonAddToReservation.setPreferredSize(new java.awt.Dimension(65, 25));
+        jButtonAddToReservation.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonAddToReservationActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setText("jLabel7");
+        jButtonEdit.setText("Edit details");
+        jButtonEdit.setPreferredSize(new java.awt.Dimension(65, 25));
+        jButtonEdit.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButtonEditActionPerformed(evt);
+            }
+        });
 
-        jLabel8.setText("we'll display here all the info about the items clicked in the table");
+        jLabel101.setText("jLabel101");
+
+        jTextField101.setEditable(false);
+        jTextField101.setText("jTextField2");
+
+        jLabel102.setText("jLabel102");
+
+        jTextField102.setEditable(false);
+        jTextField102.setText("jTextField2");
+
+        jLabel103.setText("jLabel103");
+
+        jTextField103.setEditable(false);
+        jTextField103.setText("jTextField2");
+
+        jLabel104.setText("jLabel104");
+
+        jTextField104.setEditable(false);
+        jTextField104.setText("jTextField2");
+
+        jLabel105.setText("jLabel105");
+
+        jTextField105.setEditable(false);
+        jTextField105.setText("jTextField2");
+
+        jLabel106.setText("jLabel106");
+
+        jTextField106.setEditable(false);
+        jTextField106.setText("jTextField2");
+
+        jLabel107.setText("jLabel107");
+
+        jLabel108.setText("jLabel108");
+
+        jTextField107.setEditable(false);
+        jTextField107.setText("jTextField2");
+
+        jTextField108.setEditable(false);
+        jTextField108.setText("jTextField2");
+
+        jLabel109.setText("jLabel109");
+
+        jTextField109.setEditable(false);
+        jTextField109.setText("jTextField2");
+
+        jLabel110.setText("jLabel110");
+
+        jTextField110.setEditable(false);
+        jTextField110.setText("jTextField2");
+
+        javax.swing.GroupLayout jPanelDetailsLayout = new javax.swing.GroupLayout(jPanelDetails);
+        jPanelDetails.setLayout(jPanelDetailsLayout);
+        jPanelDetailsLayout.setHorizontalGroup(
+            jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetailsLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAddToReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel102)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField102))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel101)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField101))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel103)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField103))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel105)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField105))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel104)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField104))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel106)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField106))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel108)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField107))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel107)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField108))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel109)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField109))
+                            .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel110)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField110)))))
+                .addContainerGap())
+        );
+        jPanelDetailsLayout.setVerticalGroup(
+            jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetailsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel101)
+                    .addComponent(jTextField101, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel102)
+                    .addComponent(jTextField102, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel103)
+                    .addComponent(jTextField103, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel104)
+                    .addComponent(jTextField104, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel105)
+                    .addComponent(jTextField105, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel106)
+                    .addComponent(jTextField106, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel107)
+                    .addComponent(jTextField108, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel108)
+                    .addComponent(jTextField107, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel109)
+                    .addComponent(jTextField109, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel110)
+                    .addComponent(jTextField110, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAddToReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPresentationLayeredPaneLayout = new javax.swing.GroupLayout(jPresentationLayeredPane);
         jPresentationLayeredPane.setLayout(jPresentationLayeredPaneLayout);
@@ -375,61 +550,39 @@ public class CasablancaGUI extends javax.swing.JFrame
                                 .addGap(18, 18, 18)
                                 .addComponent(jSearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                .addGap(40, 40, 40)
+                .addComponent(jPanelDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         jPresentationLayeredPaneLayout.setVerticalGroup(
             jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPresentationLayeredPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
+                        .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPresentationLayeredPaneLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(148, 148, 148)))
-                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLogLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLogLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPresentationLayeredPane.setLayer(jLogLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPresentationLayeredPane.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -442,15 +595,11 @@ public class CasablancaGUI extends javax.swing.JFrame
         jPresentationLayeredPane.setLayer(jSearchButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPresentationLayeredPane.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPresentationLayeredPane.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPresentationLayeredPane.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPresentationLayeredPane.setLayer(jXDatePicker1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPresentationLayeredPane.setLayer(jXDatePicker2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPresentationLayeredPane.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPresentationLayeredPane.setLayer(jComboBox3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jPresentationLayeredPane.setLayer(jComboBox4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPresentationLayeredPane.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPresentationLayeredPane.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jPresentationLayeredPane.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPresentationLayeredPane.setLayer(jPanelDetails, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenuBar.setPreferredSize(new java.awt.Dimension(300, 20));
 
@@ -573,8 +722,8 @@ public class CasablancaGUI extends javax.swing.JFrame
         {
         }));
         jSearchButton.setEnabled(false);
-        jButton1.setEnabled(false);
-        jButton2.setEnabled(false);
+        jButtonAddToReservation.setEnabled(false);
+        jButtonEdit.setEnabled(false);
         setupActionComboBox(controller.getUserType());
         jXDatePicker1.getMonthView().setLowerBound(new Date(System.currentTimeMillis()));
         jXDatePicker2.getMonthView().setLowerBound(new Date(System.currentTimeMillis() + 86400000));
@@ -796,6 +945,283 @@ public class CasablancaGUI extends javax.swing.JFrame
         controller.savePreferences();
     }//GEN-LAST:event_formWindowClosing
 
+    private void formComponentMoved(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentMoved
+    {//GEN-HEADEREND:event_formComponentMoved
+        if (controller.currentReservationCreationState())
+        {
+            reservationForm.setLocation((int) (this.getLocation().getX() + this.getSize().getWidth() + 10), (int) (this.getLocation().getY()));
+        }
+    }//GEN-LAST:event_formComponentMoved
+
+    protected void refreshTableInfo()
+    {
+        switch (controller.getSearchResultType())
+        {
+            case "Rooms":
+            {
+                if (controller.getLastSearchFrom() != null && controller.getLastSearchTo() != null)
+                {
+                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
+                }
+                break;
+            }
+            case "Clients":
+            {
+                jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
+                break;
+            }
+
+            default:
+            {
+                //do nothing
+            }
+        }
+    }
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
+    {//GEN-HEADEREND:event_formWindowGainedFocus
+        if (controller.getSearchResultCount() != jTable1.getRowCount())
+        {
+            refreshTableInfo();
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jButtonAddToReservationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAddToReservationActionPerformed
+    {//GEN-HEADEREND:event_jButtonAddToReservationActionPerformed
+        if (jTable1.getSelectedRow() != -1)
+        {
+            switch (controller.getSearchResultType())
+            {
+                case "Rooms":
+                    int roomNumber = 0;
+                    for (int i = 0; i < jTable1.getColumnCount(); i++)
+                    {
+                        if (jTable1.getColumnName(i).equals("Room number"))
+                        {
+                            roomNumber = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
+                            break;
+                        }
+                    }
+                    controller.addRoomToReservation(roomNumber);
+                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
+                    jButtonAddToReservation.setEnabled(false);
+                    reservationForm.requestFocus();
+                    break;
+                case "Clients":
+                    long clientID = 0;
+                    for (int i = 0; i < jTable1.getColumnCount(); i++)
+                    {
+                        if (jTable1.getColumnName(i).equals("Client ID"))
+                        {
+                            clientID = Long.parseLong(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
+                            break;
+                        }
+                    }
+                    controller.addClientToReservation(clientID);
+                    jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
+                    jButtonAddToReservation.setEnabled(false);
+                    reservationForm.requestFocus();
+                    break;
+                default:
+                {
+                    //do nothing
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonAddToReservationActionPerformed
+
+    private void jXDatePicker2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jXDatePicker2ActionPerformed
+    {//GEN-HEADEREND:event_jXDatePicker2ActionPerformed
+        if (jXDatePicker2.getDate() != null)
+        {
+            if (jXDatePicker2.getDate() != controller.getLastSearchTo())
+            {
+                datesNotChanged = false;
+                jButtonAddToReservation.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_jXDatePicker2ActionPerformed
+
+    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jXDatePicker1ActionPerformed
+    {//GEN-HEADEREND:event_jXDatePicker1ActionPerformed
+        if (jXDatePicker1.getDate() != null)
+        {
+            jXDatePicker2.getMonthView().setLowerBound(new Date(jXDatePicker1.getDate().getTime() + 86400000));
+            if (jXDatePicker1.getDate() != controller.getLastSearchFrom())
+            {
+                datesNotChanged = false;
+                jButtonAddToReservation.setEnabled(false);
+            }
+        }
+        //        jTable1.getSelectionModel().clearSelection();
+    }//GEN-LAST:event_jXDatePicker1ActionPerformed
+
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTable1KeyReleased
+    {//GEN-HEADEREND:event_jTable1KeyReleased
+        //        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN)
+//        {
+        if (jTable1.getSelectedRow() != -1)
+        {
+            Object[][] detailsSet;
+            switch (controller.getSearchResultType())
+            {
+                case "Rooms":
+                    int roomNumber = 0;
+                    for (int i = 0; i < jTable1.getColumnCount(); i++)
+                    {
+                        if (jTable1.getColumnName(i).equals("Room number"))
+                        {
+                            roomNumber = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
+                            detailsSet = controller.getRoomByRoomNumber(roomNumber);
+
+                            jLabel101.setVisible(true);
+                            jLabel102.setVisible(true);
+                            jLabel103.setVisible(true);
+                            jLabel104.setVisible(true);
+
+                            jLabel101.setText("Room number");
+                            jLabel102.setText("Room type");
+                            jLabel103.setText("Capacity");
+                            jLabel104.setText("Price/night");
+
+                            jTextField101.setVisible(true);
+                            jTextField102.setVisible(true);
+                            jTextField103.setVisible(true);
+                            jTextField104.setVisible(true);
+
+                            jTextField101.setText(detailsSet[0][0].toString());
+                            jTextField102.setText(detailsSet[0][1].toString());
+                            jTextField103.setText(detailsSet[0][2].toString());
+                            jTextField104.setText(detailsSet[0][3].toString());
+
+                            jLabel105.setVisible(false);
+                            jLabel106.setVisible(false);
+                            jLabel107.setVisible(false);
+                            jLabel108.setVisible(false);
+                            jLabel109.setVisible(false);
+                            jLabel110.setVisible(false);
+
+                            jTextField105.setVisible(false);
+                            jTextField106.setVisible(false);
+                            jTextField107.setVisible(false);
+                            jTextField108.setVisible(false);
+                            jTextField109.setVisible(false);
+                            jTextField110.setVisible(false);
+
+                            break;
+                        }
+                    }
+                case "":
+                    break;
+            }
+        }
+//        }
+    }//GEN-LAST:event_jTable1KeyReleased
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseReleased
+    {//GEN-HEADEREND:event_jTable1MouseReleased
+        if (jTable1.getSelectedRow() != -1)
+        {
+            Object[][] detailsSet;
+
+            switch (controller.getSearchResultType())
+            {
+                case "Rooms":
+                {
+                    int roomNumber = 0;
+                    for (int i = 0; i < jTable1.getColumnCount(); i++)
+                    {
+                        if (jTable1.getColumnName(i).equals("Room number"))
+                        {
+                            roomNumber = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
+                            detailsSet = controller.getRoomByRoomNumber(roomNumber);
+                            jButtonEdit.setEnabled(true);
+
+                            jLabel101.setVisible(true);
+                            jLabel102.setVisible(true);
+                            jLabel103.setVisible(true);
+                            jLabel104.setVisible(true);
+
+                            jLabel101.setText("Room number");
+                            jLabel102.setText("Room type");
+                            jLabel103.setText("Capacity");
+                            jLabel104.setText("Price/night");
+
+                            jTextField101.setVisible(true);
+                            jTextField102.setVisible(true);
+                            jTextField103.setVisible(true);
+                            jTextField104.setVisible(true);
+
+                            jTextField101.setText(detailsSet[0][0].toString());
+                            jTextField102.setText(detailsSet[0][1].toString());
+                            jTextField103.setText(detailsSet[0][2].toString());
+                            jTextField104.setText(detailsSet[0][3].toString());
+
+                            jLabel105.setVisible(false);
+                            jLabel106.setVisible(false);
+                            jLabel107.setVisible(false);
+                            jLabel108.setVisible(false);
+                            jLabel109.setVisible(false);
+                            jLabel110.setVisible(false);
+
+                            jTextField105.setVisible(false);
+                            jTextField106.setVisible(false);
+                            jTextField107.setVisible(false);
+                            jTextField108.setVisible(false);
+                            jTextField109.setVisible(false);
+                            jTextField110.setVisible(false);
+
+                        }
+                    }
+
+                    if (controller.getUserType().equals("Manager"))
+                    {
+                        if (controller.currentReservationCreationState() && datesNotChanged)
+                        {
+                            jButtonAddToReservation.setEnabled(true);
+                        }
+                        jButtonEdit.setEnabled(true);
+                    } else
+                    {
+                        jButtonAddToReservation.setEnabled(true);
+                        //jButtonEdit.setEnabled(false);
+                    }
+                }
+                break;
+
+                case "Clients":
+                {
+                    if (controller.getUserType().equals("Manager") || controller.getUserType().equals("Receptionist"))
+                    {
+                        if (controller.currentReservationCreationState())
+                        {
+                            jButtonAddToReservation.setEnabled(true);
+                        }
+                        jButtonEdit.setEnabled(true);
+                    } else
+                    {
+                        jButtonAddToReservation.setEnabled(false);
+                        jButtonEdit.setEnabled(false);
+                    }
+                    break;
+                }
+
+                default:
+                {
+                    jButtonAddToReservation.setEnabled(false);
+                    jButtonEdit.setEnabled(false);
+                }
+            }
+
+            //to be deleted:
+            jLogLabel2.setText(jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()).toString());
+        } else
+        {
+            jButtonAddToReservation.setEnabled(false);
+            jButtonEdit.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
+
     private void jSearchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jSearchButtonActionPerformed
     {//GEN-HEADEREND:event_jSearchButtonActionPerformed
         datesNotChanged = false;
@@ -900,9 +1326,14 @@ public class CasablancaGUI extends javax.swing.JFrame
                 //do nothing
             }
         }
-        jButton1.setEnabled(false);
-        jButton2.setEnabled(false);
+        jButtonAddToReservation.setEnabled(false);
+        jButtonEdit.setEnabled(false);
     }//GEN-LAST:event_jSearchButtonActionPerformed
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextField1KeyReleased
+    {//GEN-HEADEREND:event_jTextField1KeyReleased
+        jTable1.setModel(new CustomTableModel(controller.dynamicSearch(jTextField1.getText(), jComboBox2.getSelectedItem().toString()), controller.getTableColumnNames()));
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
     {//GEN-HEADEREND:event_jComboBox1ActionPerformed
@@ -921,193 +1352,47 @@ public class CasablancaGUI extends javax.swing.JFrame
                     controller.createNewReservation();
                     reservationForm = new ReservationForm();
                     reservationForm.setLocation((int) (this.getLocation().getX() + this.getSize().getWidth() + 10), (int) (this.getLocation().getY()));
-//                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//                    System.out.println(this.getLocation().getX());
-//                    System.out.println(this.getSize().getWidth());
+                    //                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    //                    System.out.println(this.getLocation().getX());
+                    //                    System.out.println(this.getSize().getWidth());
                     reservationForm.setVisible(true);
                 }
             }
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jXDatePicker1ActionPerformed
-    {//GEN-HEADEREND:event_jXDatePicker1ActionPerformed
-        if (jXDatePicker1.getDate() != null)
+    private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditActionPerformed
+    {//GEN-HEADEREND:event_jButtonEditActionPerformed
+       
+        if (jButtonEdit.getText().equals("Edit details"))
         {
-            jXDatePicker2.getMonthView().setLowerBound(new Date(jXDatePicker1.getDate().getTime() + 86400000));
-            if (jXDatePicker1.getDate() != controller.getLastSearchFrom())
-            {
-                datesNotChanged = false;
-                jButton1.setEnabled(false);
-            }
-        }
-//        jTable1.getSelectionModel().clearSelection();
-    }//GEN-LAST:event_jXDatePicker1ActionPerformed
-
-    private void formComponentMoved(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentMoved
-    {//GEN-HEADEREND:event_formComponentMoved
-        if (controller.currentReservationCreationState())
-        {
-            reservationForm.setLocation((int) (this.getLocation().getX() + this.getSize().getWidth() + 10), (int) (this.getLocation().getY()));
-        }
-    }//GEN-LAST:event_formComponentMoved
-
-    private void jTable1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTable1KeyReleased
-    {//GEN-HEADEREND:event_jTable1KeyReleased
-//        if (evt.getKeyCode() == KeyEvent.VK_UP || evt.getKeyCode() == KeyEvent.VK_DOWN)
-//        {
-//            //display correct info on the right
-//        }
-    }//GEN-LAST:event_jTable1KeyReleased
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-        if (jTable1.getSelectedRow() != -1)
-        {
-            switch (controller.getSearchResultType())
-            {
-                case "Rooms":
-                    int roomNumber = 0;
-                    for (int i = 0; i < jTable1.getColumnCount(); i++)
-                    {
-                        if (jTable1.getColumnName(i).equals("Room number"))
-                        {
-                            roomNumber = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
-                            break;
-                        }
-                    }
-                    controller.addRoomToReservation(roomNumber);
-                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
-                    jButton1.setEnabled(false);
-                    reservationForm.requestFocus();
-                    break;
-                case "Clients":
-                    long clientID = 0;
-                    for (int i = 0; i < jTable1.getColumnCount(); i++)
-                    {
-                        if (jTable1.getColumnName(i).equals("Client ID"))
-                        {
-                            clientID = Long.parseLong(jTable1.getValueAt(jTable1.getSelectedRow(), i).toString());
-                            break;
-                        }
-                    }
-                    controller.addClientToReservation(clientID);
-                    jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
-                    jButton1.setEnabled(false);
-                    reservationForm.requestFocus();
-                    break;
-                default:
-                {
-                    //do nothing
-                }
-            }
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    protected void refreshTableInfo()
-    {
-        switch (controller.getSearchResultType())
-        {
-            case "Rooms":
-            {
-                if (controller.getLastSearchFrom() != null && controller.getLastSearchTo() != null)
-                {
-                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
-                }
-                break;
-            }
-            case "Clients":
-            {
-                jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
-                break;
-            }
-
-            default:
-            {
-                //do nothing
-            }
-        }
-    }
-
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
-    {//GEN-HEADEREND:event_formWindowGainedFocus
-        if (controller.getSearchResultCount() != jTable1.getRowCount())
-        {
-            refreshTableInfo();
-        }
-    }//GEN-LAST:event_formWindowGainedFocus
-
-    private void jXDatePicker2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jXDatePicker2ActionPerformed
-    {//GEN-HEADEREND:event_jXDatePicker2ActionPerformed
-        if (jXDatePicker2.getDate() != null)
-        {
-            if (jXDatePicker2.getDate() != controller.getLastSearchTo())
-            {
-                datesNotChanged = false;
-                jButton1.setEnabled(false);
-            }
-        }
-    }//GEN-LAST:event_jXDatePicker2ActionPerformed
-
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextField1KeyReleased
-    {//GEN-HEADEREND:event_jTextField1KeyReleased
-        jTable1.setModel(new CustomTableModel(controller.dynamicSearch(jTextField1.getText(), jComboBox2.getSelectedItem().toString()), controller.getTableColumnNames()));
-    }//GEN-LAST:event_jTextField1KeyReleased
-
-    private void jTable1MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable1MouseReleased
-    {//GEN-HEADEREND:event_jTable1MouseReleased
-        if (jTable1.getSelectedRow() != -1)
-        {
-            switch (controller.getSearchResultType())
-            {
-                case "Rooms":
-                {
-                    if (controller.getUserType().equals("Manager"))
-                    {
-                        if (controller.currentReservationCreationState() && datesNotChanged)
-                        {
-                            jButton1.setEnabled(true);
-                        }
-                        jButton2.setEnabled(true);
-                    } else
-                    {
-                        jButton1.setEnabled(true);
-                        jButton2.setEnabled(false);
-                    }
-                    break;
-                }
-                case "Clients":
-                {
-                    if (controller.getUserType().equals("Manager") || controller.getUserType().equals("Receptionist"))
-                    {
-                        if (controller.currentReservationCreationState())
-                        {
-                            jButton1.setEnabled(true);
-                        }
-                        jButton2.setEnabled(true);
-                    } else
-                    {
-                        jButton1.setEnabled(false);
-                        jButton2.setEnabled(false);
-                    }
-                    break;
-                }
-
-                default:
-                {
-                    jButton1.setEnabled(false);
-                    jButton2.setEnabled(false);
-                }
-            }
-
-            //to be deleted:
-            jLogLabel2.setText(jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()).toString());
+             jTextField101.setEditable(true);
+        jTextField102.setEditable(true);
+        jTextField103.setEditable(true);
+        jTextField104.setEditable(true);
+        jTextField105.setEditable(true);
+        jTextField106.setEditable(true);
+        jTextField107.setEditable(true);
+        jTextField108.setEditable(true);
+        jTextField109.setEditable(true);
+        jTextField110.setEditable(true);
+            jButtonEdit.setText("Save details");
         } else
         {
-            jButton1.setEnabled(false);
-            jButton2.setEnabled(false);
+             jTextField101.setEditable(false);
+        jTextField102.setEditable(false);
+        jTextField103.setEditable(false);
+        jTextField104.setEditable(false);
+        jTextField105.setEditable(false);
+        jTextField106.setEditable(false);
+        jTextField107.setEditable(false);
+        jTextField108.setEditable(false);
+        jTextField109.setEditable(false);
+        jTextField110.setEditable(false);
+            jButtonEdit.setText("Edit details");
         }
-    }//GEN-LAST:event_jTable1MouseReleased
+
+    }//GEN-LAST:event_jButtonEditActionPerformed
 
     public static void main(String args[])
     {
@@ -1144,8 +1429,8 @@ public class CasablancaGUI extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAddToReservation;
+    private javax.swing.JButton jButtonEdit;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -1154,13 +1439,20 @@ public class CasablancaGUI extends javax.swing.JFrame
     private javax.swing.JTextField jConnectionField;
     private javax.swing.JLabel jConnectionLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel101;
+    private javax.swing.JLabel jLabel102;
+    private javax.swing.JLabel jLabel103;
+    private javax.swing.JLabel jLabel104;
+    private javax.swing.JLabel jLabel105;
+    private javax.swing.JLabel jLabel106;
+    private javax.swing.JLabel jLabel107;
+    private javax.swing.JLabel jLabel108;
+    private javax.swing.JLabel jLabel109;
+    private javax.swing.JLabel jLabel110;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLogLabel;
     private javax.swing.JLabel jLogLabel2;
     private javax.swing.JLayeredPane jLoginDetailsLayeredPane;
@@ -1170,6 +1462,7 @@ public class CasablancaGUI extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanelDetails;
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JLabel jPasswordLabel;
     private javax.swing.JLayeredPane jPresentationLayeredPane;
@@ -1178,6 +1471,16 @@ public class CasablancaGUI extends javax.swing.JFrame
     private javax.swing.JButton jSearchButton;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField101;
+    private javax.swing.JTextField jTextField102;
+    private javax.swing.JTextField jTextField103;
+    private javax.swing.JTextField jTextField104;
+    private javax.swing.JTextField jTextField105;
+    private javax.swing.JTextField jTextField106;
+    private javax.swing.JTextField jTextField107;
+    private javax.swing.JTextField jTextField108;
+    private javax.swing.JTextField jTextField109;
+    private javax.swing.JTextField jTextField110;
     private javax.swing.JLabel jTitleLabel;
     private javax.swing.JTextField jUsernameField;
     private javax.swing.JLabel jUsernameLabel;
