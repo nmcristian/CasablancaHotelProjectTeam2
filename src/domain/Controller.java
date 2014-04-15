@@ -999,4 +999,14 @@ public class Controller
     {
         return dbFacade.getUnavailableRoomsNumbers();
     }
+
+    public void addClient(String firstName, String lastName, String personalID, String address, String country, String email, String travelAgency, String password, String telephoneNumber)
+    {
+        dbFacade.startBusinessProcess("Clients");        
+        dbFacade.addNewClient( new Client( (long) dbFacade.getNextDataSeqNumber(), firstName, lastName, personalID, address, country, email, travelAgency, password, telephoneNumber));
+    }
+    public boolean saveAddedClients()
+    {
+        return dbFacade.commitBusinessProcess();
+    }
 }

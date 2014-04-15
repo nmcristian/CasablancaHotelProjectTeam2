@@ -681,4 +681,51 @@ public class DataMapper
     {
         return unavailableRoomsNumbers;
     }
+    
+    public boolean insertClients(ArrayList clients, Connection conn )
+    {
+        int rowsInserted = 0, totalToBeInserted = clients.size();
+
+        String sqlString1 = "INSERT INTO CLIENTS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        
+        PreparedStatement statement = null;
+
+        try
+        {
+            for (Object o : clients)
+            {
+                statement = conn.prepareStatement(sqlString1);
+                Client client = (Client) o;
+                
+                statement.setLong(1, client.getId());
+                statement.setString(2, client.getFirstName());
+                statement.setString(3, client.getLastName());
+                statement.setString(4, client.getPersonalID());
+                statement.setString(5, client.getAddress());
+                statement.setString(6, client.getCountry());
+                statement.setString(7, client.getTravelAgency());
+                statement.setString(8, client.getTelephoneNumber());
+                statement.setString(9, client.getEmail());
+                statement.setString(10, client.getPassword());
+                statement.setInt(11, 1);
+                rowsInserted += statement.executeUpdate();
+
+                
+                
+            }
+            statement.close();
+        } catch (SQLException ex)
+        {
+            System.out.println("Fail in DataMapper - addClients");
+            Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (testRun)
+        {
+            System.out.println("insertOrders(): " + (rowsInserted == clients.size())); // for test
+        }
+
+        return (rowsInserted == totalToBeInserted);
+    
+    }
 }

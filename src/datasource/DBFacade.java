@@ -194,4 +194,8 @@ public class DBFacade
     {
         return dataMapper.getUnavailableRoomsNumbers();
     }
+    public boolean addNewClient(Client client)
+    {
+        return unitOfWork.add(client, connection);
+    }
 }

@@ -18,6 +18,7 @@ public class CasablancaGUI extends javax.swing.JFrame
     private Controller controller;
     private JFrame reservationForm;
     private boolean datesNotChanged;
+    private String lastAddAction;
 
     public CasablancaGUI()
     {
@@ -736,15 +737,16 @@ public class CasablancaGUI extends javax.swing.JFrame
         switch (userType)
         {
             case "Receptionist":
-                actionComboBoxItems = new String[8];
-                actionComboBoxItems[0] = "Create reservation";
-                actionComboBoxItems[1] = "List rooms";
-                actionComboBoxItems[2] = "List clients";
-                actionComboBoxItems[3] = "List reservations";
-                actionComboBoxItems[4] = "List facility reservations";
-                actionComboBoxItems[5] = "List facilities";
-                actionComboBoxItems[6] = "List room types";
-                actionComboBoxItems[7] = "List employees";
+                actionComboBoxItems = new String[9];
+                actionComboBoxItems[0] = "Add new reservation";
+                actionComboBoxItems[1] = "Add new client";
+                actionComboBoxItems[2] = "List rooms";
+                actionComboBoxItems[3] = "List clients";
+                actionComboBoxItems[4] = "List reservations";
+                actionComboBoxItems[5] = "List facility reservations";
+                actionComboBoxItems[6] = "List facilities";
+                actionComboBoxItems[7] = "List room types";
+                actionComboBoxItems[8] = "List employees";
                 break;
             case "Client":
                 actionComboBoxItems = new String[2];
@@ -989,7 +991,7 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void jButtonAddToReservationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAddToReservationActionPerformed
     {//GEN-HEADEREND:event_jButtonAddToReservationActionPerformed
-        if (jTable1.getSelectedRow() != -1)
+        if (jTable1.getSelectedRow() != -1 && lastAddAction == null)
         {
             switch (controller.getSearchResultType())
             {
@@ -1026,6 +1028,45 @@ public class CasablancaGUI extends javax.swing.JFrame
                 default:
                 {
                     //do nothing
+                }
+            }
+        }
+        else if(lastAddAction != null)
+        {
+            switch(lastAddAction)
+            {
+                case "Add new client":
+                {
+                    if(jTextField101.getText()==null)
+                    {
+                        jLogLabel2.setForeground(Color.red);
+                        jLogLabel2.setText("Enter first name!");
+                    }
+                    else if(jTextField102.getText()==null)
+                    {
+                        jLogLabel2.setForeground(Color.red);
+                        jLogLabel2.setText("Enter last name!");
+                    }
+                    else if(jTextField109.getText()==null)
+                    {
+                        jLogLabel2.setForeground(Color.red);
+                        jLogLabel2.setText("Enter password!");
+                    }
+                    else
+                    {
+                        controller.addClient(jTextField101.getText(), jTextField102.getText(), jTextField103.getText(),
+                                jTextField104.getText(), jTextField105.getText(), jTextField106.getText(),
+                                jTextField107.getText(), jTextField108.getText(), jTextField109.getText());
+                       if(controller.saveAddedClients())
+                       {
+                           jLogLabel2.setText("Client added!");
+                       }
+                       else
+                       {
+                           jLogLabel2.setText("Failed to add client!");
+                       }
+                    }
+                  
                 }
             }
         }
@@ -1340,7 +1381,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         {
             setupCriteriaComboBox(controller.getUserType(), jComboBox1.getSelectedItem().toString());
             jSearchButton.setEnabled(true);
-            if (jComboBox1.getSelectedItem().toString().equals("Create reservation"))
+            if (jComboBox1.getSelectedItem().toString().equals("Add new reservation"))
             {
                 jSearchButton.setEnabled(false);
                 if (controller.currentReservationCreationState())
@@ -1356,6 +1397,68 @@ public class CasablancaGUI extends javax.swing.JFrame
                     //                    System.out.println(this.getSize().getWidth());
                     reservationForm.setVisible(true);
                 }
+            }
+            else if (jComboBox1.getSelectedItem().toString().equals("Add new client"))
+            {
+                lastAddAction  = "Add new client";
+                jSearchButton.setEnabled(false);
+                
+                jTextField101.setVisible(true);
+                jTextField102.setVisible(true);
+                jTextField103.setVisible(true);
+                jTextField104.setVisible(true);
+                jTextField105.setVisible(true);
+                jTextField106.setVisible(true);
+                jTextField107.setVisible(true);
+                jTextField108.setVisible(true);
+                jTextField109.setVisible(true);
+                jTextField110.setVisible(false);
+                
+                jTextField101.setText(null);
+                jTextField102.setText(null);
+                jTextField103.setText(null);
+                jTextField104.setText(null);
+                jTextField105.setText(null);
+                jTextField106.setText(null);
+                jTextField107.setText(null);
+                jTextField108.setText(null);
+                jTextField109.setText(null);
+                
+                jTextField101.setEditable(true);
+                jTextField102.setEditable(true);
+                jTextField103.setEditable(true);
+                jTextField104.setEditable(true);
+                jTextField105.setEditable(true);
+                jTextField106.setEditable(true);
+                jTextField107.setEditable(true);
+                jTextField108.setEditable(true);
+                jTextField109.setEditable(true);
+               
+                jLabel101.setVisible(true);
+                jLabel102.setVisible(true);
+                jLabel103.setVisible(true);
+                jLabel104.setVisible(true);
+                jLabel105.setVisible(true);
+                jLabel106.setVisible(true);
+                jLabel107.setVisible(true);
+                jLabel108.setVisible(true);
+                jLabel109.setVisible(true);
+                jLabel110.setVisible(false);
+                
+                jLabel101.setText("First name:");
+                jLabel102.setText("Last name:");
+                jLabel103.setText("Personal ID:");
+                jLabel104.setText("Address:");
+                jLabel105.setText("Country:");
+                jLabel106.setText("Travel agency:");
+                jLabel107.setText("Telephone nr.:");
+                jLabel108.setText("Email:");
+                jLabel109.setText("Password:");
+                
+                jButtonAddToReservation.setText("Save");
+                jButtonAddToReservation.setEnabled(true);
+                jButtonEdit.setText("Cancel");
+                jButtonEdit.setEnabled(true);
             }
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed

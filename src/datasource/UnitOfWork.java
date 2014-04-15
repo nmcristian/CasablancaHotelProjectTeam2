@@ -28,25 +28,14 @@ public class UnitOfWork
 
     public boolean add(Object o, Connection connection)
     {
-        switch (resultType)
+        // if not already registered in any list
+        if (!newData.contains(o) && !dirtyData.contains(o) && !filthyData.contains(o))
         {
-            case "Reservations":
-            {
-                // if not already registered in any list
-                if (!newData.contains(o) && !dirtyData.contains(0) && !filthyData.contains(o))
-                {
-                    newData.add(o);
-                    return true;
-                } else
-                {
-                    return false;
-                }
-            }
-
-            default:
-            {
-                return false;
-            }
+            newData.add(o);
+            return true;
+        } else
+        {
+            return false;
         }
     }
 
@@ -64,6 +53,11 @@ public class UnitOfWork
                     status = status && dataMapper.insertReservations(newData, connection);
 //                    status = status && dataMapper.updateReservations(dirtyData, connection);
 //                    status = status && dataMapper.deleteReservations(filthyData, connection);
+                    break;
+                }
+                case "Clients":
+                {
+                    status = status && dataMapper.insertClients(newData, connection);
                     break;
                 }
                 default:
