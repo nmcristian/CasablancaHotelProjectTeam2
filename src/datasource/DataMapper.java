@@ -281,7 +281,7 @@ public class DataMapper
     public Client getClientByID(long clientID, Connection connection)
     {
         PreparedStatement statement;
-        String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, COUNTRY FROM CLIENTS "
+        String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, ADDRESS, COUNTRY, EMAIL, TRAVEL_AGENCY, PASSWORD, PHONE, PERSONAL_ID, VERSION_NUMBER FROM CLIENTS "
                 + "WHERE ID = ?";
 
         try
@@ -291,12 +291,12 @@ public class DataMapper
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                return new Client(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                return new Client(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), 0);
             }
             statement.close();
         } catch (SQLException ex)
         {
-            System.out.println("Fail in DataMapper - getAllClients");
+            System.out.println("Fail in DataMapper - getClientById");
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -324,7 +324,7 @@ public class DataMapper
         }
         return result;
     }
-    
+
     public Reservation getReservationByID(int reservationID, Connection connection)
     {
         Reservation reservation = null;
@@ -385,7 +385,7 @@ public class DataMapper
         }
         return result;
     }
-    
+
     public FacilityReservation getFacilityReservationByID(int id, Connection connection)
     {
         FacilityReservation fr = null;
@@ -446,7 +446,7 @@ public class DataMapper
         }
         return result;
     }
-    
+
     public Employee getEmployeeByID(int employeeID, Connection connection)
     {
         Employee employee = null;
@@ -494,12 +494,12 @@ public class DataMapper
         }
         return result;
     }
-    
+
     public Facility getFacilityByName(String facilityName, Connection connection)
     {
         Facility facility = null;
         PreparedStatement statement;
-        String sqlString = "SELECT NAME, PRICE, DESCRIPTION FROM FACILITIES " 
+        String sqlString = "SELECT NAME, PRICE, DESCRIPTION FROM FACILITIES "
                 + "WHERE NAME = ?";
 
         try
@@ -542,7 +542,7 @@ public class DataMapper
         }
         return result;
     }
-    
+
     public Room getRoomTypeByType(String type, Connection connection)
     {
         Room room = null;
@@ -619,7 +619,6 @@ public class DataMapper
 
 //            System.out.println("write sth to continue");
 //            scan.next();
-
             for (Object o : reservations)
             {
                 statement = conn.prepareStatement(sqlString2);
@@ -641,7 +640,7 @@ public class DataMapper
                     statement.setInt(3, 1);
                     rowsInserted += statement.executeUpdate();
                 }
-                
+
                 unavailableRoomsNumbers = new ArrayList();
                 for (Room room : reservation.getRooms())
                 {
@@ -654,8 +653,7 @@ public class DataMapper
                         statement.setDate(4, new java.sql.Date(room.getEndingDate().getTime()));
                         statement.setInt(5, 1);
                         rowsInserted += statement.executeUpdate();
-                    }
-                    else
+                    } else
                     {
                         // here we save globally which rooms were with problems saving
                         unavailableRoomsNumbers.add(room.getRoomNumber());
@@ -676,18 +674,18 @@ public class DataMapper
 
         return (rowsInserted == totalToBeInserted);
     }
-    
+
     public ArrayList<Integer> getUnavailableRoomsNumbers()
     {
         return unavailableRoomsNumbers;
     }
-    
-    public boolean insertClients(ArrayList clients, Connection conn )
+
+    public boolean insertClients(ArrayList clients, Connection conn)
     {
         int rowsInserted = 0, totalToBeInserted = clients.size();
 
         String sqlString1 = "INSERT INTO CLIENTS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        
+
         PreparedStatement statement = null;
 
         try
@@ -696,7 +694,7 @@ public class DataMapper
             {
                 statement = conn.prepareStatement(sqlString1);
                 Client client = (Client) o;
-                
+
                 statement.setLong(1, client.getId());
                 statement.setString(2, client.getFirstName());
                 statement.setString(3, client.getLastName());
@@ -710,8 +708,6 @@ public class DataMapper
                 statement.setInt(11, 1);
                 rowsInserted += statement.executeUpdate();
 
-                
-                
             }
             statement.close();
         } catch (SQLException ex)
@@ -726,6 +722,656 @@ public class DataMapper
         }
 
         return (rowsInserted == totalToBeInserted);
-    
+
     }
+
+    public boolean deleteReservations(ArrayList reservations, Connection con)
+    {
+        String sqlString1, sqlString2, sqlString3;
+        int tuplesDeleted = 0, totalToBeDeleted = reservations.size();
+        String sqlString0 = "SELECT * FROM RESERVATIONS "
+                + "WHERE ";
+        for (Object o : reservations)
+        {
+            Reservation reservation = (Reservation) o;
+            sqlString0 += "ID = " + reservation.getID() + " OR ";
+            totalToBeDeleted += reservation.getClients().size();
+            totalToBeDeleted += reservation.getRooms().size();
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+
+        sqlString1 = "DELETE FROM CLIENTS_RESERVATIONS "
+                + "WHERE RES_ID = ?";
+        sqlString2 = "DELETE FROM ROOM_RESERVATIONS "
+                + "WHERE RES_ID = ?";
+        sqlString3 = "DELETE FROM RESERVATIONS "
+                + "WHERE ID = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : reservations)
+            {
+                Reservation reservation = (Reservation) o;
+
+                statement = con.prepareStatement(sqlString1);
+                statement.setInt(1, reservation.getID());
+                tuplesDeleted += statement.executeUpdate();
+
+                statement = con.prepareStatement(sqlString2);
+                statement.setInt(1, reservation.getID());
+                tuplesDeleted += statement.executeUpdate();
+
+                statement = con.prepareStatement(sqlString3);
+                statement.setInt(1, reservation.getID());
+                tuplesDeleted += statement.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - deleteReservations");
+            System.out.println(e.getMessage());
+            return false;
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - deleteReservations");
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        return tuplesDeleted == totalToBeDeleted;
+    }
+
+    public boolean deleteClients(ArrayList clients, Connection con)
+    {
+        String sqlString1;
+        int tuplesDeleted = 0, totalToBeDeleted = clients.size();
+        String sqlString0 = "SELECT * FROM CLIENTS "
+                + "WHERE ";
+
+        for (Object o : clients)
+        {
+            Client client = (Client) o;
+            sqlString0 += "ID = " + client.getId() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+
+        sqlString1 = "DELETE FROM CLIENTS "
+                + "WHERE ID = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : clients)
+            {
+                Client client = (Client) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setLong(1, client.getId());
+                tuplesDeleted += statement.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - deleteClients");
+            System.out.println(e.getMessage());
+            return false;
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - deleteClients");
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        return tuplesDeleted == totalToBeDeleted;
+    }
+
+    public boolean deleteRooms(ArrayList rooms, Connection con)
+    {
+        String sqlString1;
+        int tuplesDeleted = 0, totalToBeDeleted = rooms.size();
+        String sqlString0 = "SELECT * FROM ROOMS "
+                + "WHERE ";
+        for (Object o : rooms)
+        {
+            Room room = (Room) o;
+            sqlString0 += "ID = " + room.getRoomNumber() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+
+        sqlString1 = "DELETE FROM ROOMS "
+                + "WHERE ID = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : rooms)
+            {
+                Room room = (Room) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setInt(1, room.getRoomNumber());
+                tuplesDeleted += statement.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - deleteRooms");
+            System.out.println(e.getMessage());
+            return false;
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - deleteRooms");
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        return tuplesDeleted == totalToBeDeleted;
+    }
+
+    public boolean deleteEmployees(ArrayList employees, Connection con)
+    {
+        String sqlString1;
+        int tuplesDeleted = 0, totalToBeDeleted = employees.size();
+        String sqlString0 = "SELECT * FROM EMPLOYEES "
+                + "WHERE ";
+        for (Object o : employees)
+        {
+            Employee emp = (Employee) o;
+            sqlString0 += "ID = " + emp.getId() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        sqlString1 = "DELETE FROM EMPLOYEES "
+                + "WHERE ID = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : employees)
+            {
+                Employee emp = (Employee) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setLong(1, emp.getId());
+                tuplesDeleted += statement.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - deleteEmployees");
+            System.out.println(e.getMessage());
+            return false;
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - deleteEmployees");
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        return tuplesDeleted == totalToBeDeleted;
+    }
+
+    public boolean deleteFacilities(ArrayList facilities, Connection con)
+    {
+        String sqlString1;
+        int tuplesDeleted = 0, totalToBeDeleted = facilities.size();
+        String sqlString0 = "SELECT * FROM FACILITIES "
+                + "WHERE ";
+        for (Object o : facilities)
+        {
+            Facility fac = (Facility) o;
+            sqlString0 += "NAME = " + fac.getTitle() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        sqlString1 = "DELETE FROM FACILITIES "
+                + "WHERE NAME = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : facilities)
+            {
+                Facility fac = (Facility) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setString(1, fac.getTitle());
+                tuplesDeleted += statement.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - deleteFacilities");
+            System.out.println(e.getMessage());
+            return false;
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - deleteFacilities");
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        return tuplesDeleted == totalToBeDeleted;
+    }
+
+    public boolean deleteFacilityReservations(ArrayList facilityReservations, Connection con)
+    {
+        String sqlString1;
+        int tuplesDeleted = 0, totalToBeDeleted = facilityReservations.size();
+        String sqlString0 = "SELECT * FROM FACILITIES_RESERVATIONS "
+                + "WHERE ";
+        for (Object o : facilityReservations)
+        {
+            FacilityReservation fac = (FacilityReservation) o;
+            sqlString0 += "ID = " + fac.getID() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        sqlString1 = "DELETE FROM FACILITIES_RESERVATIONS "
+                + "WHERE ID = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : facilityReservations)
+            {
+                FacilityReservation fac = (FacilityReservation) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setInt(1, fac.getID());
+                tuplesDeleted += statement.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - deleteFacilityReservations");
+            System.out.println(e.getMessage());
+            return false;
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - deleteFacilityReservations");
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        return tuplesDeleted == totalToBeDeleted;
+    }
+
+    public boolean deleteRoomTypes(ArrayList rooms, Connection con)
+    {
+        String sqlString1;
+        int tuplesDeleted = 0, totalToBeDeleted = rooms.size();
+        String sqlString0 = "SELECT * FROM ROOM_TYPES "
+                + "WHERE ";
+        for (Object o : rooms)
+        {
+            Room room = (Room) o;
+            sqlString0 += "TYPE = " + room.getType() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        sqlString1 = "DELETE FROM ROOM_TYPES "
+                + "WHERE TYPE = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : rooms)
+            {
+                Room room = (Room) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setString(1, room.getType());
+                tuplesDeleted += statement.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - deleteRoomTypes");
+            System.out.println(e.getMessage());
+            return false;
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - deleteRoomTypes");
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        return tuplesDeleted == totalToBeDeleted;
+    }
+
+    public boolean updateClients(ArrayList clients, Connection con)
+    {
+        int rowsUpdated = 0, totalToBeUpdated = clients.size();
+
+        String sqlString0 = "SELECT * FROM CLIENTS "
+                + "WHERE ";
+        for (Object o : clients)
+        {
+            Client client = (Client) o;
+            sqlString0 += "ID = " + client.getId() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        String sqlString1 = "UPDATE CLIENTS "
+                + "SET FIRST_NAME = ?, LAST_NAME = ?, PERSONAL_ID = ?, ADDRESS = ?, COUNTRY = ?, TRAVEL_AGENCY = ? "
+                + "PHONE = ?, EMAIL = ?, PASSWORD = ?, VERSION_NUMBER = ? "
+                + "WHERE ID = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : clients)
+            {
+                Client client = (Client) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setString(1, client.getFirstName());
+                statement.setString(2, client.getLastName());
+                statement.setString(3, client.getPersonalID());
+                statement.setString(4, client.getAddress());
+                statement.setString(5, client.getCountry());
+                statement.setString(6, client.getTravelAgency());
+                statement.setString(7, client.getTelephoneNumber());
+                statement.setString(8, client.getEmail());
+                statement.setString(9, client.getPassword());
+                statement.setInt(10, client.getVersionNumber() + 1);
+                statement.setLong(11, client.getId());
+                rowsUpdated = statement.executeUpdate();
+            }
+
+        } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - updateClients");
+            System.out.println(e.getMessage());
+            return false;
+
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - updateClients");
+                System.out.println(e.getMessage());
+                return false;
+
+            }
+        }
+        return rowsUpdated == totalToBeUpdated;
+    }
+
+    public boolean updateRooms(ArrayList rooms, Connection con)
+    {
+        int rowsUpdated = 0, totalToBeUpdated = rooms.size();
+
+        String sqlString0 = "SELECT * FROM ROOMS "
+                + "WHERE ";
+        for (Object o : rooms)
+        {
+            Room room = (Room) o;
+            sqlString0 += "ID = " + room.getRoomNumber() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        String sqlString1 = "UPDATE ROOMS "
+                + "SET TYPE = ?, VERSION_NUMBER = ? "
+                + "WHERE ID = ?";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : rooms)
+            {
+                Room room = (Room) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setString(1, room.getType());
+                statement.setInt(2, room.getVersionNumber() + 1);
+                statement.setInt(3, room.getRoomNumber());
+                rowsUpdated = statement.executeUpdate();
+            }
+
+        } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - updateRooms");
+            System.out.println(e.getMessage());
+            return false;
+
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - updateRooms");
+                System.out.println(e.getMessage());
+                return false;
+
+            }
+        }
+        return rowsUpdated == totalToBeUpdated;
+    }
+
+    public boolean updateEmployees(ArrayList employees, Connection con)
+    {
+        int rowsUpdated = 0, totalToBeUpdated = employees.size();
+
+        String sqlString0 = "SELECT * FROM EMPLOYEES "
+                + "WHERE ";
+        for (Object o : employees)
+        {
+            Employee emp = (Employee) o;
+            sqlString0 += "ID = " + emp.getId() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        String sqlString1 = "UPDATE EMPLOYEES "
+                + "SET FIRST_NAME = ?, LAST_NAME = ?, POSITION = ?, PASSWORD = ?, VERSION_NUMBER = ? "
+                + "WHERE ID = ?";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : employees)
+            {
+                Employee emp = (Employee) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setString(1, emp.getFirstName());
+                statement.setString(2, emp.getLastName());
+                statement.setString(3, emp.getPosition());
+                statement.setString(4, emp.getPassword());
+                statement.setInt(5, emp.getVersionNumber() + 1);
+                statement.setLong(6, emp.getId());
+                rowsUpdated = statement.executeUpdate();
+            }
+
+        } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - updateEmployees");
+            System.out.println(e.getMessage());
+            return false;
+
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - updateEmployees");
+                System.out.println(e.getMessage());
+                return false;
+
+            }
+        }
+        return rowsUpdated == totalToBeUpdated;
+    }
+
+    public boolean updateFacilities(ArrayList facilities, Connection con)
+    {
+        int rowsUpdated = 0, totalToBeUpdated = facilities.size();
+
+        String sqlString0 = "SELECT * FROM FACILITIES "
+                + "WHERE ";
+        for (Object o : facilities)
+        {
+            Facility fac = (Facility) o;
+            sqlString0 += "NAME = " + fac.getTitle() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        String sqlString1 = "UPDATE FACILITIES "
+                + "SET NAME = ?, DESCRIPTION = ?, PRICE = ?, VERSION_NUMBER = ? "
+                + "WHERE NAME = ?";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : facilities)
+            {
+                Facility fac = (Facility) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setString(1, fac.getTitle());
+                statement.setString(2, fac.getDescription());
+                statement.setDouble(3, fac.getPrice());
+                statement.setInt(4, fac.getVersionNumber() + 1);
+                statement.setString(5, fac.getTitle());
+                rowsUpdated = statement.executeUpdate();
+            }
+
+        } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - updateFacilities");
+            System.out.println(e.getMessage());
+            return false;
+
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - updateFacilities");
+                System.out.println(e.getMessage());
+                return false;
+
+            }
+        }
+        return rowsUpdated == totalToBeUpdated;
+    }
+
+    public boolean updateRoomTypes(ArrayList rooms, Connection con)
+    {
+        int rowsUpdated = 0, totalToBeUpdated = rooms.size();
+
+        String sqlString0 = "SELECT * FROM ROOM_TYPES "
+                + "WHERE ";
+        for (Object o : rooms)
+        {
+            Room room = (Room) o;
+            sqlString0 += "TYPE = " + room.getType() + " OR ";
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+        String sqlString1 = "UPDATE ROOM_TYPES "
+                + "SET PRICE = ?, CAPACITY = ?, VERSION_NUMBER = ? "
+                + "WHERE TYPE = ?";
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : rooms)
+            {
+                Room room = (Room) o;
+                statement = con.prepareStatement(sqlString1);
+                statement.setDouble(1, room.getPricePerNight());
+                statement.setInt(2, room.getCapacity());
+                statement.setInt(3, room.getVersionNumber() + 1);
+                statement.setString(4, room.getType());
+                rowsUpdated = statement.executeUpdate();
+            }
+
+        } catch (Exception e)
+        {
+            System.out.println("Fail in DataMapper - updateRoomTypes");
+            System.out.println(e.getMessage());
+            return false;
+
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - updateRoomTypes");
+                System.out.println(e.getMessage());
+                return false;
+
+            }
+        }
+        return rowsUpdated == totalToBeUpdated;
+    }
+
 }

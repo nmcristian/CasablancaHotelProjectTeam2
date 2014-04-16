@@ -92,7 +92,7 @@ public class DBFacade
     {
         return dataMapper.getAllReservations(connection);
     }
-    
+
     public Reservation getReservationByID(int reservationID)
     {
         return dataMapper.getReservationByID(reservationID, connection);
@@ -102,7 +102,7 @@ public class DBFacade
     {
         return dataMapper.getAllFacilityReservations(connection);
     }
-    
+
     public FacilityReservation getFacilityReservationByID(int id)
     {
         return dataMapper.getFacilityReservationByID(id, connection);
@@ -112,17 +112,17 @@ public class DBFacade
     {
         return dataMapper.getAllEmployees(connection);
     }
-    
-     public Employee getEmployeeByID(int employeeID)
-     {
-         return dataMapper.getEmployeeByID(employeeID, connection);
-     }
+
+    public Employee getEmployeeByID(int employeeID)
+    {
+        return dataMapper.getEmployeeByID(employeeID, connection);
+    }
 
     public ArrayList getAllFacilities()
     {
         return dataMapper.getAllFacilities(connection);
     }
-    
+
     public Facility getFacilityByName(String facilityName)
     {
         return dataMapper.getFacilityByName(facilityName, connection);
@@ -132,7 +132,7 @@ public class DBFacade
     {
         return dataMapper.getAllRoomTypes(connection);
     }
-    
+
     public Room getRoomTypeByType(String type)
     {
         return dataMapper.getRoomTypeByType(type, connection);
@@ -142,17 +142,76 @@ public class DBFacade
     {
         return dataMapper.getRoomByRoomNumber(roomNumber, connection);
     }
-    
+
     public ArrayList getRoomsByAvailability(Date from, Date to)
     {
         return dataMapper.getRoomsByAvailability(new java.sql.Date(from.getTime()), new java.sql.Date(to.getTime()), connection);
     }
-    
+
     public Client getClientByID(long clientID)
     {
         return dataMapper.getClientByID(clientID, connection);
     }
 
+    public boolean deleteReservation(Reservation reservation)
+    {
+        return unitOfWork.delete(reservation, connection);
+    }
+
+    public boolean deleteClient(Client client)
+    {
+        return unitOfWork.delete(client, connection);
+    }
+
+    public boolean deleteRoom(Room room)
+    {
+        return unitOfWork.delete(room, connection);
+    }
+
+    public boolean deleteEmployee(Employee emp)
+    {
+        return unitOfWork.delete(emp, connection);
+    }
+
+    public boolean deleteFacility(Facility fac)
+    {
+        return unitOfWork.delete(fac, connection);
+    }
+
+    public boolean deleteFacilityResrvation(FacilityReservation fac)
+    {
+        return unitOfWork.delete(fac, connection);
+    }
+    
+    public boolean deleteRoomType(Room room)
+    {
+        return unitOfWork.delete(room, connection);
+    }
+    
+    public boolean updateClient(Client client)
+    {
+        return unitOfWork.update(client, connection);
+    }
+    
+    public boolean updateRoom(Room room)
+    {
+        return unitOfWork.update(room, connection);
+    }
+    
+    public boolean updateEmployee(Employee emp)
+    {
+        return unitOfWork.update(emp, connection);
+    }
+    
+    public boolean updateFacility(Facility fac)
+    {
+        return unitOfWork.update(fac, connection);
+    }
+    
+    public boolean updateRoomType(Room room)
+    {
+        return unitOfWork.update(room, connection);
+    }
     public int getNextDataSeqNumber()
     {
         return dataMapper.getNextDataSeqNumber(connection);
@@ -189,11 +248,12 @@ public class DBFacade
     {
         return unitOfWork.add(reservation, connection);
     }
-    
+
     public ArrayList<Integer> getUnavailableRoomsNumbers()
     {
         return dataMapper.getUnavailableRoomsNumbers();
     }
+
     public boolean addNewClient(Client client)
     {
         return unitOfWork.add(client, connection);

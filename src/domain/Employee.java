@@ -21,8 +21,19 @@ public class Employee
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.position = position;
+        this.position = position;        
     }
+
+    public Employee(long id, String firstName, String lastName, String position, String password)
+    {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.position = position;
+        this.password = password;
+    }
+    
+    
 
     public long getId()
     {
@@ -44,6 +55,17 @@ public class Employee
         return position;
     }
 
+    public int getVersionNumber()
+    {
+        return versionNumber;
+    }
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    
     @Override
     public String toString()
     {

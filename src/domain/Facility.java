@@ -39,6 +39,12 @@ public class Facility
         return description;
     }
 
+    public int getVersionNumber()
+    {
+        return versionNumber;
+    }
+    
+
     @Override
     public String toString()
     {
