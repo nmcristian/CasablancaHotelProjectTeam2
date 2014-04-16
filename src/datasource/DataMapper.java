@@ -278,7 +278,7 @@ public class DataMapper
         return result;
     }
 
-    public Client getClientByID(long clientID, Connection connection)
+   public Client getClientByID(long clientID, Connection connection)
     {
         PreparedStatement statement;
         String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, ADDRESS, COUNTRY, EMAIL, TRAVEL_AGENCY, PASSWORD, PHONE, PERSONAL_ID, VERSION_NUMBER FROM CLIENTS "
@@ -301,7 +301,6 @@ public class DataMapper
         }
         return null;
     }
-
     public ArrayList getAllReservations(Connection connection)
     {
         ArrayList result = new ArrayList<>();
