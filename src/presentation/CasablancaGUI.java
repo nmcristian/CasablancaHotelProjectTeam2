@@ -1175,9 +1175,9 @@ public class CasablancaGUI extends javax.swing.JFrame
                         jLabel105.setText("Country");
                         jLabel106.setText("Email");
                         jLabel107.setText("Travel agency");
-                        jLabel108.setText("Password");
+                        jLabel108.setText("Personal ID");
                         jLabel109.setText("Telephone number");
-                        jLabel110.setText("Personal ID");
+                        jLabel110.setText("Password");
                         
                         jLabel105.setVisible(true);
                         jLabel106.setVisible(true);
@@ -1197,11 +1197,13 @@ public class CasablancaGUI extends javax.swing.JFrame
                         jTextField101.setText(temp.get(0));
                         jTextField102.setText(temp.get(1));
                         jTextField103.setText(temp.get(2));
-                        jTextField104.setText(temp.get(4));
-                        jTextField105.setText(temp.get(5));
-                        jTextField106.setText(temp.get(8));
+                        jTextField104.setText(temp.get(3));
+                        jTextField105.setText(temp.get(4));
+                        jTextField106.setText(temp.get(5));
                         jTextField107.setText(temp.get(6));
-                        jTextField108.setText(temp.get(7));
+                        jTextField108.setText(temp.get(9));
+                        jTextField109.setText(temp.get(8));
+                        jPasswordShow.setText(temp.get(7));
                         
                         if (controller.getUserType().equals("Manager") || controller.getUserType().equals("Receptionist"))
                         {
