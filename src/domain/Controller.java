@@ -225,7 +225,7 @@ public class Controller
         }
         return resultToDisplay;
     }
-    
+
     public Room getRoomByRoomNrForEditing(int roomNumber)
     {
         return dbFacade.getRoomByRoomNumber(roomNumber);
@@ -1002,11 +1002,167 @@ public class Controller
 
     public void addClient(String firstName, String lastName, String personalID, String address, String country, String email, String travelAgency, String password, String telephoneNumber)
     {
-        dbFacade.startBusinessProcess("Clients");        
-        dbFacade.addNewClient( new Client( (long) dbFacade.getNextDataSeqNumber(), firstName, lastName, personalID, address, country, email, travelAgency, password, telephoneNumber));
+        dbFacade.startBusinessProcess("Clients");
+        dbFacade.addNewClient(new Client((long) dbFacade.getNextDataSeqNumber(), firstName, lastName, personalID, address, country, email, travelAgency, password, telephoneNumber));
     }
+
     public boolean saveAddedClients()
     {
         return dbFacade.commitBusinessProcess();
+    }
+
+    public ArrayList<String> getInformationAboutSelectedValueInTable(String identifier)
+    {
+        ArrayList result = new ArrayList();
+        switch (searchResultType)
+        {
+            case "Rooms":
+            {
+                Room temp = dbFacade.getRoomByRoomNumber(Integer.parseInt(identifier));
+                result.add(Integer.toString(temp.getRoomNumber()));
+                result.add(temp.getType());
+                result.add(Integer.toString(temp.getCapacity()));
+                result.add(Double.toString(temp.getPricePerNight()));
+                return result;
+            }
+
+            case "Employees":
+            {
+                Employee temp = dbFacade.getEmployeeByID(Integer.parseInt(identifier));
+                result.add(Long.toString(temp.getId()));
+                result.add(temp.getFirstName());
+                result.add(temp.getLastName());
+                result.add(temp.getPosition());
+                return result;
+            }
+
+            case "Clients":
+            {
+                Client temp = dbFacade.getClientByID(Long.parseLong(identifier));
+                result.add(Long.toString(temp.getId()));
+                result.add(temp.getFirstName());
+                result.add(temp.getLastName());
+                result.add(temp.getAddress());
+                result.add(temp.getCountry());
+                result.add(temp.getEmail());
+                result.add(temp.getTravelAgency());
+                result.add(temp.getPassword());
+                result.add(temp.getTelephoneNumber());
+                result.add(temp.getPersonalID());
+                result.add(Double.toString(temp.getIndividualExpenses()));
+                return result;
+            }
+
+            case "Facilities":
+            {
+                Facility temp = dbFacade.getFacilityByName(identifier);
+                result.add(temp.getTitle());
+                result.add(Double.toString(temp.getPrice()));
+                result.add(temp.getDescription());
+                return result;
+            }
+            case "RoomTypes":
+            {
+                Room temp = dbFacade.getRoomTypeByType(identifier);
+                result.add(temp.getType());
+                result.add(Integer.toString(temp.getCapacity()));
+                result.add(Double.toString(temp.getPricePerNight()));
+                return result;
+            }
+
+        }
+        return result;
+    }
+
+    public boolean delete(String pk)
+    {
+        switch (searchResultType)
+        {
+            case "Reservations":
+            {
+                Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
+                return dbFacade.deleteReservation(reservation);
+            }
+            case "Clients":
+            {
+                Client client = dbFacade.getClientByID(Long.parseLong(pk));
+                return dbFacade.deleteClient(client);
+            }
+            case "Rooms":
+            {
+                Room room = dbFacade.getRoomByRoomNumber(Integer.parseInt(pk));
+                return dbFacade.deleteRoom(room);
+            }
+            case "Employees":
+            {
+                Employee emp = dbFacade.getEmployeeByID(Integer.parseInt(pk));
+                return dbFacade.deleteEmployee(emp);
+            }
+            case "Facilities":
+            {
+                Facility fac = dbFacade.getFacilityByName(pk);
+                return dbFacade.deleteFacility(fac);
+            }
+            case "FacilityReservations":
+            {
+                FacilityReservation facR = dbFacade.getFacilityReservationByID(Integer.parseInt(pk));
+                return dbFacade.deleteFacilityResrvation(facR);
+            }
+            case "RoomTypes":
+            {
+                Room room = dbFacade.getRoomTypeByType(pk);
+                return dbFacade.deleteRoomType(room);
+            }
+            default:
+            {
+                return false;
+            }
+        }
+    }
+
+    public boolean update(String pk)
+    {
+        switch (searchResultType)
+        {
+            case "Reservations":
+            {
+//                Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
+//                return dbFacade.updateReservation(reservation);
+            }
+            case "Clients":
+            {
+                Client client = dbFacade.getClientByID(Long.parseLong(pk));
+                return dbFacade.updateClient(client);
+            }
+            case "Rooms":
+            {
+                Room room = dbFacade.getRoomByRoomNumber(Integer.parseInt(pk));
+                return dbFacade.updateRoom(room);
+            }
+            case "Employees":
+            {
+                Employee emp = dbFacade.getEmployeeByID(Integer.parseInt(pk));
+                return dbFacade.updateEmployee(emp);
+            }
+            case "Facilities":
+            {
+                Facility fac = dbFacade.getFacilityByName(pk);
+                return dbFacade.updateFacility(fac);
+            }
+            case "FacilityReservations":
+            {
+//                FacilityReservation facR = dbFacade.getFacilityReservationByID(Integer.parseInt(pk));
+//                return dbFacade.updateFacilityResrvation(facR);
+            }
+            case "RoomTypes":
+            {
+                Room room = dbFacade.getRoomTypeByType(pk);
+                return dbFacade.updateRoomType(room);
+            }
+            default:
+            {
+                return false;
+            }
+        }
     }
 }

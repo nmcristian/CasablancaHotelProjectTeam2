@@ -19,6 +19,22 @@ public class Client
         this.lastName = lastName;
         this.country = country;
     }
+    
+    public Client( long id, String firstName, String lastName, String address, String country, String email, String travelAgency, String password, String telephoneNumber, String personalID, int versionNumber, double individualExpenses)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.country = country;
+        this.email = email;
+        this.travelAgency = travelAgency;
+        this.password = password;
+        this.telephoneNumber = telephoneNumber;
+        this.personalID = personalID;
+        this.versionNumber = versionNumber;
+        this.id = id;
+        this.individualExpenses = individualExpenses;
+    }
 
     public String getPersonalID()
     {

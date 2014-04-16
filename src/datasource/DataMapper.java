@@ -278,10 +278,10 @@ public class DataMapper
         return result;
     }
 
-    public Client getClientByID(long clientID, Connection connection)
+   public Client getClientByID(long clientID, Connection connection)
     {
         PreparedStatement statement;
-        String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, COUNTRY FROM CLIENTS "
+        String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, PERSONAL_ID, ADDRESS, COUNTRY, TRAVEL_AGENCY, PHONE, EMAIL, PASSWORD, VERSION_NUMBER FROM CLIENTS "
                 + "WHERE ID = ?";
 
         try
@@ -291,17 +291,16 @@ public class DataMapper
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                return new Client(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                return new Client(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), 0);
             }
             statement.close();
         } catch (SQLException ex)
         {
-            System.out.println("Fail in DataMapper - getAllClients");
+            System.out.println("Fail in DataMapper - getClientById");
             Logger.getLogger(DataMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
     public ArrayList getAllReservations(Connection connection)
     {
         ArrayList result = new ArrayList<>();
