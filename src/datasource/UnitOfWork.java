@@ -38,7 +38,7 @@ public class UnitOfWork
             return false;
         }
     }
-    
+
     public boolean delete(Object o, Connection connection)
     {
         // if not already registered in any list
@@ -51,7 +51,7 @@ public class UnitOfWork
             return false;
         }
     }
-    
+
     public boolean update(Object o, Connection connection)
     {
         // if not already registered in any list
@@ -64,8 +64,6 @@ public class UnitOfWork
             return false;
         }
     }
-    
-    
 
     public boolean commit(Connection connection)
     {
@@ -85,41 +83,47 @@ public class UnitOfWork
                 case "Clients":
                 {
                     status = status && dataMapper.insertClients(newData, connection);
-                    status = status && dataMapper.updateClients(dirtyData, connection);
-                    status = status && dataMapper.deleteClients(filthyData, connection);
+                    if (dirtyData.size() != 0)
+                    {
+                        status = status && dataMapper.updateClients(dirtyData, connection);
+                    }
+                    if (filthyData.size() != 0)
+                    {
+                        status = status && dataMapper.deleteClients(filthyData, connection);
+                    }
                     break;
                 }
                 case "Employees":
                 {
-   //                 status = status && dataMapper.insertEmployees(newData, connection);
+                    //                 status = status && dataMapper.insertEmployees(newData, connection);
                     status = status && dataMapper.updateEmployees(dirtyData, connection);
                     status = status && dataMapper.deleteEmployees(filthyData, connection);
                     break;
                 }
                 case "Rooms":
                 {
-   //                 status = status && dataMapper.insertEmployees(newData, connection);
+                    //                 status = status && dataMapper.insertEmployees(newData, connection);
                     status = status && dataMapper.updateRooms(dirtyData, connection);
                     status = status && dataMapper.deleteRooms(filthyData, connection);
                     break;
                 }
                 case "RoomTypes":
                 {
-   //                 status = status && dataMapper.insertEmployees(newData, connection);
+                    //                 status = status && dataMapper.insertEmployees(newData, connection);
                     status = status && dataMapper.updateRoomTypes(dirtyData, connection);
                     status = status && dataMapper.deleteRoomTypes(filthyData, connection);
                     break;
                 }
                 case "Facilities":
                 {
-   //                 status = status && dataMapper.insertEmployees(newData, connection);
+                    //                 status = status && dataMapper.insertEmployees(newData, connection);
                     status = status && dataMapper.updateFacilities(dirtyData, connection);
                     status = status && dataMapper.deleteFacilities(filthyData, connection);
                     break;
                 }
                 case "FacilityReservations":
                 {
-   //                 status = status && dataMapper.insertEmployees(newData, connection);
+                    //                 status = status && dataMapper.insertEmployees(newData, connection);
 //                    status = status && dataMapper.update(dirtyData, connection);
                     status = status && dataMapper.deleteFacilityReservations(filthyData, connection);
                     break;

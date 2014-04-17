@@ -278,7 +278,7 @@ public class DataMapper
         return result;
     }
 
-   public Client getClientByID(long clientID, Connection connection)
+    public Client getClientByID(long clientID, Connection connection)
     {
         PreparedStatement statement;
         String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, ADDRESS, COUNTRY, EMAIL, TRAVEL_AGENCY, PASSWORD, PHONE, PERSONAL_ID, VERSION_NUMBER FROM CLIENTS "
@@ -301,6 +301,7 @@ public class DataMapper
         }
         return null;
     }
+
     public ArrayList getAllReservations(Connection connection)
     {
         ArrayList result = new ArrayList<>();
@@ -681,12 +682,10 @@ public class DataMapper
 
     public boolean insertClients(ArrayList clients, Connection conn)
     {
-        int rowsInserted = 0, totalToBeInserted = clients.size();
-
+        int rowsInserted = 0;
         String sqlString1 = "INSERT INTO CLIENTS VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement statement = null;
-
         try
         {
             for (Object o : clients)
@@ -707,8 +706,8 @@ public class DataMapper
                 statement.setInt(11, 1);
                 rowsInserted += statement.executeUpdate();
 
+                statement.close();
             }
-            statement.close();
         } catch (SQLException ex)
         {
             System.out.println("Fail in DataMapper - addClients");
@@ -720,8 +719,7 @@ public class DataMapper
             System.out.println("insertOrders(): " + (rowsInserted == clients.size())); // for test
         }
 
-        return (rowsInserted == totalToBeInserted);
-
+        return rowsInserted == clients.size();
     }
 
     public boolean deleteReservations(ArrayList reservations, Connection con)
@@ -820,24 +818,15 @@ public class DataMapper
                 statement = con.prepareStatement(sqlString1);
                 statement.setLong(1, client.getId());
                 tuplesDeleted += statement.executeUpdate();
+                statement.close();
             }
         } catch (SQLException e)
         {
             System.out.println("Fail in DataMapper - deleteClients");
             System.out.println(e.getMessage());
             return false;
-        } finally														// must close statement
-        {
-            try
-            {
-                statement.close();
-            } catch (SQLException e)
-            {
-                System.out.println("Fail in DataMapper - deleteClients");
-                System.out.println(e.getMessage());
-                return false;
-            }
         }
+
         return tuplesDeleted == totalToBeDeleted;
     }
 
@@ -1101,8 +1090,10 @@ public class DataMapper
         sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
         sqlString0 += "FOR UPDATE";
         String sqlString1 = "UPDATE CLIENTS "
-                + "SET FIRST_NAME = ?, LAST_NAME = ?, PERSONAL_ID = ?, ADDRESS = ?, COUNTRY = ?, TRAVEL_AGENCY = ? "
+                + "SET FIRST_NAME = ?, LAST_NAME = ?, PERSONAL_ID = ?, ADDRESS = ?, COUNTRY = ?, TRAVEL_AGENCY = ?, "
                 + "PHONE = ?, EMAIL = ?, PASSWORD = ?, VERSION_NUMBER = ? "
+                + "WHERE ID = ?";
+        String sqlString2 = "SELECT VERSION_NUMBER FROM CLIENTS "
                 + "WHERE ID = ?";
 
         PreparedStatement statement = null;
@@ -1110,23 +1101,38 @@ public class DataMapper
         {
             statement = con.prepareStatement(sqlString0);
             statement.executeQuery();
+            int currentVersionNumber;
+            ResultSet rs;
 
             for (Object o : clients)
             {
                 Client client = (Client) o;
-                statement = con.prepareStatement(sqlString1);
-                statement.setString(1, client.getFirstName());
-                statement.setString(2, client.getLastName());
-                statement.setString(3, client.getPersonalID());
-                statement.setString(4, client.getAddress());
-                statement.setString(5, client.getCountry());
-                statement.setString(6, client.getTravelAgency());
-                statement.setString(7, client.getTelephoneNumber());
-                statement.setString(8, client.getEmail());
-                statement.setString(9, client.getPassword());
-                statement.setInt(10, client.getVersionNumber() + 1);
-                statement.setLong(11, client.getId());
-                rowsUpdated = statement.executeUpdate();
+                statement = con.prepareStatement(sqlString2);
+                statement.setLong(1, client.getId());
+                rs = statement.executeQuery();
+                if (rs.next())
+                {
+                    currentVersionNumber = rs.getInt(1);
+                    if (currentVersionNumber == client.getVersionNumber())
+                    {
+                        statement = con.prepareStatement(sqlString1);
+                        statement.setString(1, client.getFirstName());
+                        statement.setString(2, client.getLastName());
+                        statement.setString(3, client.getPersonalID());
+                        statement.setString(4, client.getAddress());
+                        statement.setString(5, client.getCountry());
+                        statement.setString(6, client.getTravelAgency());
+                        statement.setString(7, client.getTelephoneNumber());
+                        statement.setString(8, client.getEmail());
+                        statement.setString(9, client.getPassword());
+                        statement.setInt(10, client.getVersionNumber() + 1);
+                        statement.setLong(11, client.getId());
+                        rowsUpdated = statement.executeUpdate();
+                    } else
+                    {
+                        System.out.println("version nr problem");
+                    }
+                }
             }
 
         } catch (Exception e)
@@ -1276,7 +1282,7 @@ public class DataMapper
         sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
         sqlString0 += "FOR UPDATE";
         String sqlString1 = "UPDATE FACILITIES "
-                + "SET NAME = ?, DESCRIPTION = ?, PRICE = ?, VERSION_NUMBER = ? "
+                + "SET DESCRIPTION = ?, PRICE = ?, VERSION_NUMBER = ? "
                 + "WHERE NAME = ?";
         PreparedStatement statement = null;
         try
@@ -1288,11 +1294,10 @@ public class DataMapper
             {
                 Facility fac = (Facility) o;
                 statement = con.prepareStatement(sqlString1);
-                statement.setString(1, fac.getTitle());
-                statement.setString(2, fac.getDescription());
-                statement.setDouble(3, fac.getPrice());
-                statement.setInt(4, fac.getVersionNumber() + 1);
-                statement.setString(5, fac.getTitle());
+                statement.setString(1, fac.getDescription());
+                statement.setDouble(2, fac.getPrice());
+                statement.setInt(3, fac.getVersionNumber() + 1);
+                statement.setString(4, fac.getTitle());
                 rowsUpdated = statement.executeUpdate();
             }
 

@@ -24,6 +24,7 @@ public class Controller
     private Reservation newReservation;
     private ArrayList searchResultList;
     private Date lastSearchFrom, lastSearchTo;
+    private Object selectedObjectForEditing;
 
     private Controller()
     {
@@ -1019,6 +1020,7 @@ public class Controller
             case "Rooms":
             {
                 Room temp = dbFacade.getRoomByRoomNumber(Integer.parseInt(identifier));
+                selectedObjectForEditing = temp;
                 result.add(Integer.toString(temp.getRoomNumber()));
                 result.add(temp.getType());
                 result.add(Integer.toString(temp.getCapacity()));
@@ -1029,6 +1031,7 @@ public class Controller
             case "Employees":
             {
                 Employee temp = dbFacade.getEmployeeByID(Integer.parseInt(identifier));
+                selectedObjectForEditing = temp;
                 result.add(Long.toString(temp.getId()));
                 result.add(temp.getFirstName());
                 result.add(temp.getLastName());
@@ -1039,6 +1042,7 @@ public class Controller
             case "Clients":
             {
                 Client temp = dbFacade.getClientByID(Long.parseLong(identifier));
+                selectedObjectForEditing = temp;
                 result.add(Long.toString(temp.getId()));
                 result.add(temp.getFirstName());
                 result.add(temp.getLastName());
@@ -1056,6 +1060,7 @@ public class Controller
             case "Facilities":
             {
                 Facility temp = dbFacade.getFacilityByName(identifier);
+                selectedObjectForEditing = temp;
                 result.add(temp.getTitle());
                 result.add(Double.toString(temp.getPrice()));
                 result.add(temp.getDescription());
@@ -1064,6 +1069,7 @@ public class Controller
             case "RoomTypes":
             {
                 Room temp = dbFacade.getRoomTypeByType(identifier);
+                selectedObjectForEditing = temp;
                 result.add(temp.getType());
                 result.add(Integer.toString(temp.getCapacity()));
                 result.add(Double.toString(temp.getPricePerNight()));
@@ -1072,5 +1078,112 @@ public class Controller
 
         }
         return result;
+    }
+
+    public boolean delete(String pk)
+    {
+        dbFacade.startBusinessProcess(searchResultType);
+        switch (searchResultType)
+        {
+            case "Reservations":
+            {
+                Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
+                return dbFacade.deleteReservation(reservation);
+            }
+            case "Clients":
+            {
+                Client client = dbFacade.getClientByID(Long.parseLong(pk));
+                return dbFacade.deleteClient(client) && dbFacade.commitBusinessProcess();
+            }
+            case "Rooms":
+            {
+                Room room = dbFacade.getRoomByRoomNumber(Integer.parseInt(pk));
+                return dbFacade.deleteRoom(room);
+            }
+            case "Employees":
+            {
+                Employee emp = dbFacade.getEmployeeByID(Integer.parseInt(pk));
+                return dbFacade.deleteEmployee(emp);
+            }
+            case "Facilities":
+            {
+                Facility fac = dbFacade.getFacilityByName(pk);
+                return dbFacade.deleteFacility(fac);
+            }
+            case "FacilityReservations":
+            {
+                FacilityReservation facR = dbFacade.getFacilityReservationByID(Integer.parseInt(pk));
+                return dbFacade.deleteFacilityResrvation(facR);
+            }
+            case "RoomTypes":
+            {
+                Room room = dbFacade.getRoomTypeByType(pk);
+                return dbFacade.deleteRoomType(room);
+            }
+            default:
+            {
+                return false;
+            }
+        }
+    }
+
+    public boolean update(String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8, String p9, String p10)
+    {
+        dbFacade.startBusinessProcess(searchResultType);
+        boolean status = true;
+        switch (searchResultType)
+        {
+            case "Reservations":
+            {
+//                Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
+//                return dbFacade.updateReservation(reservation);
+            }
+            case "Clients":
+            {
+                Client client = (Client) selectedObjectForEditing;
+                client.setFirstName(p2);
+                client.setLastName(p3);
+                client.setAddress(p4);
+                client.setCountry(p5);
+                client.setEmail(p6);
+                client.setTravelAgency(p7);
+                client.setPersonalID(p8);
+                client.setTelephoneNumber(p9);
+                client.setPassword(p10);
+                status = status && dbFacade.updateClient(client);
+                break;
+            }
+            /*     case "Rooms":
+             {
+             Room room = dbFacade.getRoomByRoomNumber(Integer.parseInt(pk));
+             return dbFacade.updateRoom(room) && dbFacade.commitBusinessProcess();
+             }
+             case "Employees":
+             {
+             Employee emp = dbFacade.getEmployeeByID(Integer.parseInt(pk));
+             return dbFacade.updateEmployee(emp);
+             }
+             case "Facilities":
+             {
+             Facility fac = dbFacade.getFacilityByName(pk);
+             return dbFacade.updateFacility(fac);
+             }
+             case "FacilityReservations":
+             {
+             //                FacilityReservation facR = dbFacade.getFacilityReservationByID(Integer.parseInt(pk));
+             //                return dbFacade.updateFacilityResrvation(facR);
+             }
+             case "RoomTypes":
+             {
+             Room room = dbFacade.getRoomTypeByType(pk);
+             return dbFacade.updateRoomType(room);
+             } */
+            default:
+            {
+                return false;
+            }
+        }
+        status = status && dbFacade.commitBusinessProcess();
+        return status;
     }
 }

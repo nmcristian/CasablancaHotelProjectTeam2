@@ -148,5 +148,51 @@ public class Client
     public void setVersionNumber(int versionNumber)
     {
         this.versionNumber = versionNumber;
-    }     
+    }  
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country = country;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public void setTravelAgency(String travelAgency)
+    {
+        this.travelAgency = travelAgency;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber)
+    {
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public void setIndividualExpenses(double individualExpenses)
+    {
+        this.individualExpenses = individualExpenses;
+    }
+    
 }
