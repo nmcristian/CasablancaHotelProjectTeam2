@@ -1080,54 +1080,8 @@ public class Controller
         return result;
     }
 
+    // it has to be modified after the methods from unit of work and datamapper will be adapted to support deletion of primary keys, not objects
     public boolean delete(String pk)
-    {
-        dbFacade.startBusinessProcess(searchResultType);
-        switch (searchResultType)
-        {
-            case "Reservations":
-            {
-                Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
-                return dbFacade.deleteReservation(reservation);
-            }
-            case "Clients":
-            {
-                Client client = dbFacade.getClientByID(Long.parseLong(pk));
-                return dbFacade.deleteClient(client) && dbFacade.commitBusinessProcess();
-            }
-            case "Rooms":
-            {
-                Room room = dbFacade.getRoomByRoomNumber(Integer.parseInt(pk));
-                return dbFacade.deleteRoom(room);
-            }
-            case "Employees":
-            {
-                Employee emp = dbFacade.getEmployeeByID(Long.parseLong(pk));
-                return dbFacade.deleteEmployee(emp);
-            }
-            case "Facilities":
-            {
-                Facility fac = dbFacade.getFacilityByName(pk);
-                return dbFacade.deleteFacility(fac);
-            }
-            case "FacilityReservations":
-            {
-                FacilityReservation facR = dbFacade.getFacilityReservationByID(Integer.parseInt(pk));
-                return dbFacade.deleteFacilityResrvation(facR);
-            }
-            case "RoomTypes":
-            {
-                Room room = dbFacade.getRoomTypeByType(pk);
-                return dbFacade.deleteRoomType(room);
-            }
-            default:
-            {
-                return false;
-            }
-        }
-    }
-
-    public boolean update(String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8, String p9, String p10)
     {
         dbFacade.startBusinessProcess(searchResultType);
         boolean status = true;
@@ -1135,9 +1089,68 @@ public class Controller
         {
             case "Reservations":
             {
+                Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
+                status = status && dbFacade.deleteReservation(reservation);
+            }
+            break;
+            case "Clients":
+            {
+                Client client = dbFacade.getClientByID(Long.parseLong(pk));
+                status = status && dbFacade.deleteClient(client);
+            }
+            break;
+            case "Rooms":
+            {
+                Room room = dbFacade.getRoomByRoomNumber(Integer.parseInt(pk));
+                status = status && dbFacade.deleteRoom(room);
+            }
+            break;
+            case "Employees":
+            {
+                Employee emp = dbFacade.getEmployeeByID(Long.parseLong(pk));
+                status = status && dbFacade.deleteEmployee(emp);
+            }
+            break;
+            case "Facilities":
+            {
+                Facility fac = dbFacade.getFacilityByName(pk);
+                status = status && dbFacade.deleteFacility(fac);
+            }
+            break;
+            case "FacilityReservations":
+            {
+                FacilityReservation facR = dbFacade.getFacilityReservationByID(Integer.parseInt(pk));
+                status = status && dbFacade.deleteFacilityResrvation(facR);
+            }
+            break;
+            case "RoomTypes":
+            {
+                Room room = dbFacade.getRoomTypeByType(pk);
+                status = status && dbFacade.deleteRoomType(room);
+            }
+            break;
+            default:
+            {
+                return false;
+            }
+        }
+        status = status && dbFacade.commitBusinessProcess();
+        return status;
+    }
+
+    // needs to be completeeeed!
+    public boolean update(String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8, String p9, String p10)
+    {
+        dbFacade.startBusinessProcess(searchResultType);
+        boolean status = true;
+        switch (searchResultType)
+        {
+//            case "Reservations":
+//            {
 //                Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
 //                return dbFacade.updateReservation(reservation);
-            }
+//            }
+//            break;
             case "Clients":
             {
                 Client client = (Client) selectedObjectForEditing;
