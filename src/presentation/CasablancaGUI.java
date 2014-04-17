@@ -27,30 +27,8 @@ public class CasablancaGUI extends javax.swing.JFrame
         initializeLoginScreen();
         reservationForm = null;
         datesNotChanged = false;
-        
-        jLabel101.setVisible(false);
-        jLabel102.setVisible(false);
-        jLabel103.setVisible(false);
-        jLabel104.setVisible(false);
-        jLabel105.setVisible(false);
-        jLabel106.setVisible(false);
-        jLabel107.setVisible(false);
-        jLabel108.setVisible(false);
-        jLabel109.setVisible(false);
-        jLabel110.setVisible(false);
-        jLabelPassword.setVisible(false);
 
-        jTextField101.setVisible(false);
-        jTextField102.setVisible(false);
-        jTextField103.setVisible(false);
-        jTextField104.setVisible(false);
-        jTextField105.setVisible(false);
-        jTextField106.setVisible(false);
-        jTextField107.setVisible(false);
-        jTextField108.setVisible(false);
-        jTextField109.setVisible(false);
-        jTextField110.setVisible(false);
-        jPasswordShow.setVisible(false);
+        jPanelDetails.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -782,7 +760,6 @@ public class CasablancaGUI extends javax.swing.JFrame
         jMenuItem3.setEnabled(false);
         jLogLabel.setText(null);
 
-        
     }
 
     private void initializePresentationScreen()
@@ -1434,8 +1411,11 @@ public class CasablancaGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTable1MouseReleased
         if (evt.getClickCount() == 2)
         {
+
             if (jTable1.getSelectedRow() != -1)
             {
+
+                jPanelDetails.setVisible(true);
                 showDetails();
             }
         } else
@@ -1560,7 +1540,7 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
     {//GEN-HEADEREND:event_jComboBox1ActionPerformed
-         if (jComboBox1.getSelectedIndex() != -1)
+        if (jComboBox1.getSelectedIndex() != -1)
         {
             setupCriteriaComboBox(controller.getUserType(), jComboBox1.getSelectedItem().toString());
             jSearchButton.setEnabled(true);
@@ -1582,6 +1562,9 @@ public class CasablancaGUI extends javax.swing.JFrame
                 }
             } else if (jComboBox1.getSelectedItem().toString().equals("Add new client"))
             {
+
+                jPanelDetails.setVisible(true);
+
                 lastAddAction = "Add new client";
                 jSearchButton.setEnabled(false);
 
@@ -1596,7 +1579,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField109.setVisible(true);
                 jTextField110.setVisible(false);
                 jPasswordShow.setVisible(false);
-                
+
                 jTextField101.setText(null);
                 jTextField102.setText(null);
                 jTextField103.setText(null);
