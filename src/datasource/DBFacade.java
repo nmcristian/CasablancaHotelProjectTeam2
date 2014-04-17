@@ -68,7 +68,7 @@ public class DBFacade
         return true;
     }
 
-    public boolean checkUserLogin(String username, String password)
+    public boolean checkUserLogin(Long username, String password)
     {
         return dataMapper.checkUserLogin(username, password, connection);
     }
@@ -113,7 +113,7 @@ public class DBFacade
         return dataMapper.getAllEmployees(connection);
     }
 
-    public Employee getEmployeeByID(int employeeID)
+    public Employee getEmployeeByID(Long employeeID)
     {
         return dataMapper.getEmployeeByID(employeeID, connection);
     }

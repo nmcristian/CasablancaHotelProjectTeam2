@@ -152,7 +152,7 @@ public class Controller
     public boolean checkUserLogin()
     {
         boolean result;
-        result = dbFacade.checkUserLogin(username, password);
+        result = dbFacade.checkUserLogin(Long.parseLong(username), password);
         userType = dbFacade.getUserType();
         return result;
     }
@@ -1004,7 +1004,7 @@ public class Controller
     public void addClient(String firstName, String lastName, String personalID, String address, String country, String email, String travelAgency, String password, String telephoneNumber)
     {
         dbFacade.startBusinessProcess("Clients");
-        dbFacade.addNewClient(new Client((long) dbFacade.getNextDataSeqNumber(), firstName, lastName, personalID, address, country, email, travelAgency, password, telephoneNumber));
+        dbFacade.addNewClient(new Client((long) dbFacade.getNextDataSeqNumber(), firstName, lastName, address, country, email, travelAgency, password, telephoneNumber, personalID, 1, 0));
     }
 
     public boolean saveAddedClients()
@@ -1030,7 +1030,7 @@ public class Controller
 
             case "Employees":
             {
-                Employee temp = dbFacade.getEmployeeByID(Integer.parseInt(identifier));
+                Employee temp = dbFacade.getEmployeeByID(Long.parseLong(identifier));
                 selectedObjectForEditing = temp;
                 result.add(Long.toString(temp.getId()));
                 result.add(temp.getFirstName());
@@ -1102,7 +1102,7 @@ public class Controller
             }
             case "Employees":
             {
-                Employee emp = dbFacade.getEmployeeByID(Integer.parseInt(pk));
+                Employee emp = dbFacade.getEmployeeByID(Long.parseLong(pk));
                 return dbFacade.deleteEmployee(emp);
             }
             case "Facilities":

@@ -20,7 +20,7 @@ public class DataMapper
     private ArrayList<Integer> unavailableRoomsNumbers;
     Scanner scan = new Scanner(System.in);
 
-    public boolean checkUserLogin(String username, String password, Connection connection)
+    public boolean checkUserLogin(Long username, String password, Connection connection)
     {
         userType = null;
         String sqlString1 = "SELECT POSITION, PASSWORD FROM EMPLOYEES "
@@ -31,7 +31,7 @@ public class DataMapper
         try
         {
             statement = connection.prepareStatement(sqlString1);
-            statement.setString(1, username);
+            statement.setLong(1, username);
 
             ResultSet rs = statement.executeQuery();
             if (rs.next())
@@ -44,7 +44,7 @@ public class DataMapper
             } else
             {
                 statement = connection.prepareStatement(sqlString2);
-                statement.setString(1, username);
+                statement.setLong(1, username);
 
                 rs = statement.executeQuery();
                 if (rs.next())
@@ -447,21 +447,21 @@ public class DataMapper
         return result;
     }
 
-    public Employee getEmployeeByID(int employeeID, Connection connection)
+    public Employee getEmployeeByID(Long employeeID, Connection connection)
     {
         Employee employee = null;
         PreparedStatement statement;
-        String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, POSITION FROM EMPLOYEES "
+        String sqlString = "SELECT ID, FIRST_NAME, LAST_NAME, ADDRESS, COUNTRY, EMAIL, POSITION, PASSWORD, PHONE, PERSONAL_ID, VERSION_NUMBER, SALARY FROM EMPLOYEES "
                 + "WHERE ID = ?";
 
         try
         {
             statement = connection.prepareStatement(sqlString);
-            statement.setInt(1, employeeID);
+            statement.setLong(1, employeeID);
             ResultSet rs = statement.executeQuery();
             if (rs.next())
             {
-                employee = new Employee(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                employee = new Employee(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getInt(11), rs.getDouble(12));
             }
             statement.close();
         } catch (SQLException ex)

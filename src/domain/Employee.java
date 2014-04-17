@@ -7,9 +7,10 @@ package domain;
 public class Employee
 {
 
+    private String firstName, lastName, address, country, email, position, password, telephoneNumber, personalID;
     private int versionNumber;
     private long id;
-    private String firstName, lastName, position, password;
+    private double salary;
 
     public Employee()
     {
@@ -24,17 +25,22 @@ public class Employee
         this.position = position;        
     }
 
-    public Employee(long id, String firstName, String lastName, String position, String password)
+    public Employee(long id, String firstName, String lastName, String address, String country, String email, String position, String password, String telephoneNumber, String personalID, int versionNumber, double salary)
     {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
+        this.country = country;
+        this.email = email;
         this.position = position;
         this.password = password;
+        this.telephoneNumber = telephoneNumber;
+        this.personalID = personalID;
+        this.versionNumber = versionNumber;
+        this.salary = salary;
     }
     
-    
-
     public long getId()
     {
         return id;
@@ -65,6 +71,35 @@ public class Employee
         return password;
     }
 
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public String getCountry()
+    {
+        return country;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public String getTelephoneNumber()
+    {
+        return telephoneNumber;
+    }
+
+    public String getPersonalID()
+    {
+        return personalID;
+    }
+
+    public double getSalary()
+    {
+        return salary;
+    }
     
     @Override
     public String toString()

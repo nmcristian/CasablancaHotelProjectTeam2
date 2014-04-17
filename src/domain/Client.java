@@ -23,6 +23,7 @@ public class Client
     
     public Client(long id, String firstName, String lastName, String address, String country, String email, String travelAgency, String password, String telephoneNumber, String personalID, int versionNumber, double individualExpenses)
     {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -33,7 +34,6 @@ public class Client
         this.telephoneNumber = telephoneNumber;
         this.personalID = personalID;
         this.versionNumber = versionNumber;
-        this.id = id;
         this.individualExpenses = individualExpenses;
     }
 
@@ -46,20 +46,6 @@ public class Client
     {
         this.personalID = personalID;
     }
-
-    public Client(long id, String firstName, String lastName, String personalID, String address, String country, String email, String travelAgency, String password, String telephoneNumber)
-    {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.country = country;
-        this.email = email;
-        this.travelAgency = travelAgency;
-        this.password = password;
-        this.telephoneNumber = telephoneNumber;
-        this.id = id;
-    }
-
     
     public String getFirstName()
     {
