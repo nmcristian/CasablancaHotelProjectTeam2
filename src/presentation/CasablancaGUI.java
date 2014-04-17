@@ -22,6 +22,8 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     public CasablancaGUI()
     {
+        //test for push ! 
+        // delete it after merge
         controller = Controller.getInstance();
         initComponents();
         initializeLoginScreen();
