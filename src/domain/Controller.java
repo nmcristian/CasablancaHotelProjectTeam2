@@ -1035,7 +1035,14 @@ public class Controller
                 result.add(Long.toString(temp.getId()));
                 result.add(temp.getFirstName());
                 result.add(temp.getLastName());
+                result.add(temp.getAddress());
+                result.add(temp.getCountry());
+                result.add(temp.getEmail());
                 result.add(temp.getPosition());
+                result.add(temp.getPassword());
+                result.add(temp.getTelephoneNumber());
+                result.add(temp.getPersonalID());
+                result.add(Double.toString(temp.getSalary()));
                 return result;
             }
 
