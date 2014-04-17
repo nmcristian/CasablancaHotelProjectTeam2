@@ -1422,6 +1422,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         {
             jButtonAddToReservation.setEnabled(false);
             jButtonEdit.setEnabled(false);
+            
         }
     }//GEN-LAST:event_jTable1MouseReleased
 
