@@ -1150,6 +1150,7 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void showDetails()
     {
+        jButtonAddToReservation.setEnabled(false);
         switch (controller.getSearchResultType())
         {
             case "Rooms":
@@ -1191,17 +1192,17 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField103.setText(temp.get(2));
                 jTextField104.setText(temp.get(3));
 
-                if (controller.getUserType().equals("Manager"))
+                if (controller.getUserType().equals("Manager") || controller.getUserType().equals("Receptionist"))
                 {
                     if (controller.currentReservationCreationState() && datesNotChanged)
                     {
                         jButtonAddToReservation.setEnabled(true);
                     }
-                    jButtonEdit.setEnabled(true);
-                } else
-                {
-                    jButtonAddToReservation.setEnabled(true);
-                    //jButtonEdit.setEnabled(false);
+                    if (controller.getUserType().equals("Manager"))
+                    {
+                        jButtonEdit.setEnabled(true);
+                        jButtonDelete.setEnabled(true);
+                    }
                 }
             }
             break;
@@ -1413,10 +1414,8 @@ public class CasablancaGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTable1MouseReleased
         if (evt.getClickCount() == 2)
         {
-
             if (jTable1.getSelectedRow() != -1)
             {
-
                 jPanelDetails.setVisible(true);
                 showDetails();
             }
@@ -1424,7 +1423,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         {
             jButtonAddToReservation.setEnabled(false);
             jButtonEdit.setEnabled(false);
-            
+            jButtonDelete.setEnabled(false);
         }
     }//GEN-LAST:event_jTable1MouseReleased
 
@@ -1671,7 +1670,7 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void jButtonSaveChangesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSaveChangesActionPerformed
     {//GEN-HEADEREND:event_jButtonSaveChangesActionPerformed
-        if (controller.update(null, jTextField102.getText(), jTextField103.getText(), jTextField104.getText(), jTextField105.getText(), jTextField106.getText(), jTextField107.getText(), jTextField108.getText(), jTextField109.getText(), jPasswordField.getPassword() + ""))
+        if (controller.update(null, jTextField102.getText(), jTextField103.getText(), jTextField104.getText(), jTextField105.getText(), jTextField106.getText(), jTextField107.getText(), jTextField108.getText(), jTextField109.getText(), jTextField110.getText(), jPasswordField.getPassword() + ""))
         {
             jLogLabel2.setForeground(Color.black);
             jLogLabel2.setText("Changes saved successfully!");

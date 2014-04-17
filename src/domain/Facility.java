@@ -24,6 +24,21 @@ public class Facility
         }
     }
 
+    public void setPrice(double price)
+    {
+        this.price = price;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
     public double getPrice()
     {
         return price;

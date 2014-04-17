@@ -1014,7 +1014,7 @@ public class Controller
 
     public ArrayList<String> getInformationAboutSelectedValueInTable(String identifier)
     {
-        ArrayList result = new ArrayList();
+        ArrayList<String> result = new ArrayList();
         switch (searchResultType)
         {
             case "Rooms":
@@ -1145,8 +1145,8 @@ public class Controller
         return status;
     }
 
-    // needs to be completeeeed!
-    public boolean update(String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8, String p9, String p10)
+    // needs to be modified for reservations & facility reservations
+    public boolean update(String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8, String p9, String p10, String p11)
     {
         dbFacade.startBusinessProcess(searchResultType);
         boolean status = true;
@@ -1154,8 +1154,9 @@ public class Controller
         {
 //            case "Reservations":
 //            {
-//                Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
-//                return dbFacade.updateReservation(reservation);
+//                Reservation reservation = (Reservation) selectedObjectForEditing;
+//                
+//                status = status && dbFacade.updateReservation(reservation);
 //            }
 //            break;
             case "Clients":
@@ -1171,33 +1172,60 @@ public class Controller
                 client.setTelephoneNumber(p9);
                 client.setPassword(p10);
                 status = status && dbFacade.updateClient(client);
-                break;
             }
-            /*     case "Rooms":
-             {
-             Room room = dbFacade.getRoomByRoomNumber(Integer.parseInt(pk));
-             return dbFacade.updateRoom(room) && dbFacade.commitBusinessProcess();
-             }
-             case "Employees":
-             {
-             Employee emp = dbFacade.getEmployeeByID(Integer.parseInt(pk));
-             return dbFacade.updateEmployee(emp);
-             }
-             case "Facilities":
-             {
-             Facility fac = dbFacade.getFacilityByName(pk);
-             return dbFacade.updateFacility(fac);
-             }
-             case "FacilityReservations":
-             {
-             //                FacilityReservation facR = dbFacade.getFacilityReservationByID(Integer.parseInt(pk));
-             //                return dbFacade.updateFacilityResrvation(facR);
-             }
-             case "RoomTypes":
-             {
-             Room room = dbFacade.getRoomTypeByType(pk);
-             return dbFacade.updateRoomType(room);
-             } */
+            break;
+            case "Rooms":
+            {
+                Room room = (Room) selectedObjectForEditing;
+                room.setRoomNumber(Integer.parseInt(p1));
+                room.setType(p2);
+                room.setCapacity(Integer.parseInt(p3));
+                room.setPricePerNight(Double.parseDouble(p4));
+                status = status && dbFacade.updateRoom(room);
+            }
+            break;
+            case "Employees":
+            {
+                Employee emp = (Employee) selectedObjectForEditing;
+                emp.setFirstName(p2);
+                emp.setLastName(p3);
+                emp.setAddress(p4);
+                emp.setCountry(p5);
+                emp.setEmail(p6);
+                emp.setPosition(p7);
+                emp.setTelephoneNumber(p8);
+                emp.setPersonalID(p9);
+                emp.setSalary(Double.parseDouble(p10));
+                emp.setPassword(p11);
+                status = status && dbFacade.updateEmployee(emp);
+            }
+            break;
+            case "Facilities":
+            {
+                Facility fac = (Facility) selectedObjectForEditing;
+                fac.setTitle(p1);
+                fac.setPrice(Double.parseDouble(p2));
+                fac.setDescription(p3);
+                status = status && dbFacade.updateFacility(fac);
+            }
+            break;
+//            case "FacilityReservations":
+//            {
+//                FacilityReservation facR = (FacilityReservation) selectedObjectForEditing;
+//                
+//                status = status && dbFacade.updateFacilityReservation(facR);
+//            }
+//            break;
+            case "RoomTypes":
+            {
+                Room room = (Room) selectedObjectForEditing;
+                room.setType(p1);
+                room.setCapacity(Integer.parseInt(p2));
+                room.setPricePerNight(Double.parseDouble(p3));
+                status = status && dbFacade.updateRoomType(room);
+            }
+            break;
+
             default:
             {
                 return false;

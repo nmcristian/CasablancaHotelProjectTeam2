@@ -40,6 +40,56 @@ public class Employee
         this.versionNumber = versionNumber;
         this.salary = salary;
     }
+
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country = country;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public void setPosition(String position)
+    {
+        this.position = position;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber)
+    {
+        this.telephoneNumber = telephoneNumber;
+    }
+
+    public void setPersonalID(String personalID)
+    {
+        this.personalID = personalID;
+    }
+
+    public void setSalary(double salary)
+    {
+        this.salary = salary;
+    }
     
     public long getId()
     {

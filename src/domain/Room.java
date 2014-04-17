@@ -53,6 +53,26 @@ public class Room
         this.endingDate = endingDate;
     }
 
+    public void setRoomNumber(int roomNumber)
+    {
+        this.roomNumber = roomNumber;
+    }
+
+    public void setCapacity(int capacity)
+    {
+        this.capacity = capacity;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+    public void setPricePerNight(double pricePerNight)
+    {
+        this.pricePerNight = pricePerNight;
+    }
+
     public int getVersionNumber()
     {
         return versionNumber;
