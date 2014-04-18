@@ -795,6 +795,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         switch (userType)
         {
             case "Receptionist":
+            case "Manager":
                 actionComboBoxItems = new String[9];
                 actionComboBoxItems[0] = "Add new reservation";
                 actionComboBoxItems[1] = "Add new client";
@@ -823,6 +824,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         switch (userType)
         {
             case "Receptionist":
+            case "Manager":
                 switch (actionType)
                 {
                     case "List rooms":
@@ -1023,6 +1025,9 @@ public class CasablancaGUI extends javax.swing.JFrame
                 if (controller.getLastSearchFrom() != null && controller.getLastSearchTo() != null)
                 {
                     jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
+                } else
+                {
+                    jTable1.removeRowSelectionInterval(jTable1.getSelectedRow(), jTable1.getSelectedRow());
                 }
                 break;
             }
