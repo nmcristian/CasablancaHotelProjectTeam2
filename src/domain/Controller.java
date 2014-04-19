@@ -1177,7 +1177,6 @@ public class Controller
             case "Rooms":
             {
                 Room room = (Room) selectedObjectForEditing;
-                room.setRoomNumber(Integer.parseInt(p1));
                 room.setType(p2);
                 room.setCapacity(Integer.parseInt(p3));
                 room.setPricePerNight(Double.parseDouble(p4));
@@ -1203,7 +1202,6 @@ public class Controller
             case "Facilities":
             {
                 Facility fac = (Facility) selectedObjectForEditing;
-                fac.setTitle(p1);
                 fac.setPrice(Double.parseDouble(p2));
                 fac.setDescription(p3);
                 status = status && dbFacade.updateFacility(fac);
@@ -1219,7 +1217,6 @@ public class Controller
             case "RoomTypes":
             {
                 Room room = (Room) selectedObjectForEditing;
-                room.setType(p1);
                 room.setCapacity(Integer.parseInt(p2));
                 room.setPricePerNight(Double.parseDouble(p3));
                 status = status && dbFacade.updateRoomType(room);

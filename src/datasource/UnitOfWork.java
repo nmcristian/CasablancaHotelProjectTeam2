@@ -77,7 +77,7 @@ public class UnitOfWork
                 case "Reservations":
                 {
                     status = status && dataMapper.insertReservations(newData, connection);
-                    if (filthyData.size() != 0)
+                    if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteReservations(filthyData, connection);
                     }
@@ -86,11 +86,11 @@ public class UnitOfWork
                 case "Clients":
                 {
                     status = status && dataMapper.insertClients(newData, connection);
-                    if (dirtyData.size() != 0)
+                    if (!dirtyData.isEmpty())
                     {
                         status = status && dataMapper.updateClients(dirtyData, connection);
                     }
-                    if (filthyData.size() != 0)
+                    if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteClients(filthyData, connection);
                     }
@@ -99,11 +99,11 @@ public class UnitOfWork
                 case "Employees":
                 {
                     //                 status = status && dataMapper.insertEmployees(newData, connection);
-                    if (dirtyData.size() != 0)
+                    if (!dirtyData.isEmpty())
                     {
                         status = status && dataMapper.updateEmployees(dirtyData, connection);
                     }
-                    if (filthyData.size() != 0)
+                    if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteEmployees(filthyData, connection);
                     }
@@ -112,11 +112,11 @@ public class UnitOfWork
                 case "Rooms":
                 {
                     //                 status = status && dataMapper.insertEmployees(newData, connection);
-                    if (dirtyData.size() != 0)
+                    if (!dirtyData.isEmpty())
                     {
                         status = status && dataMapper.updateRooms(dirtyData, connection);
                     }
-                    if (filthyData.size() != 0)
+                    if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteRooms(filthyData, connection);
                     }
@@ -125,11 +125,11 @@ public class UnitOfWork
                 case "RoomTypes":
                 {
                     //                 status = status && dataMapper.insertEmployees(newData, connection);
-                    if (dirtyData.size() != 0)
+                    if (!dirtyData.isEmpty())
                     {
                         status = status && dataMapper.updateRoomTypes(dirtyData, connection);
                     }
-                    if (filthyData.size() != 0)
+                    if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteRoomTypes(filthyData, connection);
                     }
@@ -138,11 +138,11 @@ public class UnitOfWork
                 case "Facilities":
                 {
                     //                 status = status && dataMapper.insertEmployees(newData, connection);
-                    if (dirtyData.size() != 0)
+                    if (!dirtyData.isEmpty())
                     {
                         status = status && dataMapper.updateFacilities(dirtyData, connection);
                     }
-                    if (filthyData.size() != 0)
+                    if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteFacilities(filthyData, connection);
                     }
@@ -150,9 +150,9 @@ public class UnitOfWork
                 }
                 case "FacilityReservations":
                 {
-                    //                 status = status && dataMapper.insertEmployees(newData, connection);
+//                    status = status && dataMapper.insertEmployees(newData, connection);
 //                    status = status && dataMapper.update(dirtyData, connection);
-                    if (filthyData.size() != 0)
+                    if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteFacilityReservations(filthyData, connection);
                     }

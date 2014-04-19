@@ -197,7 +197,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLoginDetailsLayeredPaneLayout.createSequentialGroup()
                                 .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jPasswordLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jConnectionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, Short.MAX_VALUE)
+                                    .addComponent(jConnectionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                                     .addComponent(jUsernameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -247,7 +247,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Action:");
 
-        jComboBox1.setMaximumRowCount(9);
+        jComboBox1.setMaximumRowCount(13);
         jComboBox1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -553,7 +553,7 @@ public class CasablancaGUI extends javax.swing.JFrame
             .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPresentationLayeredPaneLayout.createSequentialGroup()
                         .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -795,7 +795,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         switch (userType)
         {
             case "Receptionist":
-            case "Manager":
+                jComboBox1.setMaximumRowCount(9);
                 actionComboBoxItems = new String[9];
                 actionComboBoxItems[0] = "Add new reservation";
                 actionComboBoxItems[1] = "Add new client";
@@ -807,10 +807,30 @@ public class CasablancaGUI extends javax.swing.JFrame
                 actionComboBoxItems[7] = "List room types";
                 actionComboBoxItems[8] = "List employees";
                 break;
+            case "Manager":
+                jComboBox1.setMaximumRowCount(13);
+                actionComboBoxItems = new String[13];
+                actionComboBoxItems[0] = "Add new reservation";
+                actionComboBoxItems[1] = "Add new client";
+                actionComboBoxItems[2] = "Add new employee";
+                actionComboBoxItems[3] = "Add new room";
+                actionComboBoxItems[4] = "Add new room type";
+                actionComboBoxItems[5] = "Add new facility";
+                actionComboBoxItems[6] = "List rooms";
+                actionComboBoxItems[7] = "List clients";
+                actionComboBoxItems[8] = "List reservations";
+                actionComboBoxItems[9] = "List facility reservations";
+                actionComboBoxItems[10] = "List facilities";
+                actionComboBoxItems[11] = "List room types";
+                actionComboBoxItems[12] = "List employees";
+                break;
             case "Client":
-                actionComboBoxItems = new String[2];
+                jComboBox1.setMaximumRowCount(4);
+                actionComboBoxItems = new String[4];
                 actionComboBoxItems[0] = "List facilities";
-                actionComboBoxItems[1] = "List facility reservations";
+                actionComboBoxItems[1] = "List trainers";
+                actionComboBoxItems[2] = "List facility reservations";
+                actionComboBoxItems[3] = "Add facility reservations";
                 break;
         }
 
@@ -1027,15 +1047,22 @@ public class CasablancaGUI extends javax.swing.JFrame
                     jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
                 } else
                 {
-                    jTable1.removeRowSelectionInterval(jTable1.getSelectedRow(), jTable1.getSelectedRow());
+//                    ((CustomTableModel) jTable1.getModel()).removeRow(jTable1.getSelectedRow());
+//                    jTable1.setModel(new CustomTableModel(((CustomTableModel) jTable1.getModel()).getData(), ((CustomTableModel) jTable1.getModel()).getColumnNames()));
+                    jTable1.setModel(new CustomTableModel(((CustomTableModel) jTable1.getModel()).removeRowAndReturnData(jTable1.getSelectedRow()), ((CustomTableModel) jTable1.getModel()).getColumnNames()));
                 }
-                break;
             }
+            break;
             case "Clients":
             {
                 jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
-                break;
             }
+            break;
+            case "Employees":
+            {
+//                jTable1.setModel(new CustomTableModel(((CustomTableModel) jTable1.getModel()).removeRowAndReturnData(jTable1.getSelectedRow()), ((CustomTableModel) jTable1.getModel()).getColumnNames()));
+            }
+            break;
 
             default:
             {
@@ -1675,7 +1702,7 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void jButtonSaveChangesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSaveChangesActionPerformed
     {//GEN-HEADEREND:event_jButtonSaveChangesActionPerformed
-        if (controller.update(null, jTextField102.getText(), jTextField103.getText(), jTextField104.getText(), jTextField105.getText(), jTextField106.getText(), jTextField107.getText(), jTextField108.getText(), jTextField109.getText(), jTextField110.getText(), jPasswordField.getPassword() + ""))
+        if (controller.update(jTextField101.getText(), jTextField102.getText(), jTextField103.getText(), jTextField104.getText(), jTextField105.getText(), jTextField106.getText(), jTextField107.getText(), jTextField108.getText(), jTextField109.getText(), jTextField110.getText(), jPasswordField.getPassword() + ""))
         {
             jLogLabel2.setForeground(Color.black);
             jLogLabel2.setText("Changes saved successfully!");
