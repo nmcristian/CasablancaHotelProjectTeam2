@@ -12,10 +12,13 @@ public class ReservationForm extends javax.swing.JFrame
 
     String[] roomsTableColumnNames, clientsTableColumnNames;
     private Controller controller;
+    private CasablancaGUI mainGUI;
 
     public ReservationForm()
     {
         this.controller = Controller.getInstance();
+        this.mainGUI = CasablancaGUI.getInstance();
+
         initComponents();
         roomsTableColumnNames = new String[]
         {
@@ -62,13 +65,6 @@ public class ReservationForm extends javax.swing.JFrame
             public void windowClosing(java.awt.event.WindowEvent evt)
             {
                 formWindowClosing(evt);
-            }
-        });
-        addFocusListener(new java.awt.event.FocusAdapter()
-        {
-            public void focusGained(java.awt.event.FocusEvent evt)
-            {
-                formFocusGained(evt);
             }
         });
 
@@ -148,7 +144,7 @@ public class ReservationForm extends javax.swing.JFrame
         });
         jScrollPane3.setViewportView(jTable2);
 
-        jTabbedPane1.addTab("Guests", jScrollPane3);
+        jTabbedPane1.addTab("Clients", jScrollPane3);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -256,7 +252,7 @@ public class ReservationForm extends javax.swing.JFrame
             }
             errorMessage = errorMessage.substring(0, errorMessage.length() - 2);
             errorMessage += "!";
-            
+
             // This is to be set on the jLogLabel2 from the main jFrame
             System.out.println(errorMessage);
         }
@@ -268,8 +264,8 @@ public class ReservationForm extends javax.swing.JFrame
         this.dispose();
     }//GEN-LAST:event_jDiscardButtonActionPerformed
 
-    private void formFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_formFocusGained
-    {//GEN-HEADEREND:event_formFocusGained
+    protected void refreshReservationTablesInfo()
+    {
         switch (controller.getSearchResultType())
         {
             case "Rooms":
@@ -285,7 +281,7 @@ public class ReservationForm extends javax.swing.JFrame
             default:
             //do nothing
         }
-    }//GEN-LAST:event_formFocusGained
+    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
     {//GEN-HEADEREND:event_formWindowClosing
@@ -298,8 +294,21 @@ public class ReservationForm extends javax.swing.JFrame
         {
             if (jTable1.getSelectedRow() != -1)
             {
+                if (controller.getSearchResultType().equals("Rooms"))
+                {
+                    if (controller.getLastSearchFrom() == null && controller.getLastSearchTo() == null)
+                    {
+                        mainGUI.addRowAndRefreshTableInfo(((CustomTableModel) jTable1.getModel()).getRow(jTable1.getSelectedRow()));
+                    } else if (controller.getLastSearchFrom().equals(controller.getRoomFromNewReservation(jTable1.getSelectedRow()).getStartingDate())
+                            && controller.getLastSearchTo().equals(controller.getRoomFromNewReservation(jTable1.getSelectedRow()).getEndingDate()))
+                    {
+                        mainGUI.addRowAndRefreshTableInfo(((CustomTableModel) jTable1.getModel()).getRow(jTable1.getSelectedRow()));
+                    }
+                }
+
                 controller.removeRoomFromReservation(jTable1.getSelectedRow());
-                jTable1.setModel(new CustomTableModel(controller.getRoomsFromNewReservation(), roomsTableColumnNames));
+                ((CustomTableModel) jTable1.getModel()).removeRow(jTable1.getSelectedRow());
+                jTable1.setModel(new CustomTableModel(((CustomTableModel) jTable1.getModel()).getData(), ((CustomTableModel) jTable1.getModel()).getColumnNames()));
                 jTextField4.setText(controller.getNewReservationDeposit() + "");
                 jTextField5.setText(controller.getNewReservationTotalPrice() + "");
             }
@@ -312,8 +321,14 @@ public class ReservationForm extends javax.swing.JFrame
         {
             if (jTable2.getSelectedRow() != -1)
             {
+                if (controller.getSearchResultType().equals("Clients"))
+                {
+                    mainGUI.addRowAndRefreshTableInfo(((CustomTableModel) jTable2.getModel()).getRow(jTable2.getSelectedRow()));
+                }
+
                 controller.removeClientFromReservation(jTable2.getSelectedRow());
-                jTable2.setModel(new CustomTableModel(controller.getClientsFromNewReservation(), clientsTableColumnNames));
+                ((CustomTableModel) jTable2.getModel()).removeRow(jTable2.getSelectedRow());
+                jTable2.setModel(new CustomTableModel(((CustomTableModel) jTable2.getModel()).getData(), ((CustomTableModel) jTable2.getModel()).getColumnNames()));
             }
         }
     }//GEN-LAST:event_jTable2KeyReleased

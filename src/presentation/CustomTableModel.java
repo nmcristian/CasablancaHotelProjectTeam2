@@ -54,7 +54,7 @@ public class CustomTableModel extends AbstractTableModel
         return false;
     }
 
-    public Object[][] removeRowAndReturnData(int row)
+    public void removeRow(int row)
     {
         Object[][] newData = new Object[data.length - 1][columnNames.length];
         int j = 0;
@@ -70,6 +70,24 @@ public class CustomTableModel extends AbstractTableModel
                 j++;
             }
         }
-        return newData;
+        data = newData;
+    }
+
+    public Object[] getRow(int rowIndex)
+    {
+        return data[rowIndex];
+    }
+    
+    public void addRow(Object[] row)
+    {
+        Object[][] newData = new Object[data.length + 1][columnNames.length];
+        System.arraycopy(data, 0, newData, 0, data.length);
+        newData[newData.length - 1] = row;
+        data = newData;
+    }
+    
+    public Object[][] getData()
+    {
+        return data;
     }
 }
