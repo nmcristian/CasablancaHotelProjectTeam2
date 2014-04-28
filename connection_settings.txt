@@ -2,5 +2,5 @@ jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat
 cphmn265
 cphmn265
 true
-1003
-casablanca28
+777
+pelo

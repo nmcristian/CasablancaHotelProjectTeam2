@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 
 /**
  *
@@ -16,21 +15,28 @@ public class CasablancaGUI extends javax.swing.JFrame
 {
 
     private Controller controller;
-    private JFrame reservationForm;
+    private ReservationForm reservationForm;
     private boolean datesNotChanged;
     private String lastAddAction;
+    private static CasablancaGUI instance;
 
     public CasablancaGUI()
     {
-        //test for push ! 
-        // delete it after merge
+        instance = null;
         controller = Controller.getInstance();
         initComponents();
         initializeLoginScreen();
         reservationForm = null;
         datesNotChanged = false;
+    }
 
-        jPanelDetails.setVisible(false);
+    protected static CasablancaGUI getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new CasablancaGUI();
+        }
+        return instance;
     }
 
     @SuppressWarnings("unchecked")
@@ -197,7 +203,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLoginDetailsLayeredPaneLayout.createSequentialGroup()
                                 .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jPasswordLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jConnectionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, Short.MAX_VALUE)
+                                    .addComponent(jConnectionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                                     .addComponent(jUsernameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jLoginDetailsLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -247,7 +253,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Action:");
 
-        jComboBox1.setMaximumRowCount(9);
+        jComboBox1.setMaximumRowCount(13);
         jComboBox1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -422,10 +428,6 @@ public class CasablancaGUI extends javax.swing.JFrame
             .addGroup(jPanelDetailsLayout.createSequentialGroup()
                 .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetailsLayout.createSequentialGroup()
-                        .addComponent(jButtonSaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addComponent(jButtonDiscardChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelDetailsLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelDetailsLayout.createSequentialGroup()
@@ -459,7 +461,11 @@ public class CasablancaGUI extends javax.swing.JFrame
                             .addGroup(jPanelDetailsLayout.createSequentialGroup()
                                 .addComponent(jLabel110, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField110)))))
+                                .addComponent(jTextField110))))
+                    .addGroup(jPanelDetailsLayout.createSequentialGroup()
+                        .addComponent(jButtonSaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonDiscardChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanelDetailsLayout.setVerticalGroup(
@@ -468,7 +474,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                 .addContainerGap()
                 .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel101, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField101, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                    .addComponent(jTextField101, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField102, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -509,7 +515,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                 .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPasswordShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonDiscardChanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -553,7 +559,7 @@ public class CasablancaGUI extends javax.swing.JFrame
             .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPresentationLayeredPaneLayout.createSequentialGroup()
                         .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -583,23 +589,21 @@ public class CasablancaGUI extends javax.swing.JFrame
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jSearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))))
-                    .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
-                        .addComponent(jLogLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(103, 103, 103)))
+                    .addComponent(jLogLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
-                        .addComponent(jButtonAddToReservation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAddToReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addComponent(jPanelDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPresentationLayeredPaneLayout.setVerticalGroup(
             jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPresentationLayeredPaneLayout.createSequentialGroup()
+            .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
@@ -624,17 +628,16 @@ public class CasablancaGUI extends javax.swing.JFrame
                             .addComponent(jSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanelDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPresentationLayeredPaneLayout.createSequentialGroup()
-                        .addGap(0, 20, Short.MAX_VALUE)
-                        .addComponent(jLogLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPresentationLayeredPaneLayout.createSequentialGroup()
-                        .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonAddToReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanelDetails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLogLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPresentationLayeredPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonAddToReservation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPresentationLayeredPane.setLayer(jLogLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -721,6 +724,7 @@ public class CasablancaGUI extends javax.swing.JFrame
     private void initializeLoginScreen()
     {
         jPresentationLayeredPane.setVisible(false);
+        jPanelDetails.setVisible(false);
         jLoginDetailsLayeredPane.setVisible(true);
         jConnectionLabel.setVisible(false);
         jConnectionField.setVisible(false);
@@ -748,6 +752,7 @@ public class CasablancaGUI extends javax.swing.JFrame
     private void initializeConnectionSettingsScreen()
     {
         jPresentationLayeredPane.setVisible(false);
+        jPanelDetails.setVisible(false);
         jLoginDetailsLayeredPane.setVisible(true);
         jConnectionField.setText(null);
         jUsernameField.setText(null);
@@ -767,6 +772,7 @@ public class CasablancaGUI extends javax.swing.JFrame
     private void initializePresentationScreen()
     {
         jLoginDetailsLayeredPane.setVisible(false);
+        jPanelDetails.setVisible(false);
         jPresentationLayeredPane.setVisible(true);
         jMenuItem1.setText("Log out");
         jMenuItem1.setEnabled(true);
@@ -795,7 +801,7 @@ public class CasablancaGUI extends javax.swing.JFrame
         switch (userType)
         {
             case "Receptionist":
-            case "Manager":
+                jComboBox1.setMaximumRowCount(9);
                 actionComboBoxItems = new String[9];
                 actionComboBoxItems[0] = "Add new reservation";
                 actionComboBoxItems[1] = "Add new client";
@@ -807,10 +813,30 @@ public class CasablancaGUI extends javax.swing.JFrame
                 actionComboBoxItems[7] = "List room types";
                 actionComboBoxItems[8] = "List employees";
                 break;
+            case "Manager":
+                jComboBox1.setMaximumRowCount(13);
+                actionComboBoxItems = new String[13];
+                actionComboBoxItems[0] = "Add new reservation";
+                actionComboBoxItems[1] = "Add new client";
+                actionComboBoxItems[2] = "Add new employee";
+                actionComboBoxItems[3] = "Add new room";
+                actionComboBoxItems[4] = "Add new room type";
+                actionComboBoxItems[5] = "Add new facility";
+                actionComboBoxItems[6] = "List rooms";
+                actionComboBoxItems[7] = "List clients";
+                actionComboBoxItems[8] = "List reservations";
+                actionComboBoxItems[9] = "List facility reservations";
+                actionComboBoxItems[10] = "List facilities";
+                actionComboBoxItems[11] = "List room types";
+                actionComboBoxItems[12] = "List employees";
+                break;
             case "Client":
-                actionComboBoxItems = new String[2];
+                jComboBox1.setMaximumRowCount(4);
+                actionComboBoxItems = new String[4];
                 actionComboBoxItems[0] = "List facilities";
-                actionComboBoxItems[1] = "List facility reservations";
+                actionComboBoxItems[1] = "List trainers";
+                actionComboBoxItems[2] = "List facility reservations";
+                actionComboBoxItems[3] = "Add facility reservations";
                 break;
         }
 
@@ -1016,39 +1042,17 @@ public class CasablancaGUI extends javax.swing.JFrame
         }
     }//GEN-LAST:event_formComponentMoved
 
-    protected void refreshTableInfo()
+    protected void addRowAndRefreshTableInfo(Object[] row)
     {
-        switch (controller.getSearchResultType())
-        {
-            case "Rooms":
-            {
-                if (controller.getLastSearchFrom() != null && controller.getLastSearchTo() != null)
-                {
-                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
-                } else
-                {
-                    jTable1.removeRowSelectionInterval(jTable1.getSelectedRow(), jTable1.getSelectedRow());
-                }
-                break;
-            }
-            case "Clients":
-            {
-                jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
-                break;
-            }
-
-            default:
-            {
-                //do nothing
-            }
-        }
+        ((CustomTableModel) jTable1.getModel()).addRow(row);
+        jTable1.setModel(new CustomTableModel(((CustomTableModel) jTable1.getModel()).getData(), ((CustomTableModel) jTable1.getModel()).getColumnNames()));
     }
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
     {//GEN-HEADEREND:event_formWindowGainedFocus
         if (controller.getSearchResultCount() != jTable1.getRowCount())
         {
-            refreshTableInfo();
+//            refreshTableInfo();
         }
     }//GEN-LAST:event_formWindowGainedFocus
 
@@ -1069,9 +1073,14 @@ public class CasablancaGUI extends javax.swing.JFrame
                         }
                     }
                     controller.addRoomToReservation(roomNumber);
-                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
+                    jPanelDetails.setVisible(false);
+//                    jTable1.setModel(new CustomTableModel(controller.getRoomsByAvailability(controller.getLastSearchFrom(), controller.getLastSearchTo()), controller.getTableColumnNames()));
+                    ((CustomTableModel) jTable1.getModel()).removeRow(jTable1.getSelectedRow());
+                    jTable1.setModel(new CustomTableModel(((CustomTableModel) jTable1.getModel()).getData(), ((CustomTableModel) jTable1.getModel()).getColumnNames()));
                     jButtonAddToReservation.setEnabled(false);
-                    reservationForm.requestFocus();
+                    jButtonEdit.setEnabled(false);
+                    jButtonDelete.setEnabled(false);
+                    reservationForm.refreshReservationTablesInfo();
                     break;
                 case "Clients":
                     long clientID = 0;
@@ -1084,44 +1093,19 @@ public class CasablancaGUI extends javax.swing.JFrame
                         }
                     }
                     controller.addClientToReservation(clientID);
-                    jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
+                    jPanelDetails.setVisible(false);
+//                    jTable1.setModel(new CustomTableModel(controller.getAllClients(), controller.getTableColumnNames()));
+                    ((CustomTableModel) jTable1.getModel()).removeRow(jTable1.getSelectedRow());
+                    jTable1.setModel(new CustomTableModel(((CustomTableModel) jTable1.getModel()).getData(), ((CustomTableModel) jTable1.getModel()).getColumnNames()));
                     jButtonAddToReservation.setEnabled(false);
-                    reservationForm.requestFocus();
+                    jButtonEdit.setEnabled(false);
+                    jButtonDelete.setEnabled(false);
+                    reservationForm.refreshReservationTablesInfo();
                     break;
                 default:
                 {
+                    System.out.println(controller.getSearchResultType());
                     //do nothing
-                }
-            }
-        } else if (lastAddAction != null)
-        {
-            switch (lastAddAction)
-            {
-                case "Add new client":
-                {
-                    if (jTextField101.getText().equals(""))
-                    {
-                        jLogLabel2.setForeground(Color.red);
-                        jLogLabel2.setText("Enter first name!");
-                    } else if (jTextField102.getText().equals(""))
-                    {
-                        jLogLabel2.setForeground(Color.red);
-                        jLogLabel2.setText("Enter last name!");
-                    } else
-                    {
-                        controller.addClient(jTextField101.getText(), jTextField102.getText(), jTextField103.getText(),
-                                jTextField104.getText(), jTextField105.getText(), jTextField106.getText(),
-                                jTextField107.getText(), jTextField108.getText(), jTextField109.getText());
-                        if (controller.saveAddedClients())
-                        {
-
-                            jLogLabel2.setText("Client added!");
-                        } else
-                        {
-                            jLogLabel2.setText("Failed to add client!");
-                        }
-                    }
-
                 }
             }
         }
@@ -1153,9 +1137,8 @@ public class CasablancaGUI extends javax.swing.JFrame
         //        jTable1.getSelectionModel().clearSelection();
     }//GEN-LAST:event_jXDatePicker1ActionPerformed
 
-    private void showDetails()
+    private void showDetails(String identifier)
     {
-        jButtonAddToReservation.setEnabled(false);
         switch (controller.getSearchResultType())
         {
             case "Rooms":
@@ -1183,6 +1166,11 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField103.setVisible(true);
                 jTextField104.setVisible(true);
 
+                jTextField101.setEditable(false);
+                jTextField102.setEditable(false);
+                jTextField103.setEditable(false);
+                jTextField104.setEditable(false);
+
                 jTextField105.setVisible(false);
                 jTextField106.setVisible(false);
                 jTextField107.setVisible(false);
@@ -1191,7 +1179,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField110.setVisible(false);
                 jPasswordShow.setVisible(false);
 
-                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(identifier);
                 jTextField101.setText(temp.get(0));
                 jTextField102.setText(temp.get(1));
                 jTextField103.setText(temp.get(2));
@@ -1202,12 +1190,24 @@ public class CasablancaGUI extends javax.swing.JFrame
                     if (controller.currentReservationCreationState() && datesNotChanged)
                     {
                         jButtonAddToReservation.setEnabled(true);
+                    } else
+                    {
+                        jButtonAddToReservation.setEnabled(false);
                     }
                     if (controller.getUserType().equals("Manager"))
                     {
                         jButtonEdit.setEnabled(true);
                         jButtonDelete.setEnabled(true);
+                    } else
+                    {
+                        jButtonEdit.setEnabled(false);
+                        jButtonDelete.setEnabled(false);
                     }
+                } else
+                {
+                    jButtonAddToReservation.setEnabled(false);
+                    jButtonEdit.setEnabled(false);
+                    jButtonDelete.setEnabled(false);
                 }
             }
             break;
@@ -1250,7 +1250,19 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField110.setVisible(true);
                 jPasswordShow.setVisible(true);
 
-                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                jTextField101.setEditable(false);
+                jTextField102.setEditable(false);
+                jTextField103.setEditable(false);
+                jTextField104.setEditable(false);
+                jTextField105.setEditable(false);
+                jTextField106.setEditable(false);
+                jTextField107.setEditable(false);
+                jTextField108.setEditable(false);
+                jTextField109.setEditable(false);
+                jTextField110.setEditable(false);
+                jPasswordShow.setEditable(false);
+
+                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(identifier);
                 jTextField101.setText(temp.get(0));
                 jTextField102.setText(temp.get(1));
                 jTextField103.setText(temp.get(2));
@@ -1262,6 +1274,18 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField108.setText(temp.get(8));
                 jTextField109.setText(temp.get(9));
                 jTextField110.setText(temp.get(10));
+
+                if (controller.getUserType().equals("Manager"))
+                {
+                    jButtonEdit.setEnabled(true);
+                    jButtonDelete.setEnabled(true);
+                    jButtonAddToReservation.setEnabled(false);
+                } else
+                {
+                    jButtonEdit.setEnabled(false);
+                    jButtonDelete.setEnabled(false);
+                    jButtonAddToReservation.setEnabled(false);
+                }
             }
             break;
 
@@ -1303,7 +1327,19 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField110.setVisible(true);
                 jPasswordShow.setVisible(true);
 
-                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                jTextField101.setEditable(false);
+                jTextField102.setEditable(false);
+                jTextField103.setEditable(false);
+                jTextField104.setEditable(false);
+                jTextField105.setEditable(false);
+                jTextField106.setEditable(false);
+                jTextField107.setEditable(false);
+                jTextField108.setEditable(false);
+                jTextField109.setEditable(false);
+                jTextField110.setEditable(false);
+                jPasswordShow.setEditable(false);
+
+                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(identifier);
                 jTextField101.setText(temp.get(0));
                 jTextField102.setText(temp.get(1));
                 jTextField103.setText(temp.get(2));
@@ -1321,15 +1357,21 @@ public class CasablancaGUI extends javax.swing.JFrame
                     if (controller.currentReservationCreationState())
                     {
                         jButtonAddToReservation.setEnabled(true);
+                    } else
+                    {
+                        jButtonAddToReservation.setEnabled(false);
                     }
                     jButtonEdit.setEnabled(true);
+                    jButtonDelete.setEnabled(true);
                 } else
                 {
                     jButtonAddToReservation.setEnabled(false);
                     jButtonEdit.setEnabled(false);
+                    jButtonDelete.setEnabled(false);
                 }
                 break;
             }
+
             case "Facilities":
             {
                 jLabel101.setText("Facility type");
@@ -1353,6 +1395,10 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField102.setVisible(true);
                 jTextField103.setVisible(true);
 
+                jTextField101.setEditable(false);
+                jTextField102.setEditable(false);
+                jTextField103.setEditable(false);
+
                 jTextField104.setVisible(false);
                 jTextField105.setVisible(false);
                 jTextField106.setVisible(false);
@@ -1362,10 +1408,22 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField110.setVisible(false);
                 jPasswordShow.setVisible(false);
 
-                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(identifier);
                 jTextField101.setText(temp.get(0));
                 jTextField102.setText(temp.get(1));
                 jTextField103.setText(temp.get(2));
+
+                if (controller.getUserType().equals("Manager"))
+                {
+                    jButtonEdit.setEnabled(true);
+                    jButtonDelete.setEnabled(true);
+                    jButtonAddToReservation.setEnabled(false);
+                } else
+                {
+                    jButtonEdit.setEnabled(false);
+                    jButtonDelete.setEnabled(false);
+                    jButtonAddToReservation.setEnabled(false);
+                }
             }
             break;
 
@@ -1392,6 +1450,10 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField102.setVisible(true);
                 jTextField103.setVisible(true);
 
+                jTextField101.setEditable(false);
+                jTextField102.setEditable(false);
+                jTextField103.setEditable(false);
+
                 jTextField104.setVisible(false);
                 jTextField105.setVisible(false);
                 jTextField106.setVisible(false);
@@ -1401,10 +1463,22 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jTextField110.setVisible(false);
                 jPasswordShow.setVisible(false);
 
-                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(identifier);
                 jTextField101.setText(temp.get(0));
                 jTextField102.setText(temp.get(1));
                 jTextField103.setText(temp.get(2));
+
+                if (controller.getUserType().equals("Manager"))
+                {
+                    jButtonEdit.setEnabled(true);
+                    jButtonDelete.setEnabled(true);
+                    jButtonAddToReservation.setEnabled(false);
+                } else
+                {
+                    jButtonEdit.setEnabled(false);
+                    jButtonDelete.setEnabled(false);
+                    jButtonAddToReservation.setEnabled(false);
+                }
             }
             break;
 
@@ -1412,6 +1486,7 @@ public class CasablancaGUI extends javax.swing.JFrame
             {
                 jButtonAddToReservation.setEnabled(false);
                 jButtonEdit.setEnabled(false);
+                jButtonDelete.setEnabled(false);
             }
         }
     }
@@ -1422,7 +1497,9 @@ public class CasablancaGUI extends javax.swing.JFrame
             if (jTable1.getSelectedRow() != -1)
             {
                 jPanelDetails.setVisible(true);
-                showDetails();
+                jButtonSaveChanges.setVisible(false);
+                jButtonDiscardChanges.setVisible(false);
+                showDetails(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
             }
         } else
         {
@@ -1537,7 +1614,9 @@ public class CasablancaGUI extends javax.swing.JFrame
             }
         }
         jButtonAddToReservation.setEnabled(false);
+        jButtonDelete.setEnabled(false);
         jButtonEdit.setEnabled(false);
+        jPanelDetails.setVisible(false);
     }//GEN-LAST:event_jSearchButtonActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextField1KeyReleased
@@ -1629,10 +1708,9 @@ public class CasablancaGUI extends javax.swing.JFrame
                 jLabel108.setText("Email:");
                 jLabel109.setText("Password:");
 
-                jButtonAddToReservation.setText("Save");
-                jButtonAddToReservation.setEnabled(true);
-                jButtonEdit.setText("Cancel");
-                jButtonEdit.setEnabled(true);
+                jButtonAddToReservation.setEnabled(false);
+                jButtonSaveChanges.setVisible(true);
+                jButtonDiscardChanges.setVisible(true);
             }
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -1654,6 +1732,7 @@ public class CasablancaGUI extends javax.swing.JFrame
             jPasswordShow.setEditable(true);
             jButtonEdit.setEnabled(false);
             jButtonDelete.setEnabled(false);
+            jButtonAddToReservation.setEnabled(false);
             jButtonSaveChanges.setVisible(true);
             jButtonDiscardChanges.setVisible(true);
         }
@@ -1675,7 +1754,46 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void jButtonSaveChangesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSaveChangesActionPerformed
     {//GEN-HEADEREND:event_jButtonSaveChangesActionPerformed
-        if (controller.update(null, jTextField102.getText(), jTextField103.getText(), jTextField104.getText(), jTextField105.getText(), jTextField106.getText(), jTextField107.getText(), jTextField108.getText(), jTextField109.getText(), jTextField110.getText(), jPasswordField.getPassword() + ""))
+        if (lastAddAction != null)
+        {
+            switch (lastAddAction)
+            {
+                case "Add new client":
+                {
+                    if (jTextField101.getText().equals(""))
+                    {
+                        jLogLabel2.setForeground(Color.red);
+                        jLogLabel2.setText("Enter first name!");
+                    } else if (jTextField102.getText().equals(""))
+                    {
+                        jLogLabel2.setForeground(Color.red);
+                        jLogLabel2.setText("Enter last name!");
+                    } else
+                    {
+                        jLogLabel2.setForeground(Color.black);
+                        jLogLabel2.setText("Saving new client...");
+                        controller.addClient(jTextField101.getText(), jTextField102.getText(), jTextField103.getText(),
+                                jTextField104.getText(), jTextField105.getText(), jTextField106.getText(),
+                                jTextField107.getText(), jTextField108.getText(), jTextField109.getText());
+                        if (controller.saveAddedClients())
+                        {
+                            jLogLabel2.setForeground(Color.black);
+                            jLogLabel2.setText("Client saved!");
+                        } else
+                        {
+                            jLogLabel2.setForeground(Color.red);
+                            jLogLabel2.setText("Failed to save new client!");
+                        }
+                    }
+                }
+                break;
+
+                default:
+                {
+                    //do nothing
+                }
+            }
+        } else if (controller.update(jTextField101.getText(), jTextField102.getText(), jTextField103.getText(), jTextField104.getText(), jTextField105.getText(), jTextField106.getText(), jTextField107.getText(), jTextField108.getText(), jTextField109.getText(), jTextField110.getText(), jPasswordField.getPassword() + ""))
         {
             jLogLabel2.setForeground(Color.black);
             jLogLabel2.setText("Changes saved successfully!");
@@ -1684,8 +1802,25 @@ public class CasablancaGUI extends javax.swing.JFrame
             jLogLabel2.setForeground(Color.red);
             jLogLabel2.setText("Failed to save changes!");
         }
+        jButtonSaveChanges.setVisible(false);
+        jButtonDiscardChanges.setVisible(false);
         jButtonEdit.setEnabled(true);
         jButtonDelete.setEnabled(true);
+        if (controller.getUserType().equals("Manager") || controller.getUserType().equals("Receptionist"))
+        {
+            if (controller.currentReservationCreationState())
+            {
+                if ((controller.getSearchResultType().equals("Rooms") && datesNotChanged)
+                        || controller.getSearchResultType().equals("Clients"))
+                {
+                    jButtonAddToReservation.setEnabled(true);
+                } else
+                {
+                    jButtonAddToReservation.setEnabled(false);
+                }
+            }
+        }
+
         jTextField101.setEditable(false);
         jTextField102.setEditable(false);
         jTextField103.setEditable(false);
@@ -1702,18 +1837,24 @@ public class CasablancaGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButtonDiscardChangesActionPerformed
         jButtonEdit.setEnabled(true);
         jButtonDelete.setEnabled(true);
-        jTextField101.setEditable(false);
-        jTextField102.setEditable(false);
-        jTextField103.setEditable(false);
-        jTextField104.setEditable(false);
-        jTextField105.setEditable(false);
-        jTextField106.setEditable(false);
-        jTextField107.setEditable(false);
-        jTextField108.setEditable(false);
-        jTextField109.setEditable(false);
-        jPasswordShow.setEditable(false);
-        showDetails();
+        jButtonSaveChanges.setVisible(false);
+        jButtonDiscardChanges.setVisible(false);
+        if (controller.getUserType().equals("Manager") || controller.getUserType().equals("Receptionist"))
+        {
+            if (controller.currentReservationCreationState())
+            {
+                if ((controller.getSearchResultType().equals("Rooms") && datesNotChanged)
+                        || controller.getSearchResultType().equals("Clients"))
+                {
+                    jButtonAddToReservation.setEnabled(true);
+                } else
+                {
+                    jButtonAddToReservation.setEnabled(false);
+                }
+            }
+        }
 
+        showDetails(jTextField101.getText());
     }//GEN-LAST:event_jButtonDiscardChangesActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonDeleteActionPerformed
@@ -1724,7 +1865,7 @@ public class CasablancaGUI extends javax.swing.JFrame
             {
                 jLogLabel2.setForeground(Color.black);
                 jLogLabel2.setText("Entry deleted successfully!");
-                refreshTableInfo();
+//                refreshTableInfo();
 
             } else
             {
@@ -1763,7 +1904,8 @@ public class CasablancaGUI extends javax.swing.JFrame
             @Override
             public void run()
             {
-                new CasablancaGUI().setVisible(true);
+//                new CasablancaGUI().setVisible(true);
+                CasablancaGUI.getInstance().setVisible(true);
             }
         });
     }

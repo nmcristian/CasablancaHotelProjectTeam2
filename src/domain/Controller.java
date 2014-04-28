@@ -167,6 +167,8 @@ public class Controller
     {
         searchResultList = dbFacade.getAllRooms();
         Room room;
+        lastSearchFrom = null;
+        lastSearchTo = null;
         if (currentReservationCreationState())
         {
             for (int i = 0; i < searchResultList.size(); i++)
@@ -187,7 +189,7 @@ public class Controller
         Object[][] resultToDisplay = new Object[searchResultList.size()][4];
         tableColumnNames = new String[]
         {
-            "Room number", "Room type", "Capacity", "Price/night"
+            "Room number", "Room type", "Price/night", "Capacity"
         };
         int i = 0;
         for (Object o : searchResultList)
@@ -195,8 +197,8 @@ public class Controller
             room = (Room) o;
             resultToDisplay[i][0] = room.getRoomNumber() + "";
             resultToDisplay[i][1] = room.getType();
-            resultToDisplay[i][2] = room.getCapacity() + "";
-            resultToDisplay[i][3] = room.getPricePerNight() + "";
+            resultToDisplay[i][2] = room.getPricePerNight() + "";
+            resultToDisplay[i][3] = room.getCapacity() + "";
             i++;
         }
         return resultToDisplay;
@@ -204,13 +206,15 @@ public class Controller
 
     public Object[][] getRoomByRoomNumber(int roomNumber)
     {
+        lastSearchFrom = null;
+        lastSearchTo = null;
         Room room = dbFacade.getRoomByRoomNumber(roomNumber);
         searchResultList = new ArrayList();
         searchResultType = "Rooms";
         Object[][] resultToDisplay;
         tableColumnNames = new String[]
         {
-            "Room number", "Room type", "Capacity", "Price/night"
+            "Room number", "Room type", "Price/night", "Capacity"
         };
         if (room == null)
         {
@@ -221,15 +225,15 @@ public class Controller
             resultToDisplay = new Object[searchResultList.size()][4];
             resultToDisplay[0][0] = room.getRoomNumber() + "";
             resultToDisplay[0][1] = room.getType();
-            resultToDisplay[0][2] = room.getCapacity() + "";
-            resultToDisplay[0][3] = room.getPricePerNight() + "";
+            resultToDisplay[0][2] = room.getPricePerNight() + "";
+            resultToDisplay[0][3] = room.getCapacity() + "";
         }
         return resultToDisplay;
     }
 
-    public Room getRoomByRoomNrForEditing(int roomNumber)
+    public Room getRoomFromNewReservation(int index)
     {
-        return dbFacade.getRoomByRoomNumber(roomNumber);
+        return newReservation.getRooms().get(index);
     }
 
     public Object[][] getAllClients()
@@ -401,15 +405,13 @@ public class Controller
 
     public void createNewReservation()
     {
-        //initialize a new Reservations arraylist
-        dbFacade.startBusinessProcess("Reservations");
         newReservation = new Reservation(dbFacade.getNextDataSeqNumber());
     }
 
     public boolean saveNewReservation()
     {
         boolean status;
-
+        dbFacade.startBusinessProcess("Reservations");
         status = dbFacade.addNewReservation(newReservation);
         status = status && dbFacade.commitBusinessProcess();
         if (status)
@@ -476,13 +478,14 @@ public class Controller
 
     public Object[][] getClientsFromNewReservation()
     {
-        Object[][] resultToDisplay = new Object[newReservation.getClients().size()][3];
+        Object[][] resultToDisplay = new Object[newReservation.getClients().size()][4];
         int i = 0;
         for (Client client : newReservation.getClients())
         {
             resultToDisplay[i][0] = client.getId() + "";
             resultToDisplay[i][1] = client.getFirstName();
             resultToDisplay[i][2] = client.getLastName();
+            resultToDisplay[i][3] = client.getCountry();
             i++;
         }
         return resultToDisplay;
@@ -490,13 +493,14 @@ public class Controller
 
     public Object[][] getRoomsFromNewReservation()
     {
-        Object[][] resultToDisplay = new Object[newReservation.getRooms().size()][3];
+        Object[][] resultToDisplay = new Object[newReservation.getRooms().size()][4];
         int i = 0;
         for (Room room : newReservation.getRooms())
         {
             resultToDisplay[i][0] = room.getRoomNumber() + "";
             resultToDisplay[i][1] = room.getType();
             resultToDisplay[i][2] = room.getPricePerNight() + "";
+            resultToDisplay[i][3] = room.getCapacity()+ "";
             i++;
         }
         return resultToDisplay;
@@ -528,7 +532,7 @@ public class Controller
         Object[][] resultToDisplay = new Object[searchResultList.size()][4];
         tableColumnNames = new String[]
         {
-            "Room number", "Room type", "Capacity", "Price/night"
+            "Room number", "Room type", "Price/night", "Capacity"
         };
         int i = 0;
         for (Object o : searchResultList)
@@ -536,8 +540,8 @@ public class Controller
             room = (Room) o;
             resultToDisplay[i][0] = room.getRoomNumber() + "";
             resultToDisplay[i][1] = room.getType();
-            resultToDisplay[i][2] = room.getCapacity() + "";
-            resultToDisplay[i][3] = room.getPricePerNight() + "";
+            resultToDisplay[i][2] = room.getPricePerNight() + "";
+            resultToDisplay[i][3] = room.getCapacity() + "";
             i++;
         }
         return resultToDisplay;
@@ -1177,7 +1181,6 @@ public class Controller
             case "Rooms":
             {
                 Room room = (Room) selectedObjectForEditing;
-                room.setRoomNumber(Integer.parseInt(p1));
                 room.setType(p2);
                 room.setCapacity(Integer.parseInt(p3));
                 room.setPricePerNight(Double.parseDouble(p4));
@@ -1203,7 +1206,6 @@ public class Controller
             case "Facilities":
             {
                 Facility fac = (Facility) selectedObjectForEditing;
-                fac.setTitle(p1);
                 fac.setPrice(Double.parseDouble(p2));
                 fac.setDescription(p3);
                 status = status && dbFacade.updateFacility(fac);
@@ -1219,7 +1221,6 @@ public class Controller
             case "RoomTypes":
             {
                 Room room = (Room) selectedObjectForEditing;
-                room.setType(p1);
                 room.setCapacity(Integer.parseInt(p2));
                 room.setPricePerNight(Double.parseDouble(p3));
                 status = status && dbFacade.updateRoomType(room);
