@@ -421,6 +421,8 @@ public class CasablancaGUI extends javax.swing.JFrame
 
         jLabel110.setText("jLabel110");
 
+        jTextField110.setEditable(false);
+
         javax.swing.GroupLayout jPanelDetailsLayout = new javax.swing.GroupLayout(jPanelDetails);
         jPanelDetails.setLayout(jPanelDetailsLayout);
         jPanelDetailsLayout.setHorizontalGroup(
@@ -1058,7 +1060,7 @@ public class CasablancaGUI extends javax.swing.JFrame
 
     private void jButtonAddToReservationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAddToReservationActionPerformed
     {//GEN-HEADEREND:event_jButtonAddToReservationActionPerformed
-        if (jTable1.getSelectedRow() != -1 && lastAddAction == null)
+        if (jTable1.getSelectedRow() != -1)
         {
             switch (controller.getSearchResultType())
             {
@@ -1081,6 +1083,8 @@ public class CasablancaGUI extends javax.swing.JFrame
                     jButtonEdit.setEnabled(false);
                     jButtonDelete.setEnabled(false);
                     reservationForm.refreshReservationTablesInfo();
+                    System.out.println(controller.getSearchResultType());
+                    System.out.println(controller.getNewReservationDeposit());
                     break;
                 case "Clients":
                     long clientID = 0;

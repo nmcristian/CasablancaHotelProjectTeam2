@@ -19,11 +19,11 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import oracle.sql.TIMESTAMP;
-import org.junit.After;
+import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.After;
+import oracle.sql.TIMESTAMP;
 
 /**
  *

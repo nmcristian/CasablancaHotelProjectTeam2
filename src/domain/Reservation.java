@@ -59,11 +59,11 @@ public class Reservation
     public String getRoomsIDs()
     {
         String result = "";
-        for (Room x : rooms)
-        {
-            result += x.getRoomNumber() + ", ";
-        }
-        return result.substring(0, result.length() - 2);
+            for (Room x : rooms)
+            {
+                result += x.getRoomNumber() + ", " ;
+            }
+        return result.substring(0, result.length() );
     }
 
     public void calculatePricePerWholeStay()
@@ -103,7 +103,7 @@ public class Reservation
     {
         clients.remove(index);
     }
-    
+
     public ArrayList<Client> getClients()
     {
         return clients;
@@ -117,6 +117,6 @@ public class Reservation
     @Override
     public String toString()
     {
-        return id + " " + getClientsIDs() + " "+getRoomsIDs() ;
+        return id + " " + getClientsIDs() + " " + getRoomsIDs();
     }
 }
