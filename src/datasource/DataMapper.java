@@ -314,7 +314,7 @@ public class DataMapper
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                result.add(new Reservation(rs.getInt(1), /*rs.getDouble(2),*/ rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection)));
+                result.add(new Reservation(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection)));
             }
             statement.close();
         } catch (SQLException ex)
@@ -339,7 +339,7 @@ public class DataMapper
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                reservation = new Reservation(rs.getInt(1), /*rs.getDouble(2),*/ rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection));
+                reservation = new Reservation(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection));
             }
             statement.close();
         } catch (SQLException ex)

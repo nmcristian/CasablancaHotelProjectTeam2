@@ -1,6 +1,7 @@
 package presentation;
 
 import domain.Controller;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 /**
@@ -31,6 +32,10 @@ public class ReservationForm extends javax.swing.JFrame
 
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.getTableHeader().setResizingAllowed(false);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.getTableHeader().setResizingAllowed(false);
+
+        displayReservationInfo();
     }
 
     @SuppressWarnings("unchecked")
@@ -58,7 +63,6 @@ public class ReservationForm extends javax.swing.JFrame
         jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Casablanca Hotel - New Reservation");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter()
         {
@@ -92,7 +96,7 @@ public class ReservationForm extends javax.swing.JFrame
         jLabel2.setText("Client name:");
         jLabel2.setPreferredSize(new java.awt.Dimension(100, 25));
 
-        jLabel3.setText("Number of guests:");
+        jLabel3.setText("Total capacity:");
         jLabel3.setPreferredSize(new java.awt.Dimension(100, 25));
 
         jLabel4.setText("Confirmation cost:");
@@ -120,6 +124,36 @@ public class ReservationForm extends javax.swing.JFrame
 
         jScrollPane2.setName(""); // NOI18N
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "Room number", "Room type", "Price"
+            }
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean []
+            {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setToolTipText("");
         jTable1.setRowHeight(20);
         jTable1.addKeyListener(new java.awt.event.KeyAdapter()
@@ -133,8 +167,45 @@ public class ReservationForm extends javax.swing.JFrame
 
         jTabbedPane1.addTab("Rooms", jScrollPane2);
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][]
+            {
+
+            },
+            new String []
+            {
+                "Client ID", "First name", "Last name"
+            }
+        )
+        {
+            Class[] types = new Class []
+            {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean []
+            {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex)
+            {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
+        });
         jTable2.setToolTipText("");
         jTable2.setRowHeight(20);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseReleased(java.awt.event.MouseEvent evt)
+            {
+                jTable2MouseReleased(evt);
+            }
+        });
         jTable2.addKeyListener(new java.awt.event.KeyAdapter()
         {
             public void keyReleased(java.awt.event.KeyEvent evt)
@@ -161,19 +232,19 @@ public class ReservationForm extends javax.swing.JFrame
                         .addComponent(jDiscardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
@@ -238,14 +309,35 @@ public class ReservationForm extends javax.swing.JFrame
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void displayReservationInfo()
+    {
+        jTable2.setModel(new CustomTableModel(controller.getClientsFromNewReservation(), clientsTableColumnNames));
+        if (jTable2.getModel().getRowCount() > 0)
+        {
+            jTextField1.setText(jTable2.getModel().getValueAt(0, 1).toString() + ", " + jTable2.getModel().getValueAt(0, 2).toString());
+            jTextField2.setText(jTable2.getModel().getValueAt(0, 0).toString());
+        }
+
+        jTable1.setModel(new CustomTableModel(controller.getRoomsFromNewReservation(), roomsTableColumnNames));
+        if (jTable1.getModel().getRowCount() > 0)
+        {
+            jTextField3.setText(controller.getTotalCapacityFromNewReservation());
+            jTextField4.setText(controller.getNewReservationDeposit() + "");
+            jTextField5.setText(controller.getNewReservationTotalPrice() + "");
+        }
+    }
+
     private void jSaveButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jSaveButtonActionPerformed
     {//GEN-HEADEREND:event_jSaveButtonActionPerformed
+        String reservationID = controller.getNewReservationsID();
+        mainGUI.showLog(Color.black, "Saving reservation " + reservationID + "...");
         if (controller.saveNewReservation())
         {
+            mainGUI.showLog(Color.black, "Reservation " + reservationID + " successfully saved!");
             this.dispose();
         } else
         {
-            String errorMessage = "There was an error saving these rooms: ";
+            String errorMessage = "There was an error saving these rooms reservations: ";
             for (int x : controller.getUnavailableRoomsNumbers())
             {
                 errorMessage += x + ", ";
@@ -254,12 +346,13 @@ public class ReservationForm extends javax.swing.JFrame
             errorMessage += "!";
 
             // This is to be set on the jLogLabel2 from the main jFrame
-            System.out.println(errorMessage);
+            mainGUI.showLog(Color.red, errorMessage);
         }
     }//GEN-LAST:event_jSaveButtonActionPerformed
 
     private void jDiscardButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jDiscardButtonActionPerformed
     {//GEN-HEADEREND:event_jDiscardButtonActionPerformed
+        mainGUI.showLog(Color.black, "Changes for reservation " + controller.getNewReservationsID() + " have been discarded!");
         controller.discardNewReservation();
         this.dispose();
     }//GEN-LAST:event_jDiscardButtonActionPerformed
@@ -271,12 +364,18 @@ public class ReservationForm extends javax.swing.JFrame
             case "Rooms":
                 jTabbedPane1.setSelectedIndex(0);
                 jTable1.setModel(new CustomTableModel(controller.getRoomsFromNewReservation(), roomsTableColumnNames));
+                jTextField3.setText(controller.getTotalCapacityFromNewReservation());
                 jTextField4.setText(controller.getNewReservationDeposit() + "");
                 jTextField5.setText(controller.getNewReservationTotalPrice() + "");
                 break;
             case "Clients":
                 jTabbedPane1.setSelectedIndex(1);
                 jTable2.setModel(new CustomTableModel(controller.getClientsFromNewReservation(), clientsTableColumnNames));
+                if (jTable2.getRowCount() == 1)
+                {
+                    jTextField1.setText(jTable2.getModel().getValueAt(0, 1).toString() + ", " + jTable2.getModel().getValueAt(0, 2).toString());
+                    jTextField2.setText(jTable2.getModel().getValueAt(0, 0).toString());
+                }
                 break;
             default:
             //do nothing
@@ -309,6 +408,7 @@ public class ReservationForm extends javax.swing.JFrame
                 controller.removeRoomFromReservation(jTable1.getSelectedRow());
                 ((CustomTableModel) jTable1.getModel()).removeRow(jTable1.getSelectedRow());
                 jTable1.setModel(new CustomTableModel(((CustomTableModel) jTable1.getModel()).getData(), ((CustomTableModel) jTable1.getModel()).getColumnNames()));
+                jTextField3.setText(controller.getTotalCapacityFromNewReservation());
                 jTextField4.setText(controller.getNewReservationDeposit() + "");
                 jTextField5.setText(controller.getNewReservationTotalPrice() + "");
             }
@@ -325,13 +425,29 @@ public class ReservationForm extends javax.swing.JFrame
                 {
                     mainGUI.addRowAndRefreshTableInfo(((CustomTableModel) jTable2.getModel()).getRow(jTable2.getSelectedRow()));
                 }
-
+                if (jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString().equals(jTextField2.getText()))
+                {
+                    jTextField1.setText(null);
+                    jTextField2.setText(null);
+                }
                 controller.removeClientFromReservation(jTable2.getSelectedRow());
                 ((CustomTableModel) jTable2.getModel()).removeRow(jTable2.getSelectedRow());
                 jTable2.setModel(new CustomTableModel(((CustomTableModel) jTable2.getModel()).getData(), ((CustomTableModel) jTable2.getModel()).getColumnNames()));
             }
         }
     }//GEN-LAST:event_jTable2KeyReleased
+
+    private void jTable2MouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTable2MouseReleased
+    {//GEN-HEADEREND:event_jTable2MouseReleased
+        if (evt.getClickCount() == 2)
+        {
+            if (jTable2.getSelectedRow() != -1)
+            {
+                jTextField1.setText(jTable2.getModel().getValueAt(0, 1).toString() + ", " + jTable2.getModel().getValueAt(0, 2).toString());
+                jTextField2.setText(jTable2.getModel().getValueAt(0, 0).toString());
+            }
+        }
+    }//GEN-LAST:event_jTable2MouseReleased
 
     /**
      * @param args the command line arguments

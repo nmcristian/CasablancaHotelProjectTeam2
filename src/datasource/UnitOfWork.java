@@ -76,7 +76,10 @@ public class UnitOfWork
             {
                 case "Reservations":
                 {
-                    status = status && dataMapper.insertReservations(newData, connection);
+                    if (!newData.isEmpty())
+                    {
+                        status = status && dataMapper.insertReservations(newData, connection);
+                    }
                     if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteReservations(filthyData, connection);
@@ -85,7 +88,10 @@ public class UnitOfWork
                 }
                 case "Clients":
                 {
-                    status = status && dataMapper.insertClients(newData, connection);
+                    if (!newData.isEmpty())
+                    {
+                        status = status && dataMapper.insertClients(newData, connection);
+                    }
                     if (!dirtyData.isEmpty())
                     {
                         status = status && dataMapper.updateClients(dirtyData, connection);

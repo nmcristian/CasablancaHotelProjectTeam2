@@ -31,6 +31,7 @@ public class Controller
         readPreferences();
         newReservation = null;
         searchResultList = new ArrayList();
+        searchResultType = "";
     }
 
     public static Controller getInstance()
@@ -276,6 +277,22 @@ public class Controller
         return resultToDisplay;
     }
 
+    public Object[] getLastSaved()
+    {
+        Object[] resultToDisplay = null;
+        if (searchResultType.equals("Clients"))
+        {
+            Client client = (Client) selectedObjectForEditing;
+            resultToDisplay = new Object[4];
+            resultToDisplay[0] = client.getId() + "";
+            resultToDisplay[1] = client.getFirstName();
+            resultToDisplay[2] = client.getLastName();
+            resultToDisplay[3] = client.getCountry();
+        }
+        
+        return resultToDisplay;
+    }
+
     public Object[][] getAllReservations()
     {
         searchResultList = dbFacade.getAllReservations();
@@ -408,6 +425,11 @@ public class Controller
         newReservation = new Reservation(dbFacade.getNextDataSeqNumber());
     }
 
+    public void editReservation()
+    {
+        newReservation = (Reservation) selectedObjectForEditing;
+    }
+
     public boolean saveNewReservation()
     {
         boolean status;
@@ -463,6 +485,27 @@ public class Controller
         return newReservation.getTotalDue() / 2;
     }
 
+    public String getNewReservationStatus()
+    {
+        if (newReservation.getAlreadyPaid() < newReservation.getTotalDue() / 2)
+        {
+            return "pending confirmation";
+        } else
+        {
+            return "active";
+        }
+    }
+
+    public String getNewReservationsID()
+    {
+        return Integer.toString(newReservation.getID());
+    }
+
+    public String getTotalCapacityFromNewReservation()
+    {
+        return Integer.toString(newReservation.getTotalCapacity());
+    }
+
     public void removeClientFromReservation(int index)
     {
         searchResultList = new ArrayList();
@@ -500,7 +543,7 @@ public class Controller
             resultToDisplay[i][0] = room.getRoomNumber() + "";
             resultToDisplay[i][1] = room.getType();
             resultToDisplay[i][2] = room.getPricePerNight() + "";
-            resultToDisplay[i][3] = room.getCapacity()+ "";
+            resultToDisplay[i][3] = room.getCapacity() + "";
             i++;
         }
         return resultToDisplay;
@@ -1008,7 +1051,8 @@ public class Controller
     public void addClient(String firstName, String lastName, String personalID, String address, String country, String email, String travelAgency, String password, String telephoneNumber)
     {
         dbFacade.startBusinessProcess("Clients");
-        dbFacade.addNewClient(new Client((long) dbFacade.getNextDataSeqNumber(), firstName, lastName, address, country, email, travelAgency, password, telephoneNumber, personalID, 1, 0));
+        selectedObjectForEditing = new Client((long) dbFacade.getNextDataSeqNumber(), firstName, lastName, address, country, email, travelAgency, password, telephoneNumber, personalID, 1, 0);
+        dbFacade.addNewClient((Client) selectedObjectForEditing);
     }
 
     public boolean saveAddedClients()
@@ -1077,6 +1121,7 @@ public class Controller
                 result.add(temp.getDescription());
                 return result;
             }
+
             case "RoomTypes":
             {
                 Room temp = dbFacade.getRoomTypeByType(identifier);
@@ -1087,8 +1132,31 @@ public class Controller
                 return result;
             }
 
+            case "Reservations":
+            {
+                Reservation temp = dbFacade.getReservationByID(Integer.parseInt(identifier));
+                selectedObjectForEditing = temp;
+                result.add(Integer.toString(temp.getID()));
+                result.add(Integer.toString(temp.getClients().size()));
+                result.add(Integer.toString(temp.getRooms().size()));
+                result.add(Double.toString(temp.getTotalDue() / 2));
+                result.add(Double.toString(temp.getTotalDue()));
+                result.add(Double.toString(temp.getAlreadyPaid()));
+                if (temp.getAlreadyPaid() < temp.getTotalDue() / 2)
+                {
+                    result.add("pending confirmation");
+                } else
+                {
+                    result.add("active");
+                }
+                return result;
+            }
+
+            default:
+            {
+                return null;
+            }
         }
-        return result;
     }
 
     // it has to be modified after the methods from unit of work and datamapper will be adapted to support deletion of primary keys, not objects
@@ -1102,54 +1170,65 @@ public class Controller
             {
                 Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
                 status = status && dbFacade.deleteReservation(reservation);
+                status = status && dbFacade.commitBusinessProcess();
+                if (status && reservation.getID() == newReservation.getID())
+                {
+                    newReservation = null;
+                }
             }
             break;
             case "Clients":
             {
                 Client client = dbFacade.getClientByID(Long.parseLong(pk));
                 status = status && dbFacade.deleteClient(client);
+                status = status && dbFacade.commitBusinessProcess();
             }
             break;
             case "Rooms":
             {
                 Room room = dbFacade.getRoomByRoomNumber(Integer.parseInt(pk));
                 status = status && dbFacade.deleteRoom(room);
+                status = status && dbFacade.commitBusinessProcess();
             }
             break;
             case "Employees":
             {
                 Employee emp = dbFacade.getEmployeeByID(Long.parseLong(pk));
                 status = status && dbFacade.deleteEmployee(emp);
+                status = status && dbFacade.commitBusinessProcess();
             }
             break;
             case "Facilities":
             {
                 Facility fac = dbFacade.getFacilityByName(pk);
                 status = status && dbFacade.deleteFacility(fac);
+                status = status && dbFacade.commitBusinessProcess();
             }
             break;
             case "FacilityReservations":
             {
                 FacilityReservation facR = dbFacade.getFacilityReservationByID(Integer.parseInt(pk));
                 status = status && dbFacade.deleteFacilityResrvation(facR);
+                status = status && dbFacade.commitBusinessProcess();
             }
             break;
             case "RoomTypes":
             {
                 Room room = dbFacade.getRoomTypeByType(pk);
                 status = status && dbFacade.deleteRoomType(room);
+                status = status && dbFacade.commitBusinessProcess();
             }
             break;
+
             default:
             {
                 return false;
             }
         }
-        status = status && dbFacade.commitBusinessProcess();
+
         return status;
     }
 
-    // needs to be modified for reservations & facility reservations
     public boolean update(String p1, String p2, String p3, String p4, String p5, String p6, String p7, String p8, String p9, String p10, String p11)
     {
         dbFacade.startBusinessProcess(searchResultType);

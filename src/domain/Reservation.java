@@ -14,18 +14,19 @@ public class Reservation
     private ArrayList<Client> clients;
     private ArrayList<Room> rooms;
 
-    public Reservation(int id, double alreadyPaid, ArrayList<Client> clients, ArrayList<Room> rooms)
+    public Reservation(int id, double totalDue, double alreadyPaid, ArrayList<Client> clients, ArrayList<Room> rooms)
     {   //has to be changed, to save the totalDue also
         this.id = id;
+        this.totalDue = totalDue;
         this.alreadyPaid = alreadyPaid;
         this.clients = clients;
         this.rooms = rooms;
-        calculatePricePerWholeStay();
     }
 
     public Reservation(int id)
     {
         this.id = id;
+        this.totalDue = 0;
         this.alreadyPaid = 0;
         this.clients = new ArrayList();
         this.rooms = new ArrayList();
@@ -53,17 +54,35 @@ public class Reservation
         {
             result += x.getId() + ", ";
         }
+        if (clients.isEmpty())
+        {
+            return result;
+        }
         return result.substring(0, result.length() - 2);
     }
 
     public String getRoomsIDs()
     {
         String result = "";
-            for (Room x : rooms)
-            {
-                result += x.getRoomNumber() + ", " ;
-            }
-        return result.substring(0, result.length() );
+        for (Room x : rooms)
+        {
+            result += x.getRoomNumber() + ", ";
+        }
+        if (rooms.isEmpty())
+        {
+            return result;
+        }
+        return result.substring(0, result.length() - 2);
+    }
+    
+    public int getTotalCapacity()
+    {
+        int result = 0;
+        for (Room x : rooms)
+        {
+            result += x.getCapacity();
+        }
+        return result;
     }
 
     public void calculatePricePerWholeStay()
@@ -90,13 +109,13 @@ public class Reservation
     public void addRoom(Room room)
     {
         rooms.add(room);
-        calculatePricePerWholeStay();
+        totalDue += room.getPricePerWholeStay();
     }
 
     public void removeRoom(int index)
     {
+        totalDue -= rooms.get(index).getPricePerWholeStay();
         rooms.remove(index);
-        calculatePricePerWholeStay();
     }
 
     public void removeClient(int index)
