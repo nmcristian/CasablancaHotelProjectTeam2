@@ -1076,6 +1076,24 @@ public class Controller
         return dbFacade.commitBusinessProcess();
     }
 
+    public ArrayList<String> getInformationAboutLastAddedClient()
+    {
+        ArrayList<String> result = new ArrayList();
+        Client client = (Client) selectedObjectForEditing;
+        result.add(Long.toString(client.getId()));
+        result.add(client.getFirstName());
+        result.add(client.getLastName());
+        result.add(client.getAddress());
+        result.add(client.getCountry());
+        result.add(client.getEmail());
+        result.add(client.getTravelAgency());
+        result.add(client.getPassword());
+        result.add(client.getTelephoneNumber());
+        result.add(client.getPersonalID());
+        result.add(Double.toString(client.getIndividualExpenses()));
+        return result;
+    }
+
     public ArrayList<String> getInformationAboutSelectedValueInTable(String identifier)
     {
         ArrayList<String> result = new ArrayList();
@@ -1251,13 +1269,6 @@ public class Controller
         boolean status = true;
         switch (searchResultType)
         {
-//            case "Reservations":
-//            {
-//                Reservation reservation = (Reservation) selectedObjectForEditing;
-//                
-//                status = status && dbFacade.updateReservation(reservation);
-//            }
-//            break;
             case "Clients":
             {
                 Client client = (Client) selectedObjectForEditing;
@@ -1269,10 +1280,12 @@ public class Controller
                 client.setTravelAgency(p7);
                 client.setPersonalID(p8);
                 client.setTelephoneNumber(p9);
-                client.setPassword(p10);
+                client.setIndividualExpenses(Double.parseDouble(p10));
+                client.setPassword(p11);
                 status = status && dbFacade.updateClient(client);
             }
             break;
+
             case "Rooms":
             {
                 Room room = (Room) selectedObjectForEditing;
@@ -1282,6 +1295,7 @@ public class Controller
                 status = status && dbFacade.updateRoom(room);
             }
             break;
+
             case "Employees":
             {
                 Employee emp = (Employee) selectedObjectForEditing;
@@ -1298,6 +1312,7 @@ public class Controller
                 status = status && dbFacade.updateEmployee(emp);
             }
             break;
+
             case "Facilities":
             {
                 Facility fac = (Facility) selectedObjectForEditing;
@@ -1306,13 +1321,7 @@ public class Controller
                 status = status && dbFacade.updateFacility(fac);
             }
             break;
-//            case "FacilityReservations":
-//            {
-//                FacilityReservation facR = (FacilityReservation) selectedObjectForEditing;
-//                
-//                status = status && dbFacade.updateFacilityReservation(facR);
-//            }
-//            break;
+
             case "RoomTypes":
             {
                 Room room = (Room) selectedObjectForEditing;

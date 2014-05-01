@@ -404,9 +404,9 @@ public class ReservationForm extends javax.swing.JFrame
         this.dispose();
     }//GEN-LAST:event_jDiscardButtonActionPerformed
 
-    protected void refreshReservationTablesInfo()
+    protected void refreshReservationTablesInfo(String type)
     {
-        switch (controller.getSearchResultType())
+        switch (type)
         {
             case "Rooms":
                 jTabbedPane1.setSelectedIndex(0);

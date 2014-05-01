@@ -1128,9 +1128,6 @@ public class DataMapper
                         statement.setInt(10, client.getVersionNumber() + 1);
                         statement.setLong(11, client.getId());
                         rowsUpdated = statement.executeUpdate();
-                    } else
-                    {
-                        System.out.println("version nr problem");
                     }
                 }
             }
@@ -1225,7 +1222,10 @@ public class DataMapper
         sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
         sqlString0 += "FOR UPDATE";
         String sqlString1 = "UPDATE EMPLOYEES "
-                + "SET FIRST_NAME = ?, LAST_NAME = ?, POSITION = ?, PASSWORD = ?, VERSION_NUMBER = ? "
+                + "SET FIRST_NAME = ?, LAST_NAME = ?, ADDRESS = ?, COUNTRY = ?, EMAIL = ?, POSITION = ?, PHONE = ?, "
+                + "PERSONAL_ID = ?, SALARY = ?, PASSWORD = ?, VERSION_NUMBER = ? "
+                + "WHERE ID = ?";
+        String sqlString2 = "SELECT VERSION_NUMBER FROM EMPLOYEES "
                 + "WHERE ID = ?";
         PreparedStatement statement = null;
         try
@@ -1236,16 +1236,30 @@ public class DataMapper
             for (Object o : employees)
             {
                 Employee emp = (Employee) o;
-                statement = con.prepareStatement(sqlString1);
-                statement.setString(1, emp.getFirstName());
-                statement.setString(2, emp.getLastName());
-                statement.setString(3, emp.getPosition());
-                statement.setString(4, emp.getPassword());
-                statement.setInt(5, emp.getVersionNumber() + 1);
-                statement.setLong(6, emp.getId());
-                rowsUpdated = statement.executeUpdate();
+                statement = con.prepareStatement(sqlString2);
+                statement.setLong(1, emp.getId());
+                ResultSet rs = statement.executeQuery();
+                if (rs.next())
+                {
+                    if (rs.getInt(1) == emp.getVersionNumber())
+                    {
+                        statement = con.prepareStatement(sqlString1);
+                        statement.setString(1, emp.getFirstName());
+                        statement.setString(2, emp.getLastName());
+                        statement.setString(3, emp.getAddress());
+                        statement.setString(4, emp.getCountry());
+                        statement.setString(5, emp.getEmail());
+                        statement.setString(6, emp.getPosition());
+                        statement.setString(7, emp.getTelephoneNumber());
+                        statement.setString(8, emp.getPersonalID());
+                        statement.setDouble(9, emp.getSalary());
+                        statement.setString(10, emp.getPassword());
+                        statement.setInt(11, emp.getVersionNumber() + 1);
+                        statement.setLong(12, emp.getId());
+                        rowsUpdated = statement.executeUpdate();
+                    }
+                }
             }
-
         } catch (Exception e)
         {
             System.out.println("Fail in DataMapper - updateEmployees");
