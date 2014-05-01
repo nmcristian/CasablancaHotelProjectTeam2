@@ -1205,9 +1205,12 @@ public class Controller
                 Reservation reservation = dbFacade.getReservationByID(Integer.parseInt(pk));
                 status = status && dbFacade.deleteReservation(reservation);
                 status = status && dbFacade.commitBusinessProcess();
-                if (status && reservation.getID() == newReservation.getID())
+                if (newReservation != null)
                 {
-                    newReservation = null;
+                    if (status && reservation.getID() == newReservation.getID())
+                    {
+                        newReservation = null;
+                    }
                 }
             }
             break;

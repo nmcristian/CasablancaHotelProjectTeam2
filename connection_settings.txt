@@ -1,6 +1,6 @@
 jdbc:oracle:thin:@datdb.cphbusiness.dk:1521:dat
-cphmn265
-cphmn265
+SEM2_GR22
+SEM2_GR22
 true
 777
 pelo
