@@ -1734,6 +1734,7 @@ public class CasablancaGUI extends javax.swing.JFrame
                     reservationForm.setLocation((int) (this.getLocation().getX() + this.getSize().getWidth() + 10), (int) (this.getLocation().getY()));
                     reservationForm.setTitle("Casablanca Hotel - New Reservation");
                     reservationForm.setVisible(true);
+                    reservationForm.refreshReservationTablesInfo();
                 }
             } else if (jComboBox1.getSelectedItem().toString().equals("Add new client"))
             {

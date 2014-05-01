@@ -13,6 +13,7 @@ public class Reservation
     private double alreadyPaid, totalDue;
     private ArrayList<Client> clients;
     private ArrayList<Room> rooms;
+    private boolean isNewReservation;
 
     public Reservation(int id, double totalDue, double alreadyPaid, ArrayList<Client> clients, ArrayList<Room> rooms)
     {   //has to be changed, to save the totalDue also
@@ -21,6 +22,7 @@ public class Reservation
         this.alreadyPaid = alreadyPaid;
         this.clients = clients;
         this.rooms = rooms;
+        this.isNewReservation = false;
     }
 
     public Reservation(int id)
@@ -30,6 +32,7 @@ public class Reservation
         this.alreadyPaid = 0;
         this.clients = new ArrayList();
         this.rooms = new ArrayList();
+        this.isNewReservation = true;
     }
 
     public int getID()
@@ -94,6 +97,11 @@ public class Reservation
         }
     }
 
+    public void confirmPayment(double amount)
+    {
+        alreadyPaid += amount;
+    }
+    
     public boolean addClient(Client client)
     {
         if (client == null)
@@ -133,6 +141,11 @@ public class Reservation
         return rooms;
     }
 
+    public boolean isNewReservation()
+    {
+        return isNewReservation;
+    }
+    
     @Override
     public String toString()
     {

@@ -212,6 +212,12 @@ public class DBFacade
     {
         return unitOfWork.update(room, connection);
     }
+    
+    public boolean updateReservation(Reservation reservation)
+    {
+        return unitOfWork.update(reservation, connection);
+    }
+    
     public int getNextDataSeqNumber()
     {
         return dataMapper.getNextDataSeqNumber(connection);

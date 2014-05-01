@@ -1378,4 +1378,68 @@ public class DataMapper
         return rowsUpdated == totalToBeUpdated;
     }
 
+    public boolean updateReservations(ArrayList reservations, Connection con)
+    {
+        String sqlString1, sqlString2, sqlString3;
+        int tuplesDeleted = 0, totalToBeDeleted = reservations.size();
+        String sqlString0 = "SELECT * FROM RESERVATIONS "
+                + "WHERE ";
+        for (Object o : reservations)
+        {
+            Reservation reservation = (Reservation) o;
+            sqlString0 += "ID = " + reservation.getID() + " OR ";
+            totalToBeDeleted += reservation.getClients().size();
+            totalToBeDeleted += reservation.getRooms().size();
+        }
+        sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
+        sqlString0 += "FOR UPDATE";
+
+        sqlString1 = "DELETE FROM CLIENTS_RESERVATIONS "
+                + "WHERE RES_ID = ?";
+        sqlString2 = "DELETE FROM ROOM_RESERVATIONS "
+                + "WHERE RES_ID = ?";
+        sqlString3 = "DELETE FROM RESERVATIONS "
+                + "WHERE ID = ?";
+
+        PreparedStatement statement = null;
+        try
+        {
+            statement = con.prepareStatement(sqlString0);
+            statement.executeQuery();
+
+            for (Object o : reservations)
+            {
+                Reservation reservation = (Reservation) o;
+
+                statement = con.prepareStatement(sqlString1);
+                statement.setInt(1, reservation.getID());
+                tuplesDeleted += statement.executeUpdate();
+
+                statement = con.prepareStatement(sqlString2);
+                statement.setInt(1, reservation.getID());
+                tuplesDeleted += statement.executeUpdate();
+
+                statement = con.prepareStatement(sqlString3);
+                statement.setInt(1, reservation.getID());
+                tuplesDeleted += statement.executeUpdate();
+            }
+        } catch (SQLException e)
+        {
+            System.out.println("Fail in DataMapper - deleteReservations");
+            System.out.println(e.getMessage());
+            return false;
+        } finally														// must close statement
+        {
+            try
+            {
+                statement.close();
+            } catch (SQLException e)
+            {
+                System.out.println("Fail in DataMapper - deleteReservations");
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+        return tuplesDeleted == totalToBeDeleted;
+    }
 }

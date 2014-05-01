@@ -289,7 +289,7 @@ public class Controller
             resultToDisplay[2] = client.getLastName();
             resultToDisplay[3] = client.getCountry();
         }
-        
+
         return resultToDisplay;
     }
 
@@ -434,7 +434,13 @@ public class Controller
     {
         boolean status;
         dbFacade.startBusinessProcess("Reservations");
-        status = dbFacade.addNewReservation(newReservation);
+        if (newReservation.isNewReservation())
+        {
+            status = dbFacade.addNewReservation(newReservation);
+        } else
+        {
+            status = dbFacade.updateReservation(newReservation);
+        }
         status = status && dbFacade.commitBusinessProcess();
         if (status)
         {
@@ -480,9 +486,19 @@ public class Controller
         return newReservation.getTotalDue();
     }
 
+    public double getNewReservationAlreadyPaid()
+    {
+        return newReservation.getAlreadyPaid();
+    }
+
     public double getNewReservationDeposit()
     {
         return newReservation.getTotalDue() / 2;
+    }
+
+    public void confirmNewReservationPayment(double amount)
+    {
+        newReservation.confirmPayment(amount);
     }
 
     public String getNewReservationStatus()

@@ -80,6 +80,10 @@ public class UnitOfWork
                     {
                         status = status && dataMapper.insertReservations(newData, connection);
                     }
+                    if (!dirtyData.isEmpty())
+                    {
+                        status = status && dataMapper.updateReservations(filthyData, connection);
+                    }
                     if (!filthyData.isEmpty())
                     {
                         status = status && dataMapper.deleteReservations(filthyData, connection);
