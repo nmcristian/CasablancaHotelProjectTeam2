@@ -1186,6 +1186,20 @@ public class Controller
                 return result;
             }
 
+            case "FacilityReservations":
+            {
+                FacilityReservation temp = dbFacade.getFacilityReservationByID(Integer.parseInt(identifier));
+                selectedObjectForEditing = temp;
+                result.add(Integer.toString(temp.getID()));
+                result.add(Long.toString(temp.getClientsID()));
+                result.add(temp.getClientsName());
+                result.add(temp.getFacilityTitle());
+                result.add(Double.toString(temp.getPrice()));
+                result.add(Double.toString(temp.getDuration()));
+                result.add(temp.getStartingDate());
+                return result;
+            }
+
             default:
             {
                 return null;

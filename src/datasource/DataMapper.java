@@ -306,7 +306,7 @@ public class DataMapper
     {
         ArrayList result = new ArrayList<>();
         PreparedStatement statement;
-        String sqlString = "SELECT ID, TOTAL_DUE, TOTAL_PAID FROM RESERVATIONS";
+        String sqlString = "SELECT ID, TOTAL_DUE, TOTAL_PAID, VERSION_NUMBER FROM RESERVATIONS";
 
         try
         {
@@ -314,7 +314,7 @@ public class DataMapper
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                result.add(new Reservation(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection)));
+                result.add(new Reservation(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection), rs.getInt(4)));
             }
             statement.close();
         } catch (SQLException ex)
@@ -329,7 +329,7 @@ public class DataMapper
     {
         Reservation reservation = null;
         PreparedStatement statement;
-        String sqlString = "SELECT ID, TOTAL_DUE, TOTAL_PAID FROM RESERVATIONS "
+        String sqlString = "SELECT ID, TOTAL_DUE, TOTAL_PAID, VERSION_NUMBER FROM RESERVATIONS "
                 + "WHERE ID = ?";
 
         try
@@ -339,7 +339,7 @@ public class DataMapper
             ResultSet rs = statement.executeQuery();
             while (rs.next())
             {
-                reservation = new Reservation(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection));
+                reservation = new Reservation(rs.getInt(1), rs.getDouble(2), rs.getDouble(3), getClientsByReservationID(rs.getInt(1), connection), getRoomsByReservationID(rs.getInt(1), connection), rs.getInt(4));
             }
             statement.close();
         } catch (SQLException ex)
@@ -572,7 +572,7 @@ public class DataMapper
     public int getNextDataSeqNumber(Connection connection)
     {
         int nextOrderNumber = 0;
-        String SQLString = "SELECT ORDERSEQ.NEXTVAL FROM DUAL";
+        String SQLString = "SELECT NEWDATASEQ.NEXTVAL FROM DUAL";
         PreparedStatement statement;
         try
         {
@@ -611,14 +611,13 @@ public class DataMapper
         String sqlString3 = "INSERT INTO CLIENTS_RESERVATIONS VALUES (?, ?, ?)";
         String sqlString4 = "INSERT INTO ROOM_RESERVATIONS VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement;
+        unavailableRoomsNumbers = new ArrayList();
 
         try
         {
             statement = conn.prepareStatement(sqlString1);
             statement.executeQuery();
 
-//            System.out.println("write sth to continue");
-//            scan.next();
             for (Object o : reservations)
             {
                 statement = conn.prepareStatement(sqlString2);
@@ -641,7 +640,6 @@ public class DataMapper
                     rowsInserted += statement.executeUpdate();
                 }
 
-                unavailableRoomsNumbers = new ArrayList();
                 for (Room room : reservation.getRooms())
                 {
                     if (confirmRoomAvailability(room.getRoomNumber(), new java.sql.Date(room.getStartingDate().getTime()), new java.sql.Date(room.getEndingDate().getTime()), conn))
@@ -1394,52 +1392,120 @@ public class DataMapper
 
     public boolean updateReservations(ArrayList reservations, Connection con)
     {
-        String sqlString1, sqlString2, sqlString3;
-        int tuplesDeleted = 0, totalToBeDeleted = reservations.size();
+        int tuplesUpdated = 0, totalToBeUpdated = reservations.size();
+        System.out.println(reservations.size());
         String sqlString0 = "SELECT * FROM RESERVATIONS "
                 + "WHERE ";
         for (Object o : reservations)
         {
             Reservation reservation = (Reservation) o;
             sqlString0 += "ID = " + reservation.getID() + " OR ";
-            totalToBeDeleted += reservation.getClients().size();
-            totalToBeDeleted += reservation.getRooms().size();
         }
         sqlString0 = sqlString0.substring(0, sqlString0.length() - 3);
         sqlString0 += "FOR UPDATE";
 
-        sqlString1 = "DELETE FROM CLIENTS_RESERVATIONS "
+        String sqlString1 = "DELETE FROM CLIENTS_RESERVATIONS "
                 + "WHERE RES_ID = ?";
-        sqlString2 = "DELETE FROM ROOM_RESERVATIONS "
+        String sqlString2 = "DELETE FROM ROOM_RESERVATIONS "
                 + "WHERE RES_ID = ?";
-        sqlString3 = "DELETE FROM RESERVATIONS "
+        String sqlString3 = "INSERT INTO CLIENTS_RESERVATIONS VALUES (?, ?, ?)";
+        String sqlString4 = "INSERT INTO ROOM_RESERVATIONS VALUES (?, ?, ?, ?, ?)";
+        String sqlString5 = "UPDATE RESERVATIONS "
+                + "SET TOTAL_DUE = ?, TOTAL_PAID = ?, VERSION_NUMBER = ? "
                 + "WHERE ID = ?";
-
         PreparedStatement statement = null;
+        unavailableRoomsNumbers = new ArrayList();
+
         try
         {
             statement = con.prepareStatement(sqlString0);
             statement.executeQuery();
-
+            System.out.println("sql string 0 ok");
+            Reservation reservationFromDB;
             for (Object o : reservations)
             {
                 Reservation reservation = (Reservation) o;
+                reservationFromDB = getReservationByID(reservation.getID(), con);
+                if (reservation.getVersionNumber() == reservationFromDB.getVersionNumber())
+                {
+                    for (int i = 0; i < reservation.getRooms().size(); i++)
+                    {
+                        for (int j = 0; j < reservationFromDB.getRooms().size(); j++)
+                        {
+                            if (reservation.getRooms().get(i).getRoomNumber() == reservationFromDB.getRooms().get(j).getRoomNumber())
+                            {
+                                reservation.removeRoom(i);
+                                reservationFromDB.removeRoom(j);
+                                i--;
+                                j--;
+                            }
+                        }
+                    }
+                    totalToBeUpdated += reservation.getRooms().size() + reservationFromDB.getRooms().size();
 
-                statement = con.prepareStatement(sqlString1);
-                statement.setInt(1, reservation.getID());
-                tuplesDeleted += statement.executeUpdate();
+                    for (Room r : reservation.getRooms())
+                    {
+                        statement = con.prepareStatement(sqlString4);
+                        statement.setInt(1, reservation.getID());
+                        statement.setInt(2, r.getRoomNumber());
+                        statement.setDate(3, new java.sql.Date(r.getStartingDate().getTime()));
+                        statement.setDate(4, new java.sql.Date(r.getEndingDate().getTime()));
+                        statement.setInt(5, 1);
+                        tuplesUpdated += statement.executeUpdate();
+                    }
+                    System.out.println("sql string 4 ok");
+                    for (Room r : reservationFromDB.getRooms())
+                    {
+                        statement = con.prepareStatement(sqlString2);
+                        statement.setInt(1, reservation.getID());
+                        tuplesUpdated += statement.executeUpdate();
+                    }
+                    System.out.println("sql string 2 ok");
 
-                statement = con.prepareStatement(sqlString2);
-                statement.setInt(1, reservation.getID());
-                tuplesDeleted += statement.executeUpdate();
+                    for (int i = 0; i < reservation.getClients().size(); i++)
+                    {
+                        for (int j = 0; j < reservationFromDB.getClients().size(); j++)
+                        {
+                            if (reservation.getClients().get(i).getId() == reservationFromDB.getClients().get(j).getId())
+                            {
+                                reservation.removeClient(i);
+                                reservationFromDB.removeClient(j);
+                                i--;
+                                j--;
+                            }
+                        }
+                    }
+                    totalToBeUpdated += reservation.getClients().size() + reservationFromDB.getClients().size();
 
-                statement = con.prepareStatement(sqlString3);
-                statement.setInt(1, reservation.getID());
-                tuplesDeleted += statement.executeUpdate();
+                    for (Client c : reservation.getClients())
+                    {
+                        statement = con.prepareStatement(sqlString3);
+                        statement.setInt(1, reservation.getID());
+                        statement.setLong(2, c.getId());
+                        statement.setInt(3, 1);
+                        tuplesUpdated += statement.executeUpdate();
+                    }
+                    System.out.println("sql string 3 ok");
+                    for (Client c : reservationFromDB.getClients())
+                    {
+                        statement = con.prepareStatement(sqlString1);
+                        statement.setInt(1, reservation.getID());
+                        tuplesUpdated += statement.executeUpdate();
+                    }
+                    System.out.println("sql string 1 ok");
+                    
+                    statement = con.prepareStatement(sqlString5);
+                    statement.setDouble(1, reservation.getTotalDue());
+                    statement.setDouble(2, reservation.getAlreadyPaid());
+                    statement.setInt(3, reservationFromDB.getVersionNumber() + 1);
+                    statement.setInt(4, reservation.getID());
+                    tuplesUpdated += statement.executeUpdate();
+                    System.out.println("sql string 5 ok");
+                }
             }
         } catch (SQLException e)
         {
-            System.out.println("Fail in DataMapper - deleteReservations");
+            System.out.println("Fail in DataMapper - updateReservations");
             System.out.println(e.getMessage());
             return false;
         } finally														// must close statement
@@ -1449,11 +1515,11 @@ public class DataMapper
                 statement.close();
             } catch (SQLException e)
             {
-                System.out.println("Fail in DataMapper - deleteReservations");
+                System.out.println("Fail in DataMapper - updateReservations");
                 System.out.println(e.getMessage());
                 return false;
             }
         }
-        return tuplesDeleted == totalToBeDeleted;
+        return tuplesUpdated == totalToBeUpdated;
     }
 }

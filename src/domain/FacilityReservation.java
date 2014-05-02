@@ -30,9 +30,14 @@ public class FacilityReservation
     
     public double getPrice()
     {
-        return facility.getPrice() * (endingDate.getTimeInMillis() - startingDate.getTimeInMillis()) / 3600000;
+        return facility.getPrice() * getDuration();
     }
 
+    public double getDuration()
+    {
+        return (endingDate.getTimeInMillis() - startingDate.getTimeInMillis()) / 3600000;
+    }
+    
     public String getFacilityTitle()
     {
         return facility.getTitle();
@@ -76,7 +81,7 @@ public class FacilityReservation
 
     public String getClientsName()
     {
-        return client.getFirstName() + " " + client.getLastName();
+        return client.getFirstName() + ", " + client.getLastName();
     }
     
     public long getClientsID()

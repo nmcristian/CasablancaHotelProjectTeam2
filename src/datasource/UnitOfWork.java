@@ -82,7 +82,7 @@ public class UnitOfWork
                     }
                     if (!dirtyData.isEmpty())
                     {
-                        status = status && dataMapper.updateReservations(filthyData, connection);
+                        status = status && dataMapper.updateReservations(dirtyData, connection);
                     }
                     if (!filthyData.isEmpty())
                     {

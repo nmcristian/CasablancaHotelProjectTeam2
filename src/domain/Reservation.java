@@ -15,14 +15,15 @@ public class Reservation
     private ArrayList<Room> rooms;
     private boolean isNewReservation;
 
-    public Reservation(int id, double totalDue, double alreadyPaid, ArrayList<Client> clients, ArrayList<Room> rooms)
-    {   //has to be changed, to save the totalDue also
+    public Reservation(int id, double totalDue, double alreadyPaid, ArrayList<Client> clients, ArrayList<Room> rooms, int versionNumber)
+    {
         this.id = id;
         this.totalDue = totalDue;
         this.alreadyPaid = alreadyPaid;
         this.clients = clients;
         this.rooms = rooms;
         this.isNewReservation = false;
+        this.versionNumber = versionNumber;
     }
 
     public Reservation(int id)
@@ -117,12 +118,10 @@ public class Reservation
     public void addRoom(Room room)
     {
         rooms.add(room);
-        totalDue += room.getPricePerWholeStay();
     }
 
     public void removeRoom(int index)
     {
-        totalDue -= rooms.get(index).getPricePerWholeStay();
         rooms.remove(index);
     }
 
@@ -144,6 +143,11 @@ public class Reservation
     public boolean isNewReservation()
     {
         return isNewReservation;
+    }
+
+    public int getVersionNumber()
+    {
+        return versionNumber;
     }
     
     @Override

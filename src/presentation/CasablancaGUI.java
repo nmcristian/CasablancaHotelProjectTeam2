@@ -86,8 +86,8 @@ public class CasablancaGUI extends javax.swing.JFrame
         jLabel106 = new javax.swing.JLabel();
         jTextField106 = new javax.swing.JTextField();
         jLabel107 = new javax.swing.JLabel();
-        jLabel108 = new javax.swing.JLabel();
         jTextField107 = new javax.swing.JTextField();
+        jLabel108 = new javax.swing.JLabel();
         jTextField108 = new javax.swing.JTextField();
         jLabel109 = new javax.swing.JLabel();
         jTextField109 = new javax.swing.JTextField();
@@ -374,9 +374,9 @@ public class CasablancaGUI extends javax.swing.JFrame
 
         jLabel107.setText("jLabel107");
 
-        jLabel108.setText("jLabel108");
-
         jTextField107.setEditable(false);
+
+        jLabel108.setText("jLabel108");
 
         jTextField108.setEditable(false);
 
@@ -457,9 +457,9 @@ public class CasablancaGUI extends javax.swing.JFrame
                                     .addComponent(jLabel107, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField108, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jPasswordShow, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTextField109)
+                                    .addComponent(jPasswordShow, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextField108, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTextField107, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(jPanelDetailsLayout.createSequentialGroup()
                                 .addComponent(jLabel110, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -499,8 +499,8 @@ public class CasablancaGUI extends javax.swing.JFrame
                     .addComponent(jLabel106, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField106))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel107, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel107, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField107))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -515,8 +515,8 @@ public class CasablancaGUI extends javax.swing.JFrame
                     .addComponent(jLabel110)
                     .addComponent(jTextField110, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPasswordShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1537,6 +1537,71 @@ public class CasablancaGUI extends javax.swing.JFrame
             }
             break;
 
+            case "FacilityReservations":
+            {
+                jLabel101.setText("Facility Reservation ID");
+                jLabel102.setText("Client ID");
+                jLabel103.setText("Client name");
+                jLabel104.setText("Facility title");
+                jLabel105.setText("Price");
+                jLabel106.setText("Duration");
+                jLabel107.setText("Starting from");
+
+                jLabel101.setVisible(true);
+                jLabel102.setVisible(true);
+                jLabel103.setVisible(true);
+                jLabel104.setVisible(true);
+                jLabel105.setVisible(true);
+                jLabel106.setVisible(true);
+                jLabel107.setVisible(true);
+                jLabel108.setVisible(false);
+                jLabel109.setVisible(false);
+                jLabel110.setVisible(false);
+                jLabelPassword.setVisible(false);
+
+                jTextField101.setVisible(true);
+                jTextField102.setVisible(true);
+                jTextField103.setVisible(true);
+                jTextField104.setVisible(true);
+                jTextField105.setVisible(true);
+                jTextField106.setVisible(true);
+                jTextField107.setVisible(true);
+                jTextField108.setVisible(false);
+                jTextField109.setVisible(false);
+                jTextField110.setVisible(false);
+                jPasswordShow.setVisible(false);
+
+                jTextField101.setEditable(false);
+                jTextField102.setEditable(false);
+                jTextField103.setEditable(false);
+                jTextField104.setEditable(false);
+                jTextField105.setEditable(false);
+                jTextField106.setEditable(false);
+                jTextField107.setEditable(false);
+
+                ArrayList<String> temp = controller.getInformationAboutSelectedValueInTable(identifier);
+                jTextField101.setText(temp.get(0));
+                jTextField102.setText(temp.get(1));
+                jTextField103.setText(temp.get(2));
+                jTextField104.setText(temp.get(3));
+                jTextField105.setText(temp.get(4));
+                jTextField106.setText(temp.get(5));
+                jTextField107.setText(temp.get(6));
+
+                if (controller.getUserType().equals("Manager") || controller.getUserType().equals("Receptionist") || controller.getUserType().equals("Client"))
+                {
+                    jButtonEdit.setEnabled(true);
+                    jButtonDelete.setEnabled(true);
+                    jButtonAddToReservation.setEnabled(false);
+                } else
+                {
+                    jButtonEdit.setEnabled(false);
+                    jButtonDelete.setEnabled(false);
+                    jButtonAddToReservation.setEnabled(false);
+                }
+            }
+            break;
+
             default:
             {
                 jTextField101.setText(null);
@@ -1822,17 +1887,45 @@ public class CasablancaGUI extends javax.swing.JFrame
             }
         } else
         {
-            jTextField101.setEditable(false);
-            jTextField102.setEditable(true);
-            jTextField103.setEditable(true);
-            jTextField104.setEditable(true);
-            jTextField105.setEditable(true);
-            jTextField106.setEditable(true);
-            jTextField107.setEditable(true);
-            jTextField108.setEditable(true);
-            jTextField109.setEditable(true);
-            jTextField110.setEditable(true);
-            jPasswordShow.setEditable(true);
+            switch (controller.getSearchResultType())
+            {
+                case "Clients":
+                case "Employees":
+                    jTextField101.setEditable(false);
+                    jTextField102.setEditable(true);
+                    jTextField103.setEditable(true);
+                    jTextField104.setEditable(true);
+                    jTextField105.setEditable(true);
+                    jTextField106.setEditable(true);
+                    jTextField107.setEditable(true);
+                    jTextField108.setEditable(true);
+                    jTextField109.setEditable(true);
+                    jTextField110.setEditable(true);
+                    jPasswordShow.setEditable(true);
+                    break;
+
+                case "Rooms":
+                    jTextField101.setEditable(false);
+                    jTextField102.setEditable(true);
+                    jTextField103.setEditable(false);
+                    jTextField104.setEditable(false);
+                    break;
+
+                case "Facilities":
+                    jTextField101.setEditable(true);
+                    jTextField102.setEditable(true);
+                    jTextField103.setEditable(true);
+                    break;
+
+                case "RoomTypes":
+                    jTextField101.setEditable(true);
+                    jTextField102.setEditable(true);
+                    jTextField103.setEditable(true);
+                    break;
+
+                default:
+                //do nothing
+            }
             jButtonEdit.setEnabled(false);
             jButtonDelete.setEnabled(false);
             jButtonAddToReservation.setEnabled(false);
