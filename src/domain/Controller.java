@@ -464,7 +464,6 @@ public class Controller
     public void addClientToReservation(long clientID)
     {
         newReservation.addClient(dbFacade.getClientByID(clientID));
-        newReservation.calculatePricePerWholeStay();
     }
 
     public void addRoomToReservation(int roomNumber)
@@ -479,6 +478,7 @@ public class Controller
                 break;
             }
         }
+        newReservation.calculatePricePerWholeStay();
     }
 
     public double getNewReservationTotalPrice()
